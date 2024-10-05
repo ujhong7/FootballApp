@@ -15,7 +15,7 @@
 		1D0244CA2CAF94CB00650293 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1D0244C92CAF94CB00650293 /* Base */; };
 		1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D12CAF9A4100650293 /* MainTabController.swift */; };
 		1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D32CAF9B6300650293 /* NewsViewController.swift */; };
-		1D0244D62CAF9B9900650293 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D52CAF9B9900650293 /* BookmarkViewController.swift */; };
+		1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D52CAF9B9900650293 /* GameViewController.swift */; };
 		1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D72CAF9BBB00650293 /* VideoViewController.swift */; };
 		1D0244DA2CAF9BD900650293 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244D92CAF9BD900650293 /* SettingsViewController.swift */; };
 		1D0244DC2CAFA00000650293 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244DB2CAFA00000650293 /* NewsTableViewCell.swift */; };
@@ -35,7 +35,7 @@
 		1D0244CB2CAF94CB00650293 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D0244D12CAF9A4100650293 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		1D0244D32CAF9B6300650293 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
-		1D0244D52CAF9B9900650293 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		1D0244D52CAF9B9900650293 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		1D0244D72CAF9BBB00650293 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		1D0244D92CAF9BD900650293 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1D0244DB2CAFA00000650293 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			children = (
 				1D0244D12CAF9A4100650293 /* MainTabController.swift */,
 				1D0244E72CAFA9F000650293 /* News */,
-				1D0244E82CAFAA0700650293 /* Bookmark */,
+				1D0244E82CAFAA0700650293 /* Game */,
 				1D0244E92CAFAA0D00650293 /* Video */,
 				1D0244EA2CAFAA1400650293 /* Settings */,
 			);
@@ -134,12 +134,12 @@
 			path = News;
 			sourceTree = "<group>";
 		};
-		1D0244E82CAFAA0700650293 /* Bookmark */ = {
+		1D0244E82CAFAA0700650293 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				1D0244D52CAF9B9900650293 /* BookmarkViewController.swift */,
+				1D0244D52CAF9B9900650293 /* GameViewController.swift */,
 			);
-			path = Bookmark;
+			path = Game;
 			sourceTree = "<group>";
 		};
 		1D0244E92CAFAA0D00650293 /* Video */ = {
@@ -243,7 +243,7 @@
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */,
 				1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */,
-				1D0244D62CAF9B9900650293 /* BookmarkViewController.swift in Sources */,
+				1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */,
 				1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */,
 				1D0244E22CAFA6C300650293 /* NewsResponse.swift in Sources */,
 				1D0244DA2CAF9BD900650293 /* SettingsViewController.swift in Sources */,

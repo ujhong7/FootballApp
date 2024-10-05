@@ -18,11 +18,11 @@ final class MainTabController: UITabBarController {
     
     private func configureViewControllers() {
         let news = templateNavigationController(unselectedImage: UIImage(systemName: "newspaper")!, slectedImage: UIImage(systemName: "newspaper.fill")!, rootviewController: NewsViewController())
-        let bookmark = templateNavigationController(unselectedImage: UIImage(systemName: "star")!, slectedImage: UIImage(systemName: "star.fill")!, rootviewController: BookmarkViewController())
+        let game = templateNavigationController(unselectedImage: UIImage(systemName: "sportscourt")!, slectedImage: UIImage(systemName: "sportscourt.fill")!, rootviewController: GameViewController())
         let video = templateNavigationController(unselectedImage: UIImage(systemName: "play.rectangle")!, slectedImage: UIImage(systemName: "play.rectangle.fill")!, rootviewController: VideoViewController())
         let settings = templateNavigationController(unselectedImage: UIImage(systemName: "gearshape")!, slectedImage: UIImage(systemName: "gearshape.fill")!, rootviewController: SettingsViewController())
         
-        viewControllers = [news, bookmark, video, settings]
+        viewControllers = [news, game, video, settings]
         tabBar.tintColor = .black
         tabBar.isTranslucent = false
     }
