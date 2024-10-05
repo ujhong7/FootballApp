@@ -9,8 +9,12 @@ import UIKit
 
 final class NewsViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    private let newsService = NewsService()
     private let tableView = UITableView()
     private var newsItems: [NewsItem] = [] // 뉴스 아이템 배열
+    private var searchController: UISearchController!
     
     // MARK: - LifeCycle
     
@@ -19,6 +23,9 @@ final class NewsViewController: UIViewController {
         
         view.backgroundColor = .red
         configureTableView()
+        configureNavigationBar()
+        configureSearchController()
+        
         fetchNews() // 뉴스 데이터 가져오기
     }
     
@@ -39,10 +46,9 @@ final class NewsViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
-    
-    private func fetchNews() {
-        let newsService = NewsService()
-        newsService.fetchNews(query: "PL") { [weak self] result in
+
+    private func fetchNews(query: String = "PL") {
+        newsService.fetchNews(query: query) { [weak self] result in
             switch result {
             case .success(let newsResponse):
                 self?.newsItems = newsResponse.items // 뉴스 아이템 저장
@@ -53,6 +59,39 @@ final class NewsViewController: UIViewController {
                 print("Error fetching news: \(error)") // 에러 핸들링
             }
         }
+    }
+    
+    private func configureNavigationBar() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
+        navigationItem.rightBarButtonItem = searchButton
+    }
+    
+    @objc private func didTapSearch() {
+        present(searchController, animated: true) // 검색 버튼 눌렀을 때 검색창을 모달로 띄움
+    }
+    
+    private func configureSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search News"
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+    }
+    
+}
+
+// MARK: - UISearchBarDelegate
+
+extension NewsViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, !query.isEmpty else {
+            return
+        }
+        
+        // 엔터(검색 버튼) 눌렀을 때 뉴스 데이터 가져오기
+        fetchNews(query: query)
+        searchController.dismiss(animated: true) // 검색 후 검색창 닫기
     }
     
 }
@@ -68,7 +107,7 @@ extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
         let newsItem = newsItems[indexPath.row] // 현재 뉴스 아이템
-        cell.configure(with: newsItem.title) // 셀에 뉴스 제목 설정
+        cell.configure(with: newsItem) // 셀에 기사 데이터 설정
         return cell
     }
 }

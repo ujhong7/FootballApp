@@ -127,8 +127,8 @@
 		1D0244E72CAFA9F000650293 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				1D0244EB2CB038B700650293 /* Views */,
 				1D0244D32CAF9B6300650293 /* NewsViewController.swift */,
-				1D0244DB2CAFA00000650293 /* NewsTableViewCell.swift */,
 				1D0244DE2CAFA35F00650293 /* DetailNewsViewController.swift */,
 			);
 			path = News;
@@ -156,6 +156,14 @@
 				1D0244D92CAF9BD900650293 /* SettingsViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		1D0244EB2CB038B700650293 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D0244DB2CAFA00000650293 /* NewsTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
