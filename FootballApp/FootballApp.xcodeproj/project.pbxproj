@@ -22,6 +22,10 @@
 		1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244DE2CAFA35F00650293 /* DetailNewsViewController.swift */; };
 		1D0244E22CAFA6C300650293 /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244E12CAFA6C300650293 /* NewsResponse.swift */; };
 		1D0244E42CAFA73400650293 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244E32CAFA73400650293 /* NetworkService.swift */; };
+		1D0244ED2CB0DC1000650293 /* GameResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244EC2CB0DC1000650293 /* GameResultViewController.swift */; };
+		1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244EE2CB0DC6B00650293 /* GoalsRankingViewController.swift */; };
+		1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F02CB0DCA100650293 /* AssistsRankingViewController.swift */; };
+		1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		1D0244DE2CAFA35F00650293 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
 		1D0244E12CAFA6C300650293 /* NewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
 		1D0244E32CAFA73400650293 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		1D0244EC2CB0DC1000650293 /* GameResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultViewController.swift; sourceTree = "<group>"; };
+		1D0244EE2CB0DC6B00650293 /* GoalsRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsRankingViewController.swift; sourceTree = "<group>"; };
+		1D0244F02CB0DCA100650293 /* AssistsRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistsRankingViewController.swift; sourceTree = "<group>"; };
+		1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMatchesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +146,10 @@
 			isa = PBXGroup;
 			children = (
 				1D0244D52CAF9B9900650293 /* GameViewController.swift */,
+				1D0244EC2CB0DC1000650293 /* GameResultViewController.swift */,
+				1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */,
+				1D0244EE2CB0DC6B00650293 /* GoalsRankingViewController.swift */,
+				1D0244F02CB0DCA100650293 /* AssistsRankingViewController.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -237,10 +249,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */,
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
 				1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */,
+				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
+				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
+				1D0244ED2CB0DC1000650293 /* GameResultViewController.swift in Sources */,
 				1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */,
 				1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */,
 				1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */,
