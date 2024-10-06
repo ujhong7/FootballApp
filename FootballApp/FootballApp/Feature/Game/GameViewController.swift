@@ -11,7 +11,13 @@ final class GameViewController: UIViewController {
     
     // MARK: - Properties
     
-    let segmentedControl = UISegmentedControl(items: ["경기결과", "예정경기", "득점순위", "도움순위"])
+    let segmentedControl = UISegmentedControl(items: ["경기결과", "경기예정", "팀순위", "득점순위", "도움순위"])
+    // 자식 뷰 컨트롤러를 위한 변수 추가 ⭐
+    var gameResultVC: GameResultViewController?
+    var upcomingMatchesVC: UpcomingMatchesViewController?
+    var teamRankingVC: TeamRankingViewController?
+    var goalsRankingVC: GoalsRankingViewController?
+    var assistsRankingVC: AssistsRankingViewController?
     
     // MARK: - LifeCycle
     
@@ -19,9 +25,8 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         setupSegmentedControl()
         setupInitialView()
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
     }
-    
     
     // MARK: - Methods
     
@@ -41,27 +46,27 @@ final class GameViewController: UIViewController {
     }
     
     func setupInitialView() {
+        gameResultVC = GameResultViewController() // 초기 뷰 컨트롤러 인스턴스화 ⭐
+        transition(to: gameResultVC!) // 초기 뷰 전환 ⭐
         let gameResultVC = GameResultViewController()
-        
-        addChild(gameResultVC)
-        gameResultVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(gameResultVC.view)
-        setupConstraints(for: gameResultVC)
-        gameResultVC.didMove(toParent: self)
     }
     
     func transition(to newVC: UIViewController) {
         for child in children {
-            child.willMove(toParent: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParent()
+            if child != newVC { // 새 뷰 컨트롤러와 다른 경우에만 제거 ⭐
+                child.willMove(toParent: nil)
+                child.view.removeFromSuperview()
+                child.removeFromParent()
+            }
         }
         
-        addChild(newVC)
-        newVC.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(newVC.view)
-        setupConstraints(for: newVC)
-        newVC.didMove(toParent: self)
+        if !children.contains(newVC) { // 현재 자식 뷰 컨트롤러에 없으면 추가 ⭐
+            addChild(newVC)
+            newVC.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(newVC.view)
+            setupConstraints(for: newVC)
+            newVC.didMove(toParent: self)
+        }
     }
     
     private func setupConstraints(for viewController: UIViewController) {
@@ -76,17 +81,30 @@ final class GameViewController: UIViewController {
     @objc func segmentChanged() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            let gameResultVC = GameResultViewController()
-            transition(to: gameResultVC)
+            if gameResultVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                gameResultVC = GameResultViewController()
+            }
+            transition(to: gameResultVC!)
         case 1:
-            let upcomingMatchesVC = UpcomingMatchesViewController()
-            transition(to: upcomingMatchesVC)
+            if upcomingMatchesVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                upcomingMatchesVC = UpcomingMatchesViewController()
+            }
+            transition(to: upcomingMatchesVC!)
         case 2:
-            let goalsRankingVC = GoalsRankingViewController()
-            transition(to: goalsRankingVC)
+            if teamRankingVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                teamRankingVC = TeamRankingViewController()
+            }
+            transition(to: teamRankingVC!)
         case 3:
-            let assistsRankingVC = AssistsRankingViewController()
-            transition(to: assistsRankingVC)
+            if goalsRankingVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                goalsRankingVC = GoalsRankingViewController()
+            }
+            transition(to: goalsRankingVC!)
+        case 4:
+            if assistsRankingVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                assistsRankingVC = AssistsRankingViewController()
+            }
+            transition(to: assistsRankingVC!)
         default:
             break
         }
