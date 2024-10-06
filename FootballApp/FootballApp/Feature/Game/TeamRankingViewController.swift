@@ -1,5 +1,5 @@
 //
-//  GoalsRankingViewController.swift
+//  TeamRankingViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/5/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GoalsRankingViewController: UIViewController {
+final class TeamRankingViewController: UIViewController {
     
     private let tableView = UITableView()
     
@@ -36,7 +36,7 @@ final class GoalsRankingViewController: UIViewController {
     
 }
 
-extension GoalsRankingViewController: UITableViewDataSource {
+extension TeamRankingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
@@ -49,7 +49,7 @@ extension GoalsRankingViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension GoalsRankingViewController: UITableViewDelegate {
+extension TeamRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
