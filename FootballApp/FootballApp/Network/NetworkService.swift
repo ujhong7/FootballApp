@@ -7,13 +7,14 @@
 
 import Foundation
 
-// MARK: - 뉴스 검색
-
 class NewsService {
     private let baseURL = "https://openapi.naver.com/v1/search/news.json"
     private let clientId = "dhUqr5wXTDsDoFPkIk2k" // Naver API 클라이언트 ID
     private let clientSecret = "pv0Xmpu9GT" // Naver API 클라이언트 Secret
+}
 
+// MARK: - 뉴스 검색
+extension NewsService {
     func fetchNews(query: String, completion: @escaping (Result<NewsResponse, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)?query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 1001, userInfo: nil)))
@@ -47,5 +48,12 @@ class NewsService {
     }
 }
 
-// MARK: - 유튜브 하이라이트
+// MARK: - 경기결과
+extension NewsService {
+    
+}
 
+// MARK: - 유튜브 하이라이트
+extension NewsService {
+    
+}
