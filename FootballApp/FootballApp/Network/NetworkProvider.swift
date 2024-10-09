@@ -46,8 +46,12 @@ final class NetworkProvider {
             
             do {
                 let decodedData = try JSONDecoder().decode(T.self, from: data)
+//                print("🚨")
+//                print(decodedData)
+//                print("🚨")
                 completion(.success(decodedData))
             } catch {
+                print("Decoding error: \(error)")
                 completion(.failure(error))
             }
         }

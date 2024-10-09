@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct FixturesResponse: Codable {
+struct FixturesResponse: Decodable {
     let response: [Fixture]
 }
 
-struct Fixture: Codable {
+struct Fixture: Decodable {
     let fixture: FixtureDetails
     let league: League
     let teams: Teams
@@ -32,15 +32,16 @@ struct League: Codable {
     let name: String
 }
 
-struct Teams: Codable {
+struct Teams: Decodable {
     let home: Team
     let away: Team
 }
 
-struct Team: Codable {
-    let name: String
-    let logo: String
-}
+// (중복)
+//struct Team: Codable {
+//    let name: String
+//    let logo: String
+//}
 
 struct Goals: Codable {
     let home: Int?

@@ -11,7 +11,7 @@ final class NewsViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let newsService = NewsService()
+    private let newsService = NewsNetworkService()
     private let tableView = UITableView()
     private var newsItems: [NewsItem] = [] // 뉴스 아이템 배열
     private var searchController: UISearchController!

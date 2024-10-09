@@ -9,18 +9,25 @@ import UIKit
 
 final class GoalsRankingViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let tableView = UITableView()
     private let rankingNetwork = RankingNetwork()
-    private var scorers: [PlayerRanking] = [] // 득점자 배열 추가
+    private var scorers: [PlayerRanking] = []
+    
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .purple
         
         configureTableView()
         configureTableHeaderView()
-        view.backgroundColor = .purple
         fetchTopScorers()
     }
+    
+    // MARK: - Methods
     
     private func configureTableView() {
         tableView.delegate = self
@@ -38,7 +45,6 @@ final class GoalsRankingViewController: UIViewController {
         ])
     }
     
-    // 득점자 데이터를 가져오는 메서드
     private func fetchTopScorers() {
         let league = "39" // 프리미어 리그
         let season = "2024"
@@ -48,9 +54,9 @@ final class GoalsRankingViewController: UIViewController {
             case .success(let response):
                 print("⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
                 print(response)
-                self?.scorers = response.response // 응답에서 득점자 배열 설정
+                self?.scorers = response.response
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData() // 테이블 뷰 업데이트
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print("Error fetching top scorers: \(error.localizedDescription)")
@@ -59,6 +65,8 @@ final class GoalsRankingViewController: UIViewController {
     }
     
 }
+
+// MARK: - UITableViewDataSource
 
 extension GoalsRankingViewController: UITableViewDataSource {
     
@@ -72,7 +80,7 @@ extension GoalsRankingViewController: UITableViewDataSource {
         }
         
         let playerRanking = scorers[indexPath.row]
-        cell.configure(with: playerRanking, rank: indexPath.row + 1) // 순위 설정
+        cell.configure(with: playerRanking, rank: indexPath.row + 1)
         return cell
     }
 }
@@ -83,7 +91,10 @@ extension GoalsRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
+    
 }
+
+// MARK: - configureTableHeaderView
 
 extension GoalsRankingViewController {
     

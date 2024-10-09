@@ -33,18 +33,18 @@ final class FixtureNetwork {
         networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
     }
     
-    // 경기 라인업 가져오기
-    func getLineups(fixtureID: String, completion: @escaping (Result<LineupResponse, Error>) -> Void) {
-        let path = "/fixtures/lineups"
-        let parameters = ["fixture": fixtureID]
-        networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
-    }
+//    // 경기 라인업 가져오기
+//    func getLineups(fixtureID: String, completion: @escaping (Result<LineupResponse, Error>) -> Void) {
+//        let path = "/fixtures/lineups"
+//        let parameters = ["fixture": fixtureID]
+//        networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
+//    }
     
-    // 경기 기록 가져오기
-    func getStats(fixtureID: String, completion: @escaping (Result<StatsResponse, Error>) -> Void) {
-        let path = "/fixtures/statistics"
-        let parameters = ["fixture": fixtureID]
-        networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
-    }
+//    // 경기 기록 가져오기
+//    func getStats(fixtureID: String, completion: @escaping (Result<StatsResponse, Error>) -> Void) {
+//        let path = "/fixtures/statistics"
+//        let parameters = ["fixture": fixtureID]
+//        networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
+//    }
 }
 

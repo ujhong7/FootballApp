@@ -9,31 +9,34 @@ import UIKit
 
 class MatchTableViewCell: UITableViewCell {
     
-    // MARK: - UI Elements
+    // MARK: - Properties
+    
+    static let identifier = "MatchTableViewCell"
+    
     private let homeTeamLogoImageView = UIImageView()
     private let homeTeamNameLabel = UILabel()
     private let homeGoalsLabel = UILabel()
-    
     private let awayGoalsLabel = UILabel()
     private let awayTeamNameLabel = UILabel()
     private let awayTeamLogoImageView = UIImageView()
-    
     private let statusLabel = UILabel()
     private let dateLabel = UILabel()
     
-    // MARK: - Initializer
+    // MARK: - Init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI Setup
+    // MARK: - Methods
+    
     private func setupUI() {
-        // Configure image views and labels
         homeTeamLogoImageView.contentMode = .scaleAspectFit
         awayTeamLogoImageView.contentMode = .scaleAspectFit
         homeTeamNameLabel.font = .systemFont(ofSize: 12, weight: .bold)
@@ -46,66 +49,42 @@ class MatchTableViewCell: UITableViewCell {
         homeTeamNameLabel.numberOfLines = 2
         awayTeamNameLabel.numberOfLines = 2
         
-        // Add subviews
-        contentView.addSubview(homeTeamLogoImageView)
-        contentView.addSubview(homeTeamNameLabel)
-        contentView.addSubview(homeGoalsLabel)
-        contentView.addSubview(awayGoalsLabel)
-        contentView.addSubview(awayTeamNameLabel)
-        contentView.addSubview(awayTeamLogoImageView)
-        contentView.addSubview(statusLabel)
-        contentView.addSubview(dateLabel)
-        
-        // Set up constraints
-        setupConstraints()
+        [homeTeamLogoImageView, homeTeamNameLabel, homeGoalsLabel, awayGoalsLabel,
+         awayTeamNameLabel, awayTeamLogoImageView, statusLabel, dateLabel].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
     
     private func setupConstraints() {
-        homeTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        homeTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        homeGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
-        awayGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
-        awayTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        awayTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
-            // Home Team Logo
             homeTeamLogoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             homeTeamLogoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             homeTeamLogoImageView.widthAnchor.constraint(equalToConstant: 40),
             homeTeamLogoImageView.heightAnchor.constraint(equalToConstant: 40),
             
-            // Home Team Name
             homeTeamNameLabel.leadingAnchor.constraint(equalTo: homeTeamLogoImageView.trailingAnchor, constant: 10),
             homeTeamNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
             homeTeamNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100),
             
-            // Home Goals
             homeGoalsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
             homeGoalsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -15),
             
-            // Away Goals
             awayGoalsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
             awayGoalsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 15),
             
-            // Away Team Name
             awayTeamNameLabel.trailingAnchor.constraint(equalTo: awayTeamLogoImageView.leadingAnchor, constant: -10),
             awayTeamNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
             awayTeamNameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 100),
             
-            // Away Team Logo
             awayTeamLogoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             awayTeamLogoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             awayTeamLogoImageView.widthAnchor.constraint(equalToConstant: 40),
             awayTeamLogoImageView.heightAnchor.constraint(equalToConstant: 40),
             
-            // Status Label
             statusLabel.topAnchor.constraint(equalTo: homeTeamLogoImageView.bottomAnchor, constant: 5),
             statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            // Date Label
             dateLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
             dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)

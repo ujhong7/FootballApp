@@ -9,23 +9,28 @@ import UIKit
 
 final class UpcomingMatchesViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let tableView = UITableView()
     private let fixtureNetwork = FixtureNetwork()
-    private var upcomingFixtures: [Fixture] = [] // 예정된 경기 저장
+    private var upcomingFixtures: [Fixture] = []
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureTableView()
         view.backgroundColor = .gray
         
+        configureTableView()
         fetchUpcomingFixtures()
     }
+    
+    // MARK: - Methods
     
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: "MatchTableViewCell")
+        tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: MatchTableViewCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -45,10 +50,11 @@ final class UpcomingMatchesViewController: UIViewController {
         fixtureNetwork.getUpcomingFixtures(league: league, season: season) { [weak self] result in
             switch result {
             case .success(let response):
+                print("🟡🟡🟡🟡🟡🟡🟡🟡")
                 print(response)
-                self?.upcomingFixtures = response.response // 예정된 경기 배열에 저장
+                self?.upcomingFixtures = response.response
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData() // 메인 스레드에서 테이블 뷰 갱신
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print("Error fetching upcoming fixtures: \(error.localizedDescription)")
@@ -63,14 +69,13 @@ final class UpcomingMatchesViewController: UIViewController {
 extension UpcomingMatchesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return upcomingFixtures.count // 예정된 경기 수
+        return upcomingFixtures.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier, for: indexPath) as! MatchTableViewCell
         let fixture = upcomingFixtures[indexPath.row]
         
-        // 셀 구성: Fixture의 정보를 기반으로 UI 업데이트
         let homeTeam = fixture.teams.home
         let awayTeam = fixture.teams.away
         let status = fixture.fixture.status.long

@@ -11,7 +11,7 @@ final class GameViewController: UIViewController {
     
     // MARK: - Properties
     
-    let segmentedControl = UISegmentedControl(items: ["경기결과", "경기예정", "팀순위", "득점순위", "도움순위"])
+    let segmentedControl = UISegmentedControl(items: ["팀순위", "경기결과", "경기예정", "득점순위", "도움순위"])
     // 자식 뷰 컨트롤러를 위한 변수 추가 ⭐
     var gameResultVC: GameResultViewController?
     var upcomingMatchesVC: UpcomingMatchesViewController?
@@ -46,9 +46,9 @@ final class GameViewController: UIViewController {
     }
     
     func setupInitialView() {
-        gameResultVC = GameResultViewController() // 초기 뷰 컨트롤러 인스턴스화 ⭐
-        transition(to: gameResultVC!) // 초기 뷰 전환 ⭐
-        let gameResultVC = GameResultViewController()
+        teamRankingVC = TeamRankingViewController() // 초기 뷰 컨트롤러 인스턴스화 ⭐
+        transition(to: teamRankingVC!) // 초기 뷰 전환 ⭐
+        let teamRankingVC = TeamRankingViewController()
     }
     
     func transition(to newVC: UIViewController) {
@@ -81,20 +81,20 @@ final class GameViewController: UIViewController {
     @objc func segmentChanged() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            if gameResultVC == nil { // 인스턴스가 없을 경우 생성 ⭐
-                gameResultVC = GameResultViewController()
-            }
-            transition(to: gameResultVC!)
-        case 1:
-            if upcomingMatchesVC == nil { // 인스턴스가 없을 경우 생성 ⭐
-                upcomingMatchesVC = UpcomingMatchesViewController()
-            }
-            transition(to: upcomingMatchesVC!)
-        case 2:
             if teamRankingVC == nil { // 인스턴스가 없을 경우 생성 ⭐
                 teamRankingVC = TeamRankingViewController()
             }
             transition(to: teamRankingVC!)
+        case 1:
+            if gameResultVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                gameResultVC = GameResultViewController()
+            }
+            transition(to: gameResultVC!)
+        case 2:
+            if upcomingMatchesVC == nil { // 인스턴스가 없을 경우 생성 ⭐
+                upcomingMatchesVC = UpcomingMatchesViewController()
+            }
+            transition(to: upcomingMatchesVC!)
         case 3:
             if goalsRankingVC == nil { // 인스턴스가 없을 경우 생성 ⭐
                 goalsRankingVC = GoalsRankingViewController()

@@ -19,10 +19,9 @@ final class GameResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureTableView()
         view.backgroundColor = .green
         
+        configureTableView()
         fetchPastFixtures()
     }
     
@@ -31,7 +30,7 @@ final class GameResultViewController: UIViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: "MatchTableViewCell")
+        tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: MatchTableViewCell.identifier)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -51,10 +50,11 @@ final class GameResultViewController: UIViewController {
         fixtureNetwork.getPastFixtures(league: league, season: season) { [weak self] result in
             switch result {
             case .success(let response):
+                print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")
                 print(response)
-                self?.fixtures = response.response.reversed() // 배열 반전
+                self?.fixtures = response.response.reversed()
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData() // 메인 스레드에서 테이블 뷰 갱신
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print("Error fetching fixtures: \(error.localizedDescription)")
@@ -73,7 +73,7 @@ extension GameResultViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier, for: indexPath) as! MatchTableViewCell
         let fixture = fixtures[indexPath.row]
         
         // 셀 구성: Fixture의 정보를 기반으로 UI 업데이트

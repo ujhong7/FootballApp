@@ -1,4 +1,3 @@
-//
 //  RankingNetwork.swift
 //  FootballApp
 //
@@ -11,25 +10,24 @@ final class RankingNetwork {
     
     private let networkProvider = NetworkProvider()
     
-    // 팀 순위 가져오기
-    func getTeamRanking(league: String, season: String, completion: @escaping (Result<TeamRankingResponse, Error>) -> Void) {
+    // 팀 순위 가져오기 ✅
+    func getTeamRanking(league: String, season: String, completion: @escaping (Result<StandingsResponse, Error>) -> Void) {
         let path = "/standings"
         let parameters = ["league": league, "season": season]
         networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
     }
     
     // 득점 순위 가져오기
-    func getTopScorers(league: String, season: String, completion: @escaping (Result<ScorerRankingResponse, Error>) -> Void) {
+    func getTopScorers(league: String, season: String, completion: @escaping (Result<PlayerRankingResponse, Error>) -> Void) {
         let path = "/players/topscorers"
         let parameters = ["league": league, "season": season]
         networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
     }
     
     // 도움 순위 가져오기
-    func getTopAssists(league: String, season: String, completion: @escaping (Result<AssistRankingResponse, Error>) -> Void) {
+    func getTopAssists(league: String, season: String, completion: @escaping (Result<PlayerRankingResponse, Error>) -> Void) {
         let path = "/players/topassists"
         let parameters = ["league": league, "season": season]
         networkProvider.fetchData(path: path, parameters: parameters, completion: completion)
     }
 }
-

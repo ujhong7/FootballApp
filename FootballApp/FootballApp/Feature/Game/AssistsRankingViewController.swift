@@ -9,17 +9,24 @@ import UIKit
 
 final class AssistsRankingViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let tableView = UITableView()
     private let rankingNetwork = RankingNetwork()
-    private var assistRankings: [PlayerRanking] = []  // 도움 순위 데이터를 저장할 배열
+    private var assistRankings: [PlayerRanking] = []
 
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .red
         
         configureTableView()
-        view.backgroundColor = .red
+        configureTableHeaderView()
         fetchTopAssists()
     }
+    
+    // MARK: - Methods
     
     private func configureTableView() {
         tableView.delegate = self
@@ -37,15 +44,13 @@ final class AssistsRankingViewController: UIViewController {
         ])
     }
     
-    // 도움 순위를 API로부터 가져오는 메서드
       private func fetchTopAssists() {
-          let league = "39" // 예: Premier League
-          let season = "2024" // 예: 2023 시즌
+          let league = "39" // Premier League
+          let season = "2024"
           
           rankingNetwork.getTopAssists(league: league, season: season) { [weak self] result in
               switch result {
               case .success(let response):
-                  // API 호출 성공 시, 데이터 저장 및 테이블 갱신
                   print("🐶🐶🐶🐶🐶")
                   dump(response)
                   self?.assistRankings = response.response
@@ -53,7 +58,6 @@ final class AssistsRankingViewController: UIViewController {
                       self?.tableView.reloadData()
                   }
               case .failure(let error):
-                  // 에러 발생 시, 에러 처리
                   print("Error fetching top assists: \(error.localizedDescription)")
               }
           }
@@ -61,6 +65,8 @@ final class AssistsRankingViewController: UIViewController {
    
     
 }
+
+// MARK: - UITableViewDataSource
 
 extension AssistsRankingViewController: UITableViewDataSource {
     
@@ -74,7 +80,7 @@ extension AssistsRankingViewController: UITableViewDataSource {
         }
         
         let playerRanking = assistRankings[indexPath.row]
-        cell.configure(with: playerRanking, rank: indexPath.row + 1) // 순위 설정
+        cell.configure(with: playerRanking, rank: indexPath.row + 1)
         return cell
     }
 }
@@ -86,6 +92,8 @@ extension AssistsRankingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
+
+// MARK: - configureTableHeaderView
 
 extension AssistsRankingViewController {
     
