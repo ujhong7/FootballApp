@@ -28,8 +28,6 @@
 		1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */; };
 		1D0244F62CB0EF3000650293 /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F52CB0EF3000650293 /* MatchTableViewCell.swift */; };
 		1D0244F82CB0FC3D00650293 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F72CB0FC3D00650293 /* NetworkProvider.swift */; };
-		1D0244FA2CB0FC9200650293 /* FixtureNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244F92CB0FC9200650293 /* FixtureNetwork.swift */; };
-		1D0244FC2CB0FCAF00650293 /* RankingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244FB2CB0FCAF00650293 /* RankingNetwork.swift */; };
 		1D0244FE2CB0FD6E00650293 /* FixtureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244FD2CB0FD6E00650293 /* FixtureModel.swift */; };
 		1D0245022CB0FD9E00650293 /* PlayerRankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245012CB0FD9E00650293 /* PlayerRankingResponse.swift */; };
 		1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245092CB1046500650293 /* TeamRankingViewController.swift */; };
@@ -44,6 +42,8 @@
 		1D02451C2CB4684300650293 /* YouTubeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02451B2CB4684300650293 /* YouTubeResponse.swift */; };
 		1D0245222CB529C800650293 /* DetailVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245212CB529C800650293 /* DetailVideoTableViewCell.swift */; };
 		1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */; };
+		1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245252CB8D19400650293 /* FootballNetworkService.swift */; };
+		1D0245282CB8DC2300650293 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245272CB8DC2300650293 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,8 +70,6 @@
 		1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMatchesViewController.swift; sourceTree = "<group>"; };
 		1D0244F52CB0EF3000650293 /* MatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
 		1D0244F72CB0FC3D00650293 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
-		1D0244F92CB0FC9200650293 /* FixtureNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureNetwork.swift; sourceTree = "<group>"; };
-		1D0244FB2CB0FCAF00650293 /* RankingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingNetwork.swift; sourceTree = "<group>"; };
 		1D0244FD2CB0FD6E00650293 /* FixtureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureModel.swift; sourceTree = "<group>"; };
 		1D0245012CB0FD9E00650293 /* PlayerRankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRankingResponse.swift; sourceTree = "<group>"; };
 		1D0245092CB1046500650293 /* TeamRankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRankingViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +84,8 @@
 		1D02451B2CB4684300650293 /* YouTubeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeResponse.swift; sourceTree = "<group>"; };
 		1D0245212CB529C800650293 /* DetailVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoTableViewCell.swift; sourceTree = "<group>"; };
 		1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeCommentResponse.swift; sourceTree = "<group>"; };
+		1D0245252CB8D19400650293 /* FootballNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballNetworkService.swift; sourceTree = "<group>"; };
+		1D0245272CB8DC2300650293 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +102,7 @@
 		1D0244B12CAF94C900650293 = {
 			isa = PBXGroup;
 			children = (
+				1D0245272CB8DC2300650293 /* Constants.swift */,
 				1D0245132CB440E100650293 /* TeamAbbreviations.swift */,
 				1D0244E52CAFA9B900650293 /* Delegates */,
 				1D0244BC2CAF94C900650293 /* FootballApp */,
@@ -135,11 +136,10 @@
 		1D0244DD2CAFA10C00650293 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1D0244F72CB0FC3D00650293 /* NetworkProvider.swift */,
 				1D0245152CB45BF400650293 /* YouTubeNetworkService.swift */,
 				1D0244E32CAFA73400650293 /* NewsNetworkService.swift */,
-				1D0244F72CB0FC3D00650293 /* NetworkProvider.swift */,
-				1D0244F92CB0FC9200650293 /* FixtureNetwork.swift */,
-				1D0244FB2CB0FCAF00650293 /* RankingNetwork.swift */,
+				1D0245252CB8D19400650293 /* FootballNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -320,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */,
+				1D0245282CB8DC2300650293 /* Constants.swift in Sources */,
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0245142CB440E100650293 /* TeamAbbreviations.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
@@ -331,8 +332,8 @@
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
+				1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */,
 				1D02451C2CB4684300650293 /* YouTubeResponse.swift in Sources */,
-				1D0244FC2CB0FCAF00650293 /* RankingNetwork.swift in Sources */,
 				1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */,
 				1D0245162CB45BF400650293 /* YouTubeNetworkService.swift in Sources */,
 				1D0244ED2CB0DC1000650293 /* GameResultViewController.swift in Sources */,
@@ -348,7 +349,6 @@
 				1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */,
 				1D0245122CB2E56B00650293 /* StandingsModel.swift in Sources */,
 				1D0244E22CAFA6C300650293 /* NewsResponse.swift in Sources */,
-				1D0244FA2CB0FC9200650293 /* FixtureNetwork.swift in Sources */,
 				1D0244DA2CAF9BD900650293 /* SettingsViewController.swift in Sources */,
 				1D0244E42CAFA73400650293 /* NewsNetworkService.swift in Sources */,
 				1D0244DC2CAFA00000650293 /* NewsTableViewCell.swift in Sources */,

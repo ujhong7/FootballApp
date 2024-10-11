@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 팀 약어
 let teamAbbreviations: [String: String] = [
     "Arsenal": "ARS",
     "Aston Villa": "AVL",

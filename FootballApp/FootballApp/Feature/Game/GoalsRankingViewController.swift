@@ -12,7 +12,7 @@ final class GoalsRankingViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
-    private let rankingNetwork = RankingNetwork()
+    private let footballService = FootballNetworkService()
     private var scorers: [PlayerRanking] = []
     
     
@@ -46,15 +46,13 @@ final class GoalsRankingViewController: UIViewController {
     }
     
     private func fetchTopScorers() {
-        let league = "39" // 프리미어 리그
-        let season = "2024"
-        
-        rankingNetwork.getTopScorers(league: league, season: season) { [weak self] result in
+        footballService.getTopScorers(league: premierLeague, season: season2024) { [weak self] result in
             switch result {
             case .success(let response):
                 print("⭐️⭐️⭐️⭐️⭐️⭐️⭐️")
-                print(response)
+                dump(response)
                 self?.scorers = response.response
+                
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -63,6 +61,7 @@ final class GoalsRankingViewController: UIViewController {
             }
         }
     }
+    
     
 }
 
@@ -153,6 +152,6 @@ extension GoalsRankingViewController {
         // 테이블뷰의 tableHeaderView에 설정
         tableView.tableHeaderView = headerView
     }
-
+    
     
 }

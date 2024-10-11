@@ -12,7 +12,7 @@ final class TeamRankingViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
-    private let rankingNetwork = RankingNetwork()
+    private let footballService = FootballNetworkService()
     private var teamRankings: [LeagueResponse] = []
     
     // MARK: - LifeCycle
@@ -23,7 +23,7 @@ final class TeamRankingViewController: UIViewController {
         
         configureTableView()
         configureTableHeaderView()
-        fetchStandings()
+        fetchTeamRankings()
     }
     
     // MARK: - Methods
@@ -44,24 +44,22 @@ final class TeamRankingViewController: UIViewController {
         ])
     }
     
-    private func fetchStandings() {
-        
-        rankingNetwork.getTeamRanking(league: "39", season: "2024") { [weak self] result in
+    private func fetchTeamRankings() {
+        footballService.getTeamRanking(league: premierLeague, season: season2024) { [weak self] result in
             switch result {
             case .success(let response):
                 print("🔴🔴🔴🔴🔴🔴🔴🔴")
                 dump(response)
-                self?.teamRankings = response.response
+                self?.teamRankings = response.response 
                 
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching team rankings: \(error)")
+                print("Error fetching team rankings: \(error.localizedDescription)")
             }
         }
     }
-    
     
 }
 

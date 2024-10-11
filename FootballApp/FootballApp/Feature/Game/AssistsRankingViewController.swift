@@ -12,9 +12,9 @@ final class AssistsRankingViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
-    private let rankingNetwork = RankingNetwork()
+    private let footballService = FootballNetworkService()
     private var assistRankings: [PlayerRanking] = []
-
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -44,25 +44,23 @@ final class AssistsRankingViewController: UIViewController {
         ])
     }
     
-      private func fetchTopAssists() {
-          let league = "39" // Premier League
-          let season = "2024"
-          
-          rankingNetwork.getTopAssists(league: league, season: season) { [weak self] result in
-              switch result {
-              case .success(let response):
-                  print("🐶🐶🐶🐶🐶")
-                  dump(response)
-                  self?.assistRankings = response.response
-                  DispatchQueue.main.async {
-                      self?.tableView.reloadData()
-                  }
-              case .failure(let error):
-                  print("Error fetching top assists: \(error.localizedDescription)")
-              }
-          }
-      }
-   
+    private func fetchTopAssists() {
+        footballService.getTopAssists(league: premierLeague, season: season2024) { [weak self] result in
+            switch result {
+            case .success(let response):
+                print("🐶🐶🐶🐶🐶")
+                dump(response)
+                self?.assistRankings = response.response
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error fetching top assists: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
 }
 

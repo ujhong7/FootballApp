@@ -12,7 +12,7 @@ final class UpcomingMatchesViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
-    private let fixtureNetwork = FixtureNetwork()
+    private let footballService = FootballNetworkService()
     private var upcomingFixtures: [Fixture] = []
     
     // MARK: - LifeCycle
@@ -44,20 +44,18 @@ final class UpcomingMatchesViewController: UIViewController {
     }
     
     private func fetchUpcomingFixtures() {
-        let league = "39" // 프리미어 리그
-        let season = "2024"
-        
-        fixtureNetwork.getUpcomingFixtures(league: league, season: season) { [weak self] result in
+        footballService.getUpcomingFixtures(league: premierLeague, season: season2024) { [weak self] result in
             switch result {
             case .success(let response):
                 print("🟡🟡🟡🟡🟡🟡🟡🟡")
-                print(response)
+                dump(response)
                 self?.upcomingFixtures = response.response
+                
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching upcoming fixtures: \(error.localizedDescription)")
+                print("Error fetching upcoming fixtures: \(error.localizedDescription)") 
             }
         }
     }

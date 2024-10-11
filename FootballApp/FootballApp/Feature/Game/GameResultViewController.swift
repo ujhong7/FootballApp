@@ -12,7 +12,7 @@ final class GameResultViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
-    private let fixtureNetwork = FixtureNetwork()
+    private let footballService = FootballNetworkService()
     private var fixtures: [Fixture] = []
     
     // MARK: - LifeCycle
@@ -44,10 +44,7 @@ final class GameResultViewController: UIViewController {
     }
     
     private func fetchPastFixtures() {
-        let league = "39" // 프리미어 리그
-        let season = "2024"
-        
-        fixtureNetwork.getPastFixtures(league: league, season: season) { [weak self] result in
+        footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
             switch result {
             case .success(let response):
                 print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")
@@ -57,10 +54,11 @@ final class GameResultViewController: UIViewController {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching fixtures: \(error.localizedDescription)")
+                print("Error fetching fixtures: \(error.localizedDescription)") 
             }
         }
     }
+
     
 }
 
