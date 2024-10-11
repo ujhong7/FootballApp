@@ -10,7 +10,7 @@ import Foundation
 final class FootballNetworkService {
     
     private let baseURL = "https://api-football-v1.p.rapidapi.com/v3"
-    private let apiKey = "539ee52875msh268d1cc437af06dp1108bcjsndf90ae9968da"
+    private let apiKey = Bundle.main.object(forInfoDictionaryKey: "FOOTBALL_API_KEY") as? String ?? "default_value"
     private let networkProvider = NetworkProvider()
     
     // MARK: - Fixtures

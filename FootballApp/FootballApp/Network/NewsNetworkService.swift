@@ -10,8 +10,8 @@ import Foundation
 final class NewsNetworkService {
     
     private let baseURL = "https://openapi.naver.com/v1/search/news.json"
-    private let clientId = "dhUqr5wXTDsDoFPkIk2k" // Naver API 클라이언트 ID
-    private let clientSecret = "pv0Xmpu9GT" // Naver API 클라이언트 Secret
+    private let clientId =  Bundle.main.object(forInfoDictionaryKey: "NAVER_CLIENT_ID") as? String ?? "default_value"
+    private let clientSecret = Bundle.main.object(forInfoDictionaryKey: "NAVER_CLIENT_SECRET") as? String ?? "default_value"
     
     func fetchNews(query: String, completion: @escaping (Result<NewsResponse, Error>) -> Void) {
         let parameters = [

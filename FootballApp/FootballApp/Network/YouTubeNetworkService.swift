@@ -10,7 +10,7 @@ import Foundation
 final class YouTubeNetworkService {
     
     private let baseURL = "https://www.googleapis.com/youtube/v3"
-    private let apiKey = "AIzaSyBMpCZV5u5gE1jijq_g6BrA5OIPtkI-H8c"
+    private let apiKey = Bundle.main.object(forInfoDictionaryKey: "YOUTUBE_API_KEY") as? String ?? "default_value"
     
     func fetchHighlights(playlistId: String, completion: @escaping (Result<YouTubeResponse, Error>) -> Void) {
         let path = "/playlistItems"

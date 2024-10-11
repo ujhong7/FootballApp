@@ -1,5 +1,5 @@
 //
-//  Consts.swift
+//  Const.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/11/24.

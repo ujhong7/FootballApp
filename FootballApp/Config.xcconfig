@@ -1,0 +1,19 @@
+//
+//  Config.xcconfig
+//  FootballApp
+//
+//  Created by yujaehong on 10/11/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// FOOTBALL-API
+FOOTBALL_API_KEY = 539ee52875msh268d1cc437af06dp1108bcjsndf90ae9968da
+
+// 네이버 API
+NAVER_CLIENT_ID = dhUqr5wXTDsDoFPkIk2k
+NAVER_CLIENT_SECRET = pv0Xmpu9GT
+
+// 유튜브 API
+YOUTUBE_API_KEY = AIzaSyBMpCZV5u5gE1jijq_g6BrA5OIPtkI-H8c

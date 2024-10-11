@@ -43,7 +43,7 @@
 		1D0245222CB529C800650293 /* DetailVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245212CB529C800650293 /* DetailVideoTableViewCell.swift */; };
 		1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */; };
 		1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245252CB8D19400650293 /* FootballNetworkService.swift */; };
-		1D0245282CB8DC2300650293 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245272CB8DC2300650293 /* Constants.swift */; };
+		1D0245282CB8DC2300650293 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245272CB8DC2300650293 /* Const.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,7 +85,8 @@
 		1D0245212CB529C800650293 /* DetailVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoTableViewCell.swift; sourceTree = "<group>"; };
 		1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeCommentResponse.swift; sourceTree = "<group>"; };
 		1D0245252CB8D19400650293 /* FootballNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballNetworkService.swift; sourceTree = "<group>"; };
-		1D0245272CB8DC2300650293 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1D0245272CB8DC2300650293 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		1D02452B2CB8E29800650293 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +103,8 @@
 		1D0244B12CAF94C900650293 = {
 			isa = PBXGroup;
 			children = (
-				1D0245272CB8DC2300650293 /* Constants.swift */,
+				1D02452B2CB8E29800650293 /* Config.xcconfig */,
+				1D0245272CB8DC2300650293 /* Const.swift */,
 				1D0245132CB440E100650293 /* TeamAbbreviations.swift */,
 				1D0244E52CAFA9B900650293 /* Delegates */,
 				1D0244BC2CAF94C900650293 /* FootballApp */,
@@ -137,9 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				1D0244F72CB0FC3D00650293 /* NetworkProvider.swift */,
-				1D0245152CB45BF400650293 /* YouTubeNetworkService.swift */,
-				1D0244E32CAFA73400650293 /* NewsNetworkService.swift */,
 				1D0245252CB8D19400650293 /* FootballNetworkService.swift */,
+				1D0244E32CAFA73400650293 /* NewsNetworkService.swift */,
+				1D0245152CB45BF400650293 /* YouTubeNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -320,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */,
-				1D0245282CB8DC2300650293 /* Constants.swift in Sources */,
+				1D0245282CB8DC2300650293 /* Const.swift in Sources */,
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0245142CB440E100650293 /* TeamAbbreviations.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
@@ -499,6 +501,7 @@
 		};
 		1D0244CF2CAF94CB00650293 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D02452B2CB8E29800650293 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -507,6 +510,9 @@
 				DEVELOPMENT_TEAM = 7HTRP53WA3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FootballApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -535,6 +541,9 @@
 				DEVELOPMENT_TEAM = 7HTRP53WA3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FootballApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
