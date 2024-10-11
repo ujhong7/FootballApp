@@ -20,8 +20,8 @@ final class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .red
+        NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .premierLeaguePurple)
+        NavigationTitleUtility.setupNavigationTitle(for: self, title: "뉴스")
         configureTableView()
         configureNavigationBar()
         configureSearchController()

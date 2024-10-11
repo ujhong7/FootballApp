@@ -26,6 +26,7 @@ class MatchTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .premierLeagueBackgroundColor
         setupUI()
         setupConstraints()
     }
@@ -39,12 +40,21 @@ class MatchTableViewCell: UITableViewCell {
     private func setupUI() {
         homeTeamLogoImageView.contentMode = .scaleAspectFit
         awayTeamLogoImageView.contentMode = .scaleAspectFit
-        homeTeamNameLabel.font = .systemFont(ofSize: 12, weight: .bold)
-        awayTeamNameLabel.font = .systemFont(ofSize: 12, weight: .bold)
-        homeGoalsLabel.font = .systemFont(ofSize: 12)
-        awayGoalsLabel.font = .systemFont(ofSize: 12)
-        statusLabel.font = .systemFont(ofSize: 10, weight: .medium)
-        dateLabel.font = .systemFont(ofSize: 10, weight: .medium)
+        homeTeamNameLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        awayTeamNameLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        homeGoalsLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        awayGoalsLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        statusLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        dateLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        
+        // 텍스트 색상 설정
+        homeTeamNameLabel.textColor = .premierLeaguePurple
+        awayTeamNameLabel.textColor = .premierLeaguePurple
+        homeGoalsLabel.textColor = .premierLeaguePurple
+        awayGoalsLabel.textColor = .premierLeaguePurple
+        statusLabel.textColor = .premierLeaguePurple
+        dateLabel.textColor = .premierLeaguePurple
+        
         
         homeTeamNameLabel.numberOfLines = 2
         awayTeamNameLabel.numberOfLines = 2
@@ -111,20 +121,5 @@ extension MatchTableViewCell {
         // 날짜 형식 변환 로직 (필요한 경우)
         // 예시: ISO8601 문자열을 Date로 변환 후 포맷할 수 있음
         return dateString // 변환된 날짜 문자열 반환
-    }
-}
-
-
-// MARK: - UIImageView Extension for Image Loading
-extension UIImageView {
-    func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data, error == nil {
-                DispatchQueue.main.async {
-                    self.image = UIImage(data: data)
-                }
-            }
-        }.resume()
     }
 }

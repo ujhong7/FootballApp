@@ -20,9 +20,7 @@ final class DetailNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .systemPink
-        
+        navigationController?.navigationBar.tintColor = .white
         setupWebView()
         loadWebView()
     }
@@ -43,5 +41,3 @@ final class DetailNewsViewController: UIViewController {
         webView.load(request) 
     }
 }
-
-

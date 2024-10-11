@@ -98,6 +98,7 @@ extension AssistsRankingViewController {
     private func configureTableHeaderView() {
         // 헤더 뷰의 높이와 넓이를 설정
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        headerView.backgroundColor = .premierLeagueBackgroundColor
         
         // UI 요소들 생성
         let rankLabel = UILabel()

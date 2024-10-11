@@ -24,7 +24,7 @@ class GoalsRankingTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.backgroundColor = .premierLeagueBackgroundColor
         setupUI()
         setupConstraints()
     }
@@ -43,12 +43,18 @@ class GoalsRankingTableViewCell: UITableViewCell {
         teamLogoImageView.contentMode = .scaleAspectFit
         teamLogoImageView.clipsToBounds = true
         
+        // 레이블의 텍스트 색상 설정
+        rankLabel.textColor = .premierLeaguePurple
+        playerNameLabel.textColor = .premierLeaguePurple
+        matchesLabel.textColor = .premierLeaguePurple
+        goalsLabel.textColor = .premierLeaguePurple
+        
         [rankLabel, playerImageView, playerNameLabel, teamLogoImageView, matchesLabel, goalsLabel].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-
+    
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([

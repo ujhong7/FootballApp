@@ -11,7 +11,8 @@ final class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .premierLeaguePurple)
+        NavigationTitleUtility.setupNavigationTitle(for: self, title: "설정")
         view.backgroundColor = .green
     }
     

@@ -59,7 +59,6 @@ final class GameResultViewController: UIViewController {
         }
     }
 
-    
 }
 
 // MARK: - UITableViewDataSource

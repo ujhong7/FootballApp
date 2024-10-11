@@ -44,6 +44,10 @@
 		1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */; };
 		1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245252CB8D19400650293 /* FootballNetworkService.swift */; };
 		1D0245282CB8DC2300650293 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245272CB8DC2300650293 /* Const.swift */; };
+		1D02452E2CB92F6600650293 /* NavigationTitleUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02452D2CB92F6600650293 /* NavigationTitleUtility.swift */; };
+		1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245302CB9308000650293 /* UIImageView+Extension.swift */; };
+		1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245322CB932A800650293 /* UIColor+CustomColors.swift */; };
+		1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245342CB9385A00650293 /* UILabel+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +91,10 @@
 		1D0245252CB8D19400650293 /* FootballNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballNetworkService.swift; sourceTree = "<group>"; };
 		1D0245272CB8DC2300650293 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		1D02452B2CB8E29800650293 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		1D02452D2CB92F6600650293 /* NavigationTitleUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleUtility.swift; sourceTree = "<group>"; };
+		1D0245302CB9308000650293 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		1D0245322CB932A800650293 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
+		1D0245342CB9385A00650293 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 		1D0244B12CAF94C900650293 = {
 			isa = PBXGroup;
 			children = (
+				1D02452C2CB92F5000650293 /* Utils */,
 				1D02452B2CB8E29800650293 /* Config.xcconfig */,
 				1D0245272CB8DC2300650293 /* Const.swift */,
 				1D0245132CB440E100650293 /* TeamAbbreviations.swift */,
@@ -250,6 +259,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		1D02452C2CB92F5000650293 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1D02452D2CB92F6600650293 /* NavigationTitleUtility.swift */,
+				1D0245322CB932A800650293 /* UIColor+CustomColors.swift */,
+				1D0245302CB9308000650293 /* UIImageView+Extension.swift */,
+				1D0245342CB9385A00650293 /* UILabel+Extension.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -329,6 +349,7 @@
 				1D0244FE2CB0FD6E00650293 /* FixtureModel.swift in Sources */,
 				1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */,
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
+				1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */,
 				1D02450C2CB1175500650293 /* TeamRankingTableViewCell.swift in Sources */,
 				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
@@ -339,6 +360,7 @@
 				1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */,
 				1D0245162CB45BF400650293 /* YouTubeNetworkService.swift in Sources */,
 				1D0244ED2CB0DC1000650293 /* GameResultViewController.swift in Sources */,
+				1D02452E2CB92F6600650293 /* NavigationTitleUtility.swift in Sources */,
 				1D0244F62CB0EF3000650293 /* MatchTableViewCell.swift in Sources */,
 				1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */,
 				1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */,
@@ -346,8 +368,10 @@
 				1D0245022CB0FD9E00650293 /* PlayerRankingResponse.swift in Sources */,
 				1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */,
 				1D0245222CB529C800650293 /* DetailVideoTableViewCell.swift in Sources */,
+				1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */,
 				1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */,
 				1D02451A2CB4671800650293 /* DetailVideoViewController.swift in Sources */,
+				1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */,
 				1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */,
 				1D0245122CB2E56B00650293 /* StandingsModel.swift in Sources */,
 				1D0244E22CAFA6C300650293 /* NewsResponse.swift in Sources */,

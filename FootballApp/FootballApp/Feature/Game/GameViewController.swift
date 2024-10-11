@@ -23,15 +23,50 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .premierLeaguePurple
+        setupNavigationBar()
         setupSegmentedControl()
         setupInitialView()
-        view.backgroundColor = .white
     }
     
     // MARK: - Methods
     
+    private func setupNavigationBar() {
+        NavigationTitleUtility.setupNavigationTitle(for: self, title: "Premier League")
+        
+        // "pl" 이미지를 UIImage로 생성
+        let image = UIImage(named: "pl")
+        
+        // 이미지의 크기를 설정 (필요에 따라 조정)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 왼쪽 바 버튼 아이템으로 설정
+        let imageBarButtonItem = UIBarButtonItem(customView: imageView)
+        
+        // 바 버튼 아이템의 크기를 설정하여 이미지가 잘 보이도록 조정
+        imageBarButtonItem.width = 40 // 원하는 크기로 조정
+        
+        // 네비게이션 아이템에 추가
+        self.navigationItem.leftBarButtonItem = imageBarButtonItem
+        
+        // 이미지 뷰의 제약 조건 설정 (높이 및 너비)
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 30), // 높이 조정
+            imageView.widthAnchor.constraint(equalToConstant: 30)   // 너비 조정
+        ])
+    }
+    
     private func setupSegmentedControl() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 선택되지 않은 세그먼트의 텍스트 색상을 화이트로 설정
+        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+        // 선택된 세그먼트의 텍스트 색상 설정
+        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.premierLeaguePurple], for: .selected)
+        
         view.addSubview(segmentedControl)
         
         NSLayoutConstraint.activate([

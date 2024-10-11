@@ -22,10 +22,11 @@ final class DetailVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+        navigationController?.navigationBar.tintColor = .white
         print(videoId)
         setupWebView()
         setupTableView()
+        setupTableViewHeader()
         setupLayout()
         loadVideo()
         fetchComments()
@@ -82,14 +83,26 @@ final class DetailVideoViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let response):
+                dump(response)
                 self.comments = response.items.compactMap { $0.snippet.topLevelComment }
                 DispatchQueue.main.async {
-                    self.tableView.reloadData() 
+                    self.tableView.reloadData()
                 }
             case .failure(let error):
                 print("Error fetching comments: \(error)")
             }
         }
+    }
+    
+    private func setupTableViewHeader() {
+        let headerLabel = UILabel()
+        headerLabel.text = "댓글"
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        headerLabel.textAlignment = .left
+        headerLabel.textColor = .white
+        headerLabel.backgroundColor = .premierLeaguePurple
+        headerLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        tableView.tableHeaderView = headerLabel
     }
     
 }
@@ -108,6 +121,11 @@ extension DetailVideoViewController: UITableViewDataSource {
         cell.configure(with: comment)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
 }
 
 // MARK: - WKUIDelegate

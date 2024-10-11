@@ -19,7 +19,7 @@ final class VideoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.backgroundColor = .premierLeagueBackgroundColor
         setupUI()
         setupConstraints()
     }
@@ -38,32 +38,27 @@ final class VideoTableViewCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-
+    
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            thumbnailImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            thumbnailImageView.widthAnchor.constraint(equalToConstant: 80),
-            thumbnailImageView.heightAnchor.constraint(equalToConstant: 60),
+            thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 180),
             
-            titleLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 10),
+            
+            titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            titleLabel.heightAnchor.constraint(equalToConstant: 40),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
     
     func configure(with model: YouTubeItem) {
-        if let url = URL(string: model.snippet.thumbnails.medium.url) {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        self.thumbnailImageView.image = UIImage(data: data)
-                    }
-                }
-            }
-        }
-        
+        let thumbnailImageUrl = model.snippet.thumbnails.medium.url
+        thumbnailImageView.loadImage(from: thumbnailImageUrl)
         titleLabel.text = model.snippet.title
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 class AssistsRankingTableViewCell: UITableViewCell {
-
+    
     // MARK: - Properties
     
     static let identifier = "AssistsRankingTableViewCell"
@@ -19,12 +19,12 @@ class AssistsRankingTableViewCell: UITableViewCell {
     let teamLogoImageView = UIImageView()
     let matchesLabel = UILabel()
     let assistsLabel = UILabel()
-
+    
     // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        self.backgroundColor = .premierLeagueBackgroundColor
         setupUI()
         setupConstraints()
     }
@@ -40,6 +40,12 @@ class AssistsRankingTableViewCell: UITableViewCell {
         playerImageView.clipsToBounds = true
         playerImageView.layer.cornerRadius = 20
         
+        // 레이블의 텍스트 색상 설정
+        rankLabel.textColor = .premierLeaguePurple
+        playerNameLabel.textColor = .premierLeaguePurple
+        matchesLabel.textColor = .premierLeaguePurple
+        assistsLabel.textColor = .premierLeaguePurple
+        
         teamLogoImageView.contentMode = .scaleAspectFit
         teamLogoImageView.clipsToBounds = true
         
@@ -48,7 +54,7 @@ class AssistsRankingTableViewCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-
+    
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([

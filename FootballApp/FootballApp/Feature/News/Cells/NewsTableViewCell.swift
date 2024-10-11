@@ -53,8 +53,7 @@ final class NewsTableViewCell: UITableViewCell {
     // MARK: - Methods
     
     private func setupCell() {
-        backgroundColor = UIColor(white: 0.95, alpha: 1)
-        
+        self.backgroundColor = .premierLeagueBackgroundColor
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(dateLabel)

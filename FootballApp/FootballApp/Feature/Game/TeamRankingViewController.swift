@@ -84,10 +84,16 @@ extension TeamRankingViewController: UITableViewDataSource {
         
         let leagueResponse = teamRankings[indexPath.section] // 섹션에 따라 리그 응답 가져오기
         
-        if let standings = leagueResponse.league.standings {
-            // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
-            let teamStats = standings.first?[indexPath.row]
-            cell.configure(with: teamStats!) // 셀 구성
+//        if let standings = leagueResponse.league.standings {
+//            // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
+//            let teamStats = standings.first?[indexPath.row]
+//            cell.configure(with: teamStats!) // 셀 구성
+//        }
+        
+        // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
+        if let standings = leagueResponse.league.standings,
+           let teamStats = standings.first?[indexPath.row] {
+            cell.configure(with: teamStats)
         }
         
         return cell
@@ -107,6 +113,7 @@ extension TeamRankingViewController {
     private func configureTableHeaderView() {
         // 헤더 뷰의 높이와 넓이를 설정
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        headerView.backgroundColor = .premierLeagueBackgroundColor
         
         // 헤더의 UI 요소들 생성
         let rankLabel = UILabel()
@@ -136,6 +143,7 @@ extension TeamRankingViewController {
         let labels = [rankLabel, teamLabel, matchesLabel, pointsLabel, winsLabel, drawsLabel, lossesLabel, goalDifferenceLabel, goalsForLabel, goalsAgainstLabel]
         labels.forEach { label in
             label.font = UIFont.boldSystemFont(ofSize: 10)
+            label.textColor = .premierLeaguePurple
             headerView.addSubview(label)
             label.translatesAutoresizingMaskIntoConstraints = false
         }

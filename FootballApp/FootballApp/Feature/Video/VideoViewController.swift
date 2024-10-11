@@ -19,8 +19,8 @@ final class VideoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
-        
+        NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .premierLeaguePurple)
+        NavigationTitleUtility.setupNavigationTitle(for: self, title: "하이라이트")
         configureTableView()
         fetchYouTube()
     }
@@ -32,7 +32,7 @@ final class VideoViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(VideoTableViewCell.self, forCellReuseIdentifier: VideoTableViewCell.identifier)
         
-        tableView.backgroundColor = .purple
+        tableView.backgroundColor = .systemBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         
@@ -84,6 +84,10 @@ extension VideoViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 240
+    }
+
 }
 
 // MARK: - UITableViewDelegate
