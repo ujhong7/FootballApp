@@ -28,6 +28,7 @@ final class GameResultViewController: UIViewController {
     // MARK: - Method
     
     private func configureTableView() {
+        tableView.backgroundColor = .premierLeagueBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: MatchTableViewCell.identifier)
