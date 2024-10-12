@@ -15,20 +15,28 @@ final class TeamRankingViewController: UIViewController {
     private let footballService = FootballNetworkService()
     private var teamRankings: [LeagueResponse] = []
     
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
+        view.backgroundColor = .systemBackground
         
         configureTableView()
         configureTableHeaderView()
+        configureLoadingIndicator() // 로딩 인디케이터 설정
         fetchTeamRankings()
     }
     
     // MARK: - Methods
     
     private func configureTableView() {
+        tableView.backgroundColor = .premierLeagueBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TeamRankingTableViewCell.self, forCellReuseIdentifier: TeamRankingTableViewCell.identifier)
@@ -44,13 +52,33 @@ final class TeamRankingViewController: UIViewController {
         ])
     }
     
+    // 로딩 인디케이터 설정
+    private func configureLoadingIndicator() {
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loadingIndicator)
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     private func fetchTeamRankings() {
+        // 데이터를 받아오기 전에 로딩 인디케이터 시작
+        loadingIndicator.startAnimating()
+        
         footballService.getTeamRanking(league: premierLeague, season: season2024) { [weak self] result in
+            
+            // 데이터를 받은 후 로딩 인디케이터 중지
+            DispatchQueue.main.async {
+                self?.loadingIndicator.stopAnimating()
+            }
+            
             switch result {
             case .success(let response):
                 print("🔴🔴🔴🔴🔴🔴🔴🔴")
                 dump(response)
-                self?.teamRankings = response.response 
+                self?.teamRankings = response.response
                 
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
@@ -84,11 +112,11 @@ extension TeamRankingViewController: UITableViewDataSource {
         
         let leagueResponse = teamRankings[indexPath.section] // 섹션에 따라 리그 응답 가져오기
         
-//        if let standings = leagueResponse.league.standings {
-//            // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
-//            let teamStats = standings.first?[indexPath.row]
-//            cell.configure(with: teamStats!) // 셀 구성
-//        }
+        //        if let standings = leagueResponse.league.standings {
+        //            // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
+        //            let teamStats = standings.first?[indexPath.row]
+        //            cell.configure(with: teamStats!) // 셀 구성
+        //        }
         
         // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
         if let standings = leagueResponse.league.standings,
@@ -126,7 +154,7 @@ extension TeamRankingViewController {
         let goalDifferenceLabel = UILabel()
         let goalsForLabel = UILabel()
         let goalsAgainstLabel = UILabel()
-       
+        
         // 텍스트 설정
         rankLabel.text = "순위"
         teamLabel.text = "팀이름"
