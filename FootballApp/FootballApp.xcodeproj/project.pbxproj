@@ -48,6 +48,7 @@
 		1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245302CB9308000650293 /* UIImageView+Extension.swift */; };
 		1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245322CB932A800650293 /* UIColor+CustomColors.swift */; };
 		1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245342CB9385A00650293 /* UILabel+Extension.swift */; };
+		1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245362CBA545D00650293 /* ImageCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,8 @@
 		1D0245302CB9308000650293 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		1D0245322CB932A800650293 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		1D0245342CB9385A00650293 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		1D0245362CBA545D00650293 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		1D02453B2CBA5AC100650293 /* FootballApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FootballApp-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,7 @@
 		1D0244B12CAF94C900650293 = {
 			isa = PBXGroup;
 			children = (
+				1D02453B2CBA5AC100650293 /* FootballApp-Bridging-Header.h */,
 				1D02452C2CB92F5000650293 /* Utils */,
 				1D02452B2CB8E29800650293 /* Config.xcconfig */,
 				1D0245272CB8DC2300650293 /* Const.swift */,
@@ -266,6 +270,7 @@
 				1D0245322CB932A800650293 /* UIColor+CustomColors.swift */,
 				1D0245302CB9308000650293 /* UIImageView+Extension.swift */,
 				1D0245342CB9385A00650293 /* UILabel+Extension.swift */,
+				1D0245362CBA545D00650293 /* ImageCacheManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0245142CB440E100650293 /* TeamAbbreviations.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
+				1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */,
 				1D0244FE2CB0FD6E00650293 /* FixtureModel.swift in Sources */,
 				1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */,
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
@@ -463,6 +469,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FootballApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -519,6 +526,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "FootballApp-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
