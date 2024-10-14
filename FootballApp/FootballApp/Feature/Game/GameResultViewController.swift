@@ -12,6 +12,13 @@ final class GameResultViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
+    private let roundTabCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     private let footballService = FootballNetworkService()
     private var fixtures: [Fixture] = []
     private let loadingIndicatorView = LoadingIndicatorView()
@@ -21,8 +28,9 @@ final class GameResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
-        
         configureTableView()
+        configureCollectionView()
+        setupTableViewHeaderView()
         fetchPastFixtures()
     }
     
@@ -45,6 +53,30 @@ final class GameResultViewController: UIViewController {
         ])
     }
     
+    private func configureCollectionView() {
+        roundTabCollectionView.allowsMultipleSelection = false
+        roundTabCollectionView.showsHorizontalScrollIndicator = false
+        roundTabCollectionView.delegate = self
+        roundTabCollectionView.dataSource = self
+        roundTabCollectionView.register(RoundCollectionViewCell.self, forCellWithReuseIdentifier: RoundCollectionViewCell.identifier)
+        roundTabCollectionView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupTableViewHeaderView() {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70)) // 원하는 높이 설정
+        headerView.addSubview(roundTabCollectionView)
+        
+        NSLayoutConstraint.activate([
+            roundTabCollectionView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            roundTabCollectionView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            roundTabCollectionView.topAnchor.constraint(equalTo: headerView.topAnchor),
+            roundTabCollectionView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+        ])
+        
+        // 테이블 뷰의 헤더로 설정
+        tableView.tableHeaderView = headerView
+    }
+    
     private func fetchPastFixtures() {
         loadingIndicatorView.show(in: view)
         footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
@@ -62,11 +94,11 @@ final class GameResultViewController: UIViewController {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching fixtures: \(error.localizedDescription)") 
+                print("Error fetching fixtures: \(error.localizedDescription)")
             }
         }
     }
-
+    
 }
 
 // MARK: - UITableViewDataSource
@@ -103,3 +135,24 @@ extension GameResultViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
+extension GameResultViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RoundCollectionViewCell.identifier, for: indexPath) as! RoundCollectionViewCell
+        cell.backgroundColor = .blue
+        return cell
+    }
+    
+    
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension GameResultViewController: UICollectionViewDelegate {
+    
+}
