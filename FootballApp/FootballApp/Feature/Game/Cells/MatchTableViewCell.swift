@@ -104,17 +104,24 @@ class MatchTableViewCell: UITableViewCell {
 }
 
 extension MatchTableViewCell {
-    func configure(with homeTeam: String, homeLogo: String, awayTeam: String, awayLogo: String, homeGoals: Int?, awayGoals: Int?, status: String, date: String) {
-        homeTeamNameLabel.text = homeTeam
-        awayTeamNameLabel.text = awayTeam
+    func configure(with fixture: Fixture) {
+        let homeTeam = fixture.teams.home
+        let awayTeam = fixture.teams.away
+        let homeGoals = fixture.goals.home
+        let awayGoals = fixture.goals.away
+        let status = fixture.fixture.status.long
+        let date = fixture.fixture.date
+        
+        homeTeamNameLabel.text = homeTeam.name
+        awayTeamNameLabel.text = awayTeam.name
         homeGoalsLabel.text = "\(homeGoals ?? 0)"
         awayGoalsLabel.text = "\(awayGoals ?? 0)"
         statusLabel.text = status
         dateLabel.text = formatDate(date)
         
         // 로고 이미지 로드
-        homeTeamLogoImageView.loadImage(from: homeLogo)
-        awayTeamLogoImageView.loadImage(from: awayLogo)
+        homeTeamLogoImageView.loadImage(from: homeTeam.logo)
+        awayTeamLogoImageView.loadImage(from: awayTeam.logo)
     }
     
     private func formatDate(_ dateString: String) -> String {

@@ -19,9 +19,12 @@ final class GameResultViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
     private let footballService = FootballNetworkService()
     private var fixtures: [Fixture] = []
+    private var filteredFixtures: [Fixture] = []
     private let loadingIndicatorView = LoadingIndicatorView()
+    private var selectedTabIndex: IndexPath = IndexPath(row: 0, section: 0)
     
     // MARK: - LifeCycle
     
@@ -34,17 +37,15 @@ final class GameResultViewController: UIViewController {
         fetchPastFixtures()
     }
     
-    // MARK: - Method
+    // MARK: - Methods
     
     private func configureTableView() {
         tableView.backgroundColor = .premierLeagueBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: MatchTableViewCell.identifier)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -63,24 +64,22 @@ final class GameResultViewController: UIViewController {
     }
     
     private func setupTableViewHeaderView() {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70)) // 원하는 높이 설정
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
         headerView.addSubview(roundTabCollectionView)
-        
         NSLayoutConstraint.activate([
             roundTabCollectionView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
             roundTabCollectionView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             roundTabCollectionView.topAnchor.constraint(equalTo: headerView.topAnchor),
             roundTabCollectionView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
         ])
-        
-        // 테이블 뷰의 헤더로 설정
         tableView.tableHeaderView = headerView
     }
     
     private func fetchPastFixtures() {
         loadingIndicatorView.show(in: view)
+        
         footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
-            
+
             DispatchQueue.main.async {
                 self?.loadingIndicatorView.hide()
             }
@@ -90,8 +89,9 @@ final class GameResultViewController: UIViewController {
                 print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")
                 print(response)
                 self?.fixtures = response.response.reversed()
+                self?.filteredFixtures = self?.fixtures ?? []
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                    self?.setupRoundTabCollectionView()
                 }
             case .failure(let error):
                 print("Error fetching fixtures: \(error.localizedDescription)")
@@ -99,30 +99,31 @@ final class GameResultViewController: UIViewController {
         }
     }
     
+    private func setupRoundTabCollectionView() {
+        self.roundTabCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView(self.roundTabCollectionView, didSelectItemAt: self.selectedTabIndex)
+        }
+    }
+    
+    private func filterFixturesByRound(roundNumber: Int) {
+        filteredFixtures = fixtures.filter { $0.league.round.contains(String(roundNumber)) }
+        self.tableView.reloadData()
+    }
+    
 }
 
 // MARK: - UITableViewDataSource
 
 extension GameResultViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fixtures.count
+        return filteredFixtures.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier, for: indexPath) as! MatchTableViewCell
-        let fixture = fixtures[indexPath.row]
-        
-        // 셀 구성: Fixture의 정보를 기반으로 UI 업데이트
-        let homeTeam = fixture.teams.home
-        let awayTeam = fixture.teams.away
-        let homeGoals = fixture.goals.home ?? 0
-        let awayGoals = fixture.goals.away ?? 0
-        let status = fixture.fixture.status.long
-        let date = fixture.fixture.date
-        
-        cell.configure(with: homeTeam.name, homeLogo: homeTeam.logo, awayTeam: awayTeam.name, awayLogo: awayTeam.logo, homeGoals: homeGoals, awayGoals: awayGoals, status: status, date: date)
-        
+        let fixture = filteredFixtures[indexPath.row]
+        cell.configure(with: fixture)
         return cell
     }
 }
@@ -130,7 +131,6 @@ extension GameResultViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension GameResultViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
@@ -139,20 +139,41 @@ extension GameResultViewController: UITableViewDelegate {
 
 extension GameResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        guard let maxRound = fixtures.compactMap({ Int(($0.league.round.filter { $0.isNumber }))}).max() else {
+             return 0
+        }
+        return maxRound
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RoundCollectionViewCell.identifier, for: indexPath) as! RoundCollectionViewCell
-        cell.backgroundColor = .blue
+        guard let cell = roundTabCollectionView.dequeueReusableCell(withReuseIdentifier: RoundCollectionViewCell.identifier, for: indexPath) as? RoundCollectionViewCell else { return UICollectionViewCell() }
+        let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
+        let reverseIndex = totalCount - indexPath.row
+        cell.configure(round: reverseIndex)
+        cell.changeBackgroundColor(isSelected: indexPath == selectedTabIndex)
         return cell
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension GameResultViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
+        let index = totalCount - indexPath.row
+        filterFixturesByRound(roundNumber: index)
+        if let previousCell = collectionView.cellForItem(at: selectedTabIndex) as? RoundCollectionViewCell {
+            previousCell.changeBackgroundColor(isSelected: false)
+        }
+        selectedTabIndex = indexPath
+        if let cell = collectionView.cellForItem(at: indexPath) as? RoundCollectionViewCell {
+            cell.changeBackgroundColor(isSelected: true)
+        }
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? RoundCollectionViewCell {
+            cell.changeBackgroundColor(isSelected: false)
+        }
+    }
 }

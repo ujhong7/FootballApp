@@ -64,7 +64,7 @@ final class UpcomingMatchesViewController: UIViewController {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching upcoming fixtures: \(error.localizedDescription)") 
+                print("Error fetching upcoming fixtures: \(error.localizedDescription)")
             }
         }
     }
@@ -76,20 +76,13 @@ final class UpcomingMatchesViewController: UIViewController {
 extension UpcomingMatchesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return upcomingFixtures.count 
+        return upcomingFixtures.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MatchTableViewCell.identifier, for: indexPath) as! MatchTableViewCell
         let fixture = upcomingFixtures[indexPath.row]
-        
-        let homeTeam = fixture.teams.home
-        let awayTeam = fixture.teams.away
-        let status = fixture.fixture.status.long
-        let date = fixture.fixture.date
-        
-        cell.configure(with: homeTeam.name, homeLogo: homeTeam.logo, awayTeam: awayTeam.name, awayLogo: awayTeam.logo, homeGoals: nil, awayGoals: nil, status: status, date: date) // 점수는 예정된 경기라 nil
-        
+        cell.configure(with: fixture)
         return cell
     }
 }

@@ -30,6 +30,7 @@ struct Status: Codable {
 
 struct League: Codable {
     let name: String
+    let round: String
 }
 
 struct Teams: Decodable {
