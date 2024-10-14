@@ -49,7 +49,7 @@
 		1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245322CB932A800650293 /* UIColor+CustomColors.swift */; };
 		1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245342CB9385A00650293 /* UILabel+Extension.swift */; };
 		1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245362CBA545D00650293 /* ImageCacheManager.swift */; };
-		1D02453D2CBA63ED00650293 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02453C2CBA63ED00650293 /* UIViewController+Extension.swift */; };
+		1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,7 +99,7 @@
 		1D0245342CB9385A00650293 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		1D0245362CBA545D00650293 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		1D02453B2CBA5AC100650293 /* FootballApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FootballApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		1D02453C2CBA63ED00650293 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,7 +273,7 @@
 				1D0245302CB9308000650293 /* UIImageView+Extension.swift */,
 				1D0245342CB9385A00650293 /* UILabel+Extension.swift */,
 				1D0245362CBA545D00650293 /* ImageCacheManager.swift */,
-				1D02453C2CBA63ED00650293 /* UIViewController+Extension.swift */,
+				1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -357,7 +357,6 @@
 				1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */,
 				1D0244FE2CB0FD6E00650293 /* FixtureModel.swift in Sources */,
 				1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */,
-				1D02453D2CBA63ED00650293 /* UIViewController+Extension.swift in Sources */,
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
 				1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */,
 				1D02450C2CB1175500650293 /* TeamRankingTableViewCell.swift in Sources */,
@@ -366,6 +365,7 @@
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
 				1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */,
+				1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */,
 				1D02451C2CB4684300650293 /* YouTubeResponse.swift in Sources */,
 				1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */,
 				1D0245162CB45BF400650293 /* YouTubeNetworkService.swift in Sources */,

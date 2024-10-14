@@ -14,6 +14,7 @@ final class VideoViewController: UIViewController {
     private let tableView = UITableView()
     private let youTubeService = YouTubeNetworkService()
     private var youtubeData: [YouTubeItem] = []
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
@@ -28,6 +29,7 @@ final class VideoViewController: UIViewController {
     // MARK: - Methods
     
     private func configureTableView() {
+        tableView.backgroundColor = .premierLeagueBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(VideoTableViewCell.self, forCellReuseIdentifier: VideoTableViewCell.identifier)
@@ -46,10 +48,16 @@ final class VideoViewController: UIViewController {
     
     
     private func fetchYouTube() {
+        loadingIndicatorView.show(in: view)
         /// 재생목록 ID (예: 스포티비 2024/25 프리미어리그 하이라이트 재생목록 ID)
         let playlistId = "PL7MQjbfOyOE00FrDWwrbaTtH7mSZOKnvO"
         
         youTubeService.fetchHighlights(playlistId: playlistId) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                self?.loadingIndicatorView.hide()
+            }
+            
             switch result {
             case .success(let response):
                 dump(response)

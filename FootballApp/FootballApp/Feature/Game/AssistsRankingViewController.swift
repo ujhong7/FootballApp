@@ -14,6 +14,7 @@ final class AssistsRankingViewController: UIViewController {
     private let tableView = UITableView()
     private let footballService = FootballNetworkService()
     private var assistRankings: [PlayerRanking] = []
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
@@ -46,7 +47,14 @@ final class AssistsRankingViewController: UIViewController {
     }
     
     private func fetchTopAssists() {
+        loadingIndicatorView.show(in: view)
+        
         footballService.getTopAssists(league: premierLeague, season: season2024) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                self?.loadingIndicatorView.hide()
+            }
+            
             switch result {
             case .success(let response):
                 print("🐶🐶🐶🐶🐶")

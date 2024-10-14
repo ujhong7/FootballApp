@@ -15,6 +15,7 @@ final class NewsViewController: UIViewController {
     private let tableView = UITableView()
     private var newsItems: [NewsItem] = [] // 뉴스 아이템 배열
     private var searchController: UISearchController!
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
@@ -32,6 +33,7 @@ final class NewsViewController: UIViewController {
     // MARK: - Method
     
     private func configureTableView() {
+        tableView.backgroundColor = .premierLeagueBackgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
@@ -48,7 +50,14 @@ final class NewsViewController: UIViewController {
     }
 
     private func fetchNews(query: String = "PL") {
+        loadingIndicatorView.show(in: view)
+        
         newsService.fetchNews(query: query) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                self?.loadingIndicatorView.hide()
+            }
+            
             switch result {
             case .success(let newsResponse):
                 self?.newsItems = newsResponse.items // 뉴스 아이템 저장

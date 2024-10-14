@@ -14,6 +14,7 @@ final class GameResultViewController: UIViewController {
     private let tableView = UITableView()
     private let footballService = FootballNetworkService()
     private var fixtures: [Fixture] = []
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
@@ -45,7 +46,13 @@ final class GameResultViewController: UIViewController {
     }
     
     private func fetchPastFixtures() {
+        loadingIndicatorView.show(in: view)
         footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                self?.loadingIndicatorView.hide()
+            }
+            
             switch result {
             case .success(let response):
                 print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")

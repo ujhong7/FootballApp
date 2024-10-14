@@ -14,6 +14,7 @@ final class UpcomingMatchesViewController: UIViewController {
     private let tableView = UITableView()
     private let footballService = FootballNetworkService()
     private var upcomingFixtures: [Fixture] = []
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
@@ -45,7 +46,14 @@ final class UpcomingMatchesViewController: UIViewController {
     }
     
     private func fetchUpcomingFixtures() {
+        loadingIndicatorView.show(in: view)
+        
         footballService.getUpcomingFixtures(league: premierLeague, season: season2024) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                self?.loadingIndicatorView.hide()
+            }
+            
             switch result {
             case .success(let response):
                 print("🟡🟡🟡🟡🟡🟡🟡🟡")

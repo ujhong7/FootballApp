@@ -14,22 +14,15 @@ final class TeamRankingViewController: UIViewController {
     private let tableView = UITableView()
     private let footballService = FootballNetworkService()
     private var teamRankings: [LeagueResponse] = []
-    
-    private let loadingIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
+    private let loadingIndicatorView = LoadingIndicatorView()
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         configureTableView()
         configureTableHeaderView()
-        configureLoadingIndicator() // 로딩 인디케이터 설정
         fetchTeamRankings()
     }
     
@@ -52,26 +45,13 @@ final class TeamRankingViewController: UIViewController {
         ])
     }
     
-    // 로딩 인디케이터 설정
-    private func configureLoadingIndicator() {
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(loadingIndicator)
-        
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
     private func fetchTeamRankings() {
-        // 데이터를 받아오기 전에 로딩 인디케이터 시작
-        loadingIndicator.startAnimating()
-        
+        loadingIndicatorView.show(in: view)
+
         footballService.getTeamRanking(league: premierLeague, season: season2024) { [weak self] result in
             
-            // 데이터를 받은 후 로딩 인디케이터 중지
             DispatchQueue.main.async {
-                self?.loadingIndicator.stopAnimating()
+                self?.loadingIndicatorView.hide()
             }
             
             switch result {
