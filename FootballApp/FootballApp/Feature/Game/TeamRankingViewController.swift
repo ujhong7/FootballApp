@@ -113,6 +113,9 @@ extension TeamRankingViewController: UITableViewDataSource {
 extension TeamRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let teamInformationVC = TeamInformationViewController()
+//        teamInformationVC.selectedIndex = indexPath.row
+        navigationController?.pushViewController(teamInformationVC, animated: true)
     }
 }
 

@@ -82,7 +82,7 @@ final class GameResultViewController: UIViewController {
         loadingIndicatorView.show(in: view)
         
         footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
-
+            
             DispatchQueue.main.async {
                 self?.loadingIndicatorView.hide()
             }
@@ -135,6 +135,9 @@ extension GameResultViewController: UITableViewDataSource {
 
 extension GameResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let matchInformationVC = MatchInformationViewController()
+        matchInformationVC.selectedIndex = indexPath.row
+        navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }
 
@@ -143,7 +146,7 @@ extension GameResultViewController: UITableViewDelegate {
 extension GameResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let maxRound = fixtures.compactMap({ Int(($0.league.round.filter { $0.isNumber }))}).max() else {
-             return 0
+            return 0
         }
         return maxRound
     }

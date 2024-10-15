@@ -51,6 +51,10 @@
 		1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245362CBA545D00650293 /* ImageCacheManager.swift */; };
 		1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */; };
 		1D0245432CBCCCF200650293 /* RoundTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */; };
+		1D6193372CBEA103003E4CD3 /* MatchInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */; };
+		1D6193392CBEA27A003E4CD3 /* TeamInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */; };
+		1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */; };
+		1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +106,10 @@
 		1D02453B2CBA5AC100650293 /* FootballApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FootballApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTabCollectionViewCell.swift; sourceTree = "<group>"; };
+		1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchInformationViewController.swift; sourceTree = "<group>"; };
+		1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInformationViewController.swift; sourceTree = "<group>"; };
+		1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewCell.swift; sourceTree = "<group>"; };
+		1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +218,8 @@
 		1D0244E82CAFAA0700650293 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */,
+				1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */,
 				1D0244F42CB0EF0E00650293 /* Cells */,
 				1D0244D52CAF9B9900650293 /* GameViewController.swift */,
 				1D0245092CB1046500650293 /* TeamRankingViewController.swift */,
@@ -217,6 +227,8 @@
 				1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */,
 				1D0244EE2CB0DC6B00650293 /* GoalsRankingViewController.swift */,
 				1D0244F02CB0DCA100650293 /* AssistsRankingViewController.swift */,
+				1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */,
+				1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -352,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D6193392CBEA27A003E4CD3 /* TeamInformationViewController.swift in Sources */,
 				1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */,
 				1D0245282CB8DC2300650293 /* Const.swift in Sources */,
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
@@ -364,11 +377,13 @@
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
 				1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */,
 				1D02450C2CB1175500650293 /* TeamRankingTableViewCell.swift in Sources */,
+				1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */,
 				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
 				1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */,
+				1D6193372CBEA103003E4CD3 /* MatchInformationViewController.swift in Sources */,
 				1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */,
 				1D02451C2CB4684300650293 /* YouTubeResponse.swift in Sources */,
 				1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */,
@@ -383,6 +398,7 @@
 				1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */,
 				1D0245222CB529C800650293 /* DetailVideoTableViewCell.swift in Sources */,
 				1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */,
+				1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */,
 				1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */,
 				1D02451A2CB4671800650293 /* DetailVideoViewController.swift in Sources */,
 				1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */,
