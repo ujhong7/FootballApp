@@ -136,7 +136,6 @@ extension GameResultViewController: UITableViewDataSource {
 extension GameResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let matchInformationVC = MatchInformationViewController()
-        matchInformationVC.selectedIndex = indexPath.row
         navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }
