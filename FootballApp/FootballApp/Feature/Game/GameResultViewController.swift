@@ -41,6 +41,8 @@ final class GameResultViewController: UIViewController {
     
     private func configureTableView() {
         tableView.backgroundColor = .premierLeagueBackgroundColor
+        tableView.rowHeight = 58 // 🚨
+        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MatchTableViewCell.self, forCellReuseIdentifier: MatchTableViewCell.identifier)
@@ -55,16 +57,17 @@ final class GameResultViewController: UIViewController {
     }
     
     private func configureCollectionView() {
+        roundTabCollectionView.backgroundColor = .premierLeagueBackgroundColor
         roundTabCollectionView.allowsMultipleSelection = false
         roundTabCollectionView.showsHorizontalScrollIndicator = false
         roundTabCollectionView.delegate = self
         roundTabCollectionView.dataSource = self
-        roundTabCollectionView.register(RoundCollectionViewCell.self, forCellWithReuseIdentifier: RoundCollectionViewCell.identifier)
+        roundTabCollectionView.register(RoundTabCollectionViewCell.self, forCellWithReuseIdentifier: RoundTabCollectionViewCell.identifier)
         roundTabCollectionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupTableViewHeaderView() {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
         headerView.addSubview(roundTabCollectionView)
         NSLayoutConstraint.activate([
             roundTabCollectionView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
@@ -146,7 +149,7 @@ extension GameResultViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = roundTabCollectionView.dequeueReusableCell(withReuseIdentifier: RoundCollectionViewCell.identifier, for: indexPath) as? RoundCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = roundTabCollectionView.dequeueReusableCell(withReuseIdentifier: RoundTabCollectionViewCell.identifier, for: indexPath) as? RoundTabCollectionViewCell else { return UICollectionViewCell() }
         let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
         let reverseIndex = totalCount - indexPath.row
         cell.configure(round: reverseIndex)
@@ -162,17 +165,17 @@ extension GameResultViewController: UICollectionViewDelegate {
         let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
         let index = totalCount - indexPath.row
         filterFixturesByRound(roundNumber: index)
-        if let previousCell = collectionView.cellForItem(at: selectedTabIndex) as? RoundCollectionViewCell {
+        if let previousCell = collectionView.cellForItem(at: selectedTabIndex) as? RoundTabCollectionViewCell {
             previousCell.changeBackgroundColor(isSelected: false)
         }
         selectedTabIndex = indexPath
-        if let cell = collectionView.cellForItem(at: indexPath) as? RoundCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? RoundTabCollectionViewCell {
             cell.changeBackgroundColor(isSelected: true)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? RoundCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? RoundTabCollectionViewCell {
             cell.changeBackgroundColor(isSelected: false)
         }
     }

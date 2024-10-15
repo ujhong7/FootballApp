@@ -50,7 +50,7 @@
 		1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245342CB9385A00650293 /* UILabel+Extension.swift */; };
 		1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245362CBA545D00650293 /* ImageCacheManager.swift */; };
 		1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */; };
-		1D0245432CBCCCF200650293 /* RoundCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245422CBCCCF200650293 /* RoundCollectionViewCell.swift */; };
+		1D0245432CBCCCF200650293 /* RoundTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +101,7 @@
 		1D0245362CBA545D00650293 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		1D02453B2CBA5AC100650293 /* FootballApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FootballApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
-		1D0245422CBCCCF200650293 /* RoundCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundCollectionViewCell.swift; sourceTree = "<group>"; };
+		1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTabCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,7 +254,7 @@
 				1D02450B2CB1175500650293 /* TeamRankingTableViewCell.swift */,
 				1D02450D2CB1178C00650293 /* GoalsRankingTableViewCell.swift */,
 				1D02450F2CB1179800650293 /* AssistsRankingTableViewCell.swift */,
-				1D0245422CBCCCF200650293 /* RoundCollectionViewCell.swift */,
+				1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -357,7 +357,7 @@
 				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0245142CB440E100650293 /* TeamAbbreviations.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
-				1D0245432CBCCCF200650293 /* RoundCollectionViewCell.swift in Sources */,
+				1D0245432CBCCCF200650293 /* RoundTabCollectionViewCell.swift in Sources */,
 				1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */,
 				1D0244FE2CB0FD6E00650293 /* FixtureModel.swift in Sources */,
 				1D0244DF2CAFA35F00650293 /* DetailNewsViewController.swift in Sources */,
