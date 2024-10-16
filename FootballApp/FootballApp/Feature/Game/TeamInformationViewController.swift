@@ -11,15 +11,28 @@ class TeamInformationViewController: UIViewController {
     
     // MARK: - Properties
     
+    var teamInfo: TeamInformation?
+    
+    private let titleView: UILabel = {
+        let label = UILabel()
+        label.text = "팀 이름 navi"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textAlignment = .center
+        label.alpha = 0 // 처음에는 보이지 않게 설정
+        return label
+    }()
+    
     private let headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .systemBlue
         return view
     }()
     
     private let teamNameLabel: UILabel = {
         let label = UILabel()
         label.text = "팀 이름"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         return label
     }()
@@ -27,7 +40,7 @@ class TeamInformationViewController: UIViewController {
     private let teamLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "teamLogo")
+//        imageView.image = UIImage(named: "TOT")
         return imageView
     }()
     
@@ -46,13 +59,31 @@ class TeamInformationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        print("")
+//        NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .systemBlue)
+        view.backgroundColor = .systemBlue
         setupHeaderView()
         configureCollectionView()
         configureTableView()
+        setupTitleView() // 🚨
+        setupObservers()
+        setupTeamInfo()
+        print("TitleView Alpha in viewDidLoad: \(titleView.alpha)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("TitleView Alpha in viewWillAppear: \(titleView.alpha)")
+        titleView.alpha = 0
+        print("TitleView Alpha in viewWillAppear: \(titleView.alpha)")
         
-        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("🤮🤮🤮🤮🤮 TitleView Alpha in viewDidAppear: \(titleView.alpha)")
+        //        titleView.alpha = 0
+        //        print("🚨TitleView Alpha in viewDidAppear: \(titleView.alpha)") // 🚨
     }
     
     deinit {
@@ -60,6 +91,18 @@ class TeamInformationViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    private func setupTeamInfo() {
+        titleView.text = teamInfo?.name
+        teamNameLabel.text = teamInfo?.name
+        teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
+    }
+    
+    // 🚨
+    private func setupTitleView() {
+        navigationItem.titleView = titleView // 네비게이션 바의 타이틀 뷰로 설정
+        navigationItem.titleView?.alpha = 0
+    }
     
     private func setupHeaderView() {
         view.addSubview(headerView)
@@ -78,19 +121,18 @@ class TeamInformationViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            teamLogoImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            teamLogoImageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
+            teamLogoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            teamLogoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
             teamLogoImageView.widthAnchor.constraint(equalToConstant: 80), // 로고 이미지 너비
             teamLogoImageView.heightAnchor.constraint(equalToConstant: 80), // 로고 이미지 높이
             
-            teamNameLabel.topAnchor.constraint(equalTo: teamLogoImageView.bottomAnchor, constant: 5),
-            teamNameLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            teamNameLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+            teamNameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            teamNameLabel.leadingAnchor.constraint(equalTo: teamLogoImageView.trailingAnchor, constant: 15),
         ])
     }
     
     private func configureTableView() {
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ExTableViewCell.self, forCellReuseIdentifier: ExTableViewCell.identifier)
@@ -106,7 +148,7 @@ class TeamInformationViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        menuTabCollectionView.backgroundColor = .lightGray
+        menuTabCollectionView.backgroundColor = .systemBackground
         menuTabCollectionView.allowsMultipleSelection = false
         menuTabCollectionView.showsHorizontalScrollIndicator = false
         menuTabCollectionView.delegate = self
@@ -121,22 +163,33 @@ class TeamInformationViewController: UIViewController {
             menuTabCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             menuTabCollectionView.heightAnchor.constraint(equalToConstant: 40) // 원하는 높이로 설정
         ])
+        
+        menuTabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
     }
     
     // MARK: - KVO for scrolling
-    
+    // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentOffset" {
             guard let tableView = object as? UITableView else { return }
             let offset = tableView.contentOffset.y
-
+            
             // 헤더 뷰의 높이 조정
             if offset < 0 {
                 headerViewHeightConstraint.constant = 100 - offset // 스크롤이 위로 올라갈 때 헤더 뷰 높이 증가
             } else {
                 headerViewHeightConstraint.constant = max(0, 100 - offset) // 헤더 뷰 높이 감소
             }
+            
+            // 헤더 뷰의 알파 값 조정 (투명도)
+            let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
+            headerView.alpha = alpha
+            
+            // 타이틀 뷰의 알파 값 조정
+            titleView.alpha = max(0, min(1, (offset - 60) / 40)) // 60 포인트 스크롤 시 서서히 나타남
+            print("✅ Offset: \(offset), TitleView Alpha: \(titleView.alpha)")
 
+            
             // 컬렉션 뷰를 화면 상단에 고정
             if offset > 99 { // 60 포인트 이상 스크롤 시
                 UIView.animate(withDuration: 0.3, animations: {
@@ -152,7 +205,12 @@ class TeamInformationViewController: UIViewController {
             }
         }
     }
-
+    
+    private func setupObservers() {
+        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+    }
+    
 }
 
 // MARK: - UITableViewDelegate
@@ -171,7 +229,7 @@ extension TeamInformationViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ExTableViewCell.identifier, for: indexPath) as? ExTableViewCell else { return UITableViewCell() }
-        cell.backgroundColor = .blue
+        cell.backgroundColor = .systemBackground
         return cell
     }
     
@@ -201,7 +259,6 @@ extension TeamInformationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = menuTabCollectionView.dequeueReusableCell(withReuseIdentifier: ExCollectionViewCell.identifier, for: indexPath) as? ExCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .green
         return cell
     }
     
@@ -212,6 +269,15 @@ extension TeamInformationViewController: UICollectionViewDataSource {
 
 extension TeamInformationViewController: UICollectionViewDelegate {
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+//                cell.updateSelectionState() // 선택된 셀 상태 업데이트
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+//        cell.updateSelectionState() // 선택 해제된 셀 상태 업데이트
+//    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

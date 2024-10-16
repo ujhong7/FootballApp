@@ -47,7 +47,7 @@ final class TeamRankingViewController: UIViewController {
     
     private func fetchTeamRankings() {
         loadingIndicatorView.show(in: view)
-
+        
         footballService.getTeamRanking(league: premierLeague, season: season2024) { [weak self] result in
             
             DispatchQueue.main.async {
@@ -113,10 +113,21 @@ extension TeamRankingViewController: UITableViewDataSource {
 extension TeamRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let teamInformationVC = TeamInformationViewController()
-//        teamInformationVC.selectedIndex = indexPath.row
-        navigationController?.pushViewController(teamInformationVC, animated: true)
-    }
+           let leagueResponse = teamRankings[indexPath.section] // 선택한 섹션의 리그 응답 가져오기
+           
+           // standings의 첫 번째 배열에서 현재 인덱스에 해당하는 팀 통계 정보 가져오기
+           if let standings = leagueResponse.league.standings,
+              let teamStats = standings.first?[indexPath.row] {
+               
+               // 팀 정보를 담을 객체 생성
+               let teamInfo = TeamInformation(id: teamStats.team.id, name: teamStats.team.name, logo: teamStats.team.logo)
+               
+               // TeamInformationViewController에 팀 정보 전달
+               let teamInformationVC = TeamInformationViewController()
+               teamInformationVC.teamInfo = teamInfo
+               navigationController?.pushViewController(teamInformationVC, animated: true)
+           }
+       }
 }
 
 extension TeamRankingViewController {
@@ -208,3 +219,13 @@ extension TeamRankingViewController {
     }
     
 }
+
+// MARK: - 넘겨줄 팀 정보
+
+///  넘겨줄 팀 정보
+struct TeamInformation {
+    let id: Int
+    let name: String
+    let logo: String
+}
+

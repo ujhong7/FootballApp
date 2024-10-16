@@ -13,7 +13,7 @@ class MatchInformationViewController: UIViewController {
     
     private let headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .systemBlue
         return view
     }()
     
@@ -50,9 +50,7 @@ class MatchInformationViewController: UIViewController {
         setupHeaderView()
         configureCollectionView()
         configureTableView()
-        
-        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+        setupObservers()
     }
     
     deinit {
@@ -152,6 +150,11 @@ class MatchInformationViewController: UIViewController {
             }
         }
     }
+    
+    private func setupObservers() {
+        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+    }
 
 }
 
@@ -204,7 +207,6 @@ extension MatchInformationViewController: UICollectionViewDataSource {
         cell.backgroundColor = .green
         return cell
     }
-    
     
 }
 

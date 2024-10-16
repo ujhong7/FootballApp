@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIImageView {
-    
     func loadImage(from urlString: String) {
         ImageCacheManager.shared.loadImage(from: urlString) { [weak self] image in
             DispatchQueue.main.async {
@@ -16,5 +15,4 @@ extension UIImageView {
             }
         }
     }
-    
 }

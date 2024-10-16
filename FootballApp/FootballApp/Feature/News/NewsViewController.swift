@@ -22,12 +22,13 @@ final class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .premierLeaguePurple)
-        NavigationTitleUtility.setupNavigationTitle(for: self, title: "뉴스")
         configureTableView()
         configureNavigationBar()
         configureSearchController()
         
         fetchNews() // 뉴스 데이터 가져오기
+        
+        
     }
     
     // MARK: - Method
