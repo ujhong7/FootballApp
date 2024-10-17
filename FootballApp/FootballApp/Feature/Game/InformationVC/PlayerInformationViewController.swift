@@ -1,15 +1,26 @@
 //
-//  MatchInformationViewController.swift
+//  PlayerInformationViewController.swift
 //  FootballApp
 //
-//  Created by yujaehong on 10/15/24.
+//  Created by yujaehong on 10/17/24.
 //
 
 import UIKit
 
-class MatchInformationViewController: UIViewController {
+class PlayerInformationViewController: UIViewController {
     
     // MARK: - Properties
+    
+    var playerRanking: PlayerRanking?
+    
+    init(playerRanking: PlayerRanking?) {
+        self.playerRanking = playerRanking
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     private let headerView: UIView = {
         let view = UIView()
@@ -17,21 +28,38 @@ class MatchInformationViewController: UIViewController {
         return view
     }()
     
-    private let teamNameLabel: UILabel = {
+    private let playerNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "팀 이름"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textAlignment = .center
         return label
     }()
     
-    private let teamLogoImageView: UIImageView = {
+    private let playerTeamLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let playerPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "teamLogo")
+        imageView.layer.cornerRadius = 50 // 원하는 반지름 값 설정
+        imageView.clipsToBounds = true // 모서리 자르기
+        return imageView
+    }()
+    
+    private let playeTeamImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private let tableView = UITableView()
+    
     private let menuTabCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -46,11 +74,13 @@ class MatchInformationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
+        setupNavigationBar()
+        setupBackgroundColor()
         setupHeaderView()
         configureCollectionView()
         configureTableView()
         setupObservers()
+        setDataPlayerInformation()
     }
     
     deinit {
@@ -59,14 +89,41 @@ class MatchInformationViewController: UIViewController {
     
     // MARK: - Methods
     
+    private func setupBackgroundColor() {
+        if let playerRanking = playerRanking {
+            view.backgroundColor = TeamColors.color(for: playerRanking.statistics.first?.team.name ?? "")
+            headerView.backgroundColor = TeamColors.color(for: playerRanking.statistics.first?.team.name ?? "")
+            menuTabCollectionView.backgroundColor = TeamColors.color(for: playerRanking.statistics.first?.team.name ?? "")
+        }
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+    }
+    
+    private func setDataPlayerInformation() {
+        if let playerRanking = playerRanking {
+            navigationItem.title = playerRanking.player.name
+            playerNameLabel.text = playerRanking.player.name
+            playerPhotoImageView.loadImage(from: playerRanking.player.photo)
+            playerTeamLabel.text = playerRanking.statistics.first?.team.name
+            playeTeamImageView.loadImage(from: playerRanking.statistics.first?.team.logo ?? "")
+        }
+    }
+    
     private func setupHeaderView() {
         view.addSubview(headerView)
-        headerView.addSubview(teamLogoImageView)
-        headerView.addSubview(teamNameLabel)
+        headerView.addSubview(playerPhotoImageView)
+        headerView.addSubview(playerNameLabel)
+        headerView.addSubview(playerTeamLabel)
+        headerView.addSubview(playeTeamImageView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        teamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        teamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        playerPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+        playerNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        playerTeamLabel.translatesAutoresizingMaskIntoConstraints = false
+        playeTeamImageView.translatesAutoresizingMaskIntoConstraints = false
         
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 100) // 초기 헤더 높이 설정
         headerViewHeightConstraint.isActive = true
@@ -76,19 +133,27 @@ class MatchInformationViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            teamLogoImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            teamLogoImageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
-            teamLogoImageView.widthAnchor.constraint(equalToConstant: 80), // 로고 이미지 너비
-            teamLogoImageView.heightAnchor.constraint(equalToConstant: 80), // 로고 이미지 높이
+            playerPhotoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            playerPhotoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
+            playerPhotoImageView.widthAnchor.constraint(equalToConstant: 80),
+            playerPhotoImageView.heightAnchor.constraint(equalToConstant: 80),
             
-            teamNameLabel.topAnchor.constraint(equalTo: teamLogoImageView.bottomAnchor, constant: 5),
-            teamNameLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            teamNameLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+            playerNameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -20),
+            playerNameLabel.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
+            
+            playerTeamLabel.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 7),
+            playerTeamLabel.leadingAnchor.constraint(equalTo: playeTeamImageView.trailingAnchor, constant: 9),
+            
+            playeTeamImageView.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 5),
+            playeTeamImageView.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
+            
+            playeTeamImageView.widthAnchor.constraint(equalToConstant: 30),
+            playeTeamImageView.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
     private func configureTableView() {
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ExTableViewCell.self, forCellReuseIdentifier: ExTableViewCell.identifier)
@@ -104,7 +169,6 @@ class MatchInformationViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        menuTabCollectionView.backgroundColor = .lightGray
         menuTabCollectionView.allowsMultipleSelection = false
         menuTabCollectionView.showsHorizontalScrollIndicator = false
         menuTabCollectionView.delegate = self
@@ -119,22 +183,33 @@ class MatchInformationViewController: UIViewController {
             menuTabCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             menuTabCollectionView.heightAnchor.constraint(equalToConstant: 40) // 원하는 높이로 설정
         ])
+        
+        menuTabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
     }
     
     // MARK: - KVO for scrolling
-    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentOffset" {
             guard let tableView = object as? UITableView else { return }
             let offset = tableView.contentOffset.y
-
+            
             // 헤더 뷰의 높이 조정
             if offset < 0 {
                 headerViewHeightConstraint.constant = 100 - offset // 스크롤이 위로 올라갈 때 헤더 뷰 높이 증가
             } else {
                 headerViewHeightConstraint.constant = max(0, 100 - offset) // 헤더 뷰 높이 감소
             }
-
+            
+            // 헤더 뷰의 알파 값 조정 (투명도)
+            let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
+            headerView.alpha = alpha
+            
+            // 타이틀 텍스트의 알파 값 조정
+            let titleAlpha = max(0, min(1, (offset - 60) / 40))
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(titleAlpha)
+            ]
+            
             // 컬렉션 뷰를 화면 상단에 고정
             if offset > 99 { // 60 포인트 이상 스크롤 시
                 UIView.animate(withDuration: 0.3, animations: {
@@ -155,18 +230,18 @@ class MatchInformationViewController: UIViewController {
         // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
         tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
     }
-
+    
 }
 
 // MARK: - UITableViewDelegate
 
-extension MatchInformationViewController: UITableViewDelegate {
+extension PlayerInformationViewController: UITableViewDelegate {
     
 }
 
 // MARK: - UITableViewDataSource
 
-extension MatchInformationViewController: UITableViewDataSource {
+extension PlayerInformationViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
@@ -174,7 +249,7 @@ extension MatchInformationViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ExTableViewCell.identifier, for: indexPath) as? ExTableViewCell else { return UITableViewCell() }
-        cell.backgroundColor = .blue
+        cell.backgroundColor = .systemBackground
         return cell
     }
     
@@ -182,7 +257,7 @@ extension MatchInformationViewController: UITableViewDataSource {
 
 // MARK: - UIScrollViewDelegate
 
-extension MatchInformationViewController: UIScrollViewDelegate {
+extension PlayerInformationViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == tableView {
             // 테이블 뷰의 컨텐츠 오프셋을 확인
@@ -196,7 +271,7 @@ extension MatchInformationViewController: UIScrollViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension MatchInformationViewController: UICollectionViewDataSource {
+extension PlayerInformationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -204,21 +279,30 @@ extension MatchInformationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = menuTabCollectionView.dequeueReusableCell(withReuseIdentifier: ExCollectionViewCell.identifier, for: indexPath) as? ExCollectionViewCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .green
         return cell
     }
+    
     
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension MatchInformationViewController: UICollectionViewDelegate {
+extension PlayerInformationViewController: UICollectionViewDelegate {
     
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+    //                cell.updateSelectionState() // 선택된 셀 상태 업데이트
+    //    }
+    //
+    //    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    //        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+    //        cell.updateSelectionState() // 선택 해제된 셀 상태 업데이트
+    //    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension MatchInformationViewController: UICollectionViewDelegateFlowLayout {
+extension PlayerInformationViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0 // 셀 간의 수평 간격을 0으로 설정

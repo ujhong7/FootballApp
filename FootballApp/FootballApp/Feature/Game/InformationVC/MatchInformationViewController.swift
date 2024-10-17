@@ -1,5 +1,5 @@
 //
-//  TeamInformationViewController.swift
+//  MatchInformationViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/15/24.
@@ -7,20 +7,21 @@
 
 import UIKit
 
-class TeamInformationViewController: UIViewController {
+class MatchInformationViewController: UIViewController {
     
     // MARK: - Properties
     
-    var teamInfo: TeamInformation?
+    // 🚨 수정필요
+//    var teamInfo: TeamInformation?
     
-    init(teamInfo: TeamInformation?) {
-        self.teamInfo = teamInfo
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+//    init(teamInfo: TeamInformation?) {
+//        self.teamInfo = teamInfo
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
     
     private let headerView: UIView = {
         let view = UIView()
@@ -58,11 +59,12 @@ class TeamInformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        setupBackgroundColor()
         setupHeaderView()
         configureCollectionView()
         configureTableView()
         setupObservers()
-        setupTeamInfo()
+        setDataTeamInformation()
     }
     
     deinit {
@@ -71,22 +73,26 @@ class TeamInformationViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func setupTeamInfo() {
-        print("⚽️ 팀이름: \(teamInfo?.name)")
-        teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
-        if let teamName = teamInfo?.name {
-            //titleView.text = teamName
-            navigationItem.title = teamName
-            teamNameLabel.text = teamName
-            headerView.backgroundColor = TeamColors.color(for: teamName)
-            view.backgroundColor = TeamColors.color(for: teamName)
-            menuTabCollectionView.backgroundColor = TeamColors.color(for: teamName)
-        }
+    private func setupBackgroundColor() {
+        view.backgroundColor = .premierLeaguePurple
+        headerView.backgroundColor = .premierLeaguePurple
+        menuTabCollectionView.backgroundColor = .premierLeaguePurple
     }
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+    }
+    
+    private func setDataTeamInformation() {
+        // 🚨 수정필요
+//        print("⚽️ 팀이름: \(teamInfo?.name)")
+//        teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
+//        if let teamName = teamInfo?.name {
+//            //titleView.text = teamName
+//            navigationItem.title = teamName
+//            teamNameLabel.text = teamName
+//        }
     }
     
     private func setupHeaderView() {
@@ -133,7 +139,6 @@ class TeamInformationViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        menuTabCollectionView.backgroundColor = .systemBackground
         menuTabCollectionView.allowsMultipleSelection = false
         menuTabCollectionView.showsHorizontalScrollIndicator = false
         menuTabCollectionView.delegate = self
@@ -200,13 +205,13 @@ class TeamInformationViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 
-extension TeamInformationViewController: UITableViewDelegate {
+extension MatchInformationViewController: UITableViewDelegate {
     
 }
 
 // MARK: - UITableViewDataSource
 
-extension TeamInformationViewController: UITableViewDataSource {
+extension MatchInformationViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
@@ -222,7 +227,7 @@ extension TeamInformationViewController: UITableViewDataSource {
 
 // MARK: - UIScrollViewDelegate
 
-extension TeamInformationViewController: UIScrollViewDelegate {
+extension MatchInformationViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == tableView {
             // 테이블 뷰의 컨텐츠 오프셋을 확인
@@ -236,7 +241,7 @@ extension TeamInformationViewController: UIScrollViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension TeamInformationViewController: UICollectionViewDataSource {
+extension MatchInformationViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -252,7 +257,7 @@ extension TeamInformationViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension TeamInformationViewController: UICollectionViewDelegate {
+extension MatchInformationViewController: UICollectionViewDelegate {
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     //        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
@@ -267,7 +272,7 @@ extension TeamInformationViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension TeamInformationViewController: UICollectionViewDelegateFlowLayout {
+extension MatchInformationViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0 // 셀 간의 수평 간격을 0으로 설정
