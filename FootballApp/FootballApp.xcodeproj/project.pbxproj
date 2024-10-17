@@ -55,6 +55,7 @@
 		1D6193392CBEA27A003E4CD3 /* TeamInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */; };
 		1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */; };
 		1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */; };
+		1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInformationViewController.swift; sourceTree = "<group>"; };
 		1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTableViewCell.swift; sourceTree = "<group>"; };
+		1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				1D02452B2CB8E29800650293 /* Config.xcconfig */,
 				1D0245272CB8DC2300650293 /* Const.swift */,
 				1D0245132CB440E100650293 /* TeamAbbreviations.swift */,
+				1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */,
 				1D0244E52CAFA9B900650293 /* Delegates */,
 				1D0244BC2CAF94C900650293 /* FootballApp */,
 				1D0244BB2CAF94C900650293 /* Products */,
@@ -382,6 +385,7 @@
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
+				1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */,
 				1D0245262CB8D19400650293 /* FootballNetworkService.swift in Sources */,
 				1D6193372CBEA103003E4CD3 /* MatchInformationViewController.swift in Sources */,
 				1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */,

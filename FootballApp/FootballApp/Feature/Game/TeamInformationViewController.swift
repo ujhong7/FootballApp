@@ -13,14 +13,14 @@ class TeamInformationViewController: UIViewController {
     
     var teamInfo: TeamInformation?
     
-    private let titleView: UILabel = {
-        let label = UILabel()
-        label.text = "팀 이름 navi"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
-        label.alpha = 0 // 처음에는 보이지 않게 설정
-        return label
-    }()
+    init(teamInfo: TeamInformation?) {
+        self.teamInfo = teamInfo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     private let headerView: UIView = {
         let view = UIView()
@@ -30,7 +30,6 @@ class TeamInformationViewController: UIViewController {
     
     private let teamNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "팀 이름"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
@@ -40,7 +39,6 @@ class TeamInformationViewController: UIViewController {
     private let teamLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-//        imageView.image = UIImage(named: "TOT")
         return imageView
     }()
     
@@ -59,31 +57,12 @@ class TeamInformationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("")
-//        NavigationBarUtility.setupNavigationBarAppearance(for: navigationController, backgroundColor: .systemBlue)
-        view.backgroundColor = .systemBlue
+        setupNavigationBar()
         setupHeaderView()
         configureCollectionView()
         configureTableView()
-        setupTitleView() // 🚨
         setupObservers()
         setupTeamInfo()
-        print("TitleView Alpha in viewDidLoad: \(titleView.alpha)")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("TitleView Alpha in viewWillAppear: \(titleView.alpha)")
-        titleView.alpha = 0
-        print("TitleView Alpha in viewWillAppear: \(titleView.alpha)")
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("🤮🤮🤮🤮🤮 TitleView Alpha in viewDidAppear: \(titleView.alpha)")
-        //        titleView.alpha = 0
-        //        print("🚨TitleView Alpha in viewDidAppear: \(titleView.alpha)") // 🚨
     }
     
     deinit {
@@ -93,15 +72,21 @@ class TeamInformationViewController: UIViewController {
     // MARK: - Methods
     
     private func setupTeamInfo() {
-        titleView.text = teamInfo?.name
-        teamNameLabel.text = teamInfo?.name
+        print("⚽️ 팀이름: \(teamInfo?.name)")
         teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
+        if let teamName = teamInfo?.name {
+            //titleView.text = teamName
+            navigationItem.title = teamName
+            teamNameLabel.text = teamName
+            headerView.backgroundColor = TeamColors.color(for: teamName)
+            view.backgroundColor = TeamColors.color(for: teamName)
+            menuTabCollectionView.backgroundColor = TeamColors.color(for: teamName)
+        }
     }
     
-    // 🚨
-    private func setupTitleView() {
-        navigationItem.titleView = titleView // 네비게이션 바의 타이틀 뷰로 설정
-        navigationItem.titleView?.alpha = 0
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
     }
     
     private func setupHeaderView() {
@@ -168,7 +153,6 @@ class TeamInformationViewController: UIViewController {
     }
     
     // MARK: - KVO for scrolling
-    // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentOffset" {
             guard let tableView = object as? UITableView else { return }
@@ -184,11 +168,12 @@ class TeamInformationViewController: UIViewController {
             // 헤더 뷰의 알파 값 조정 (투명도)
             let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
             headerView.alpha = alpha
-            
-            // 타이틀 뷰의 알파 값 조정
-            titleView.alpha = max(0, min(1, (offset - 60) / 40)) // 60 포인트 스크롤 시 서서히 나타남
-            print("✅ Offset: \(offset), TitleView Alpha: \(titleView.alpha)")
-
+           
+            // 타이틀 텍스트의 알파 값 조정
+            let titleAlpha = max(0, min(1, (offset - 60) / 40))
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(titleAlpha)
+            ]
             
             // 컬렉션 뷰를 화면 상단에 고정
             if offset > 99 { // 60 포인트 이상 스크롤 시
@@ -269,15 +254,15 @@ extension TeamInformationViewController: UICollectionViewDataSource {
 
 extension TeamInformationViewController: UICollectionViewDelegate {
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
-//                cell.updateSelectionState() // 선택된 셀 상태 업데이트
-//    }
-//    
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
-//        cell.updateSelectionState() // 선택 해제된 셀 상태 업데이트
-//    }
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+    //                cell.updateSelectionState() // 선택된 셀 상태 업데이트
+    //    }
+    //
+    //    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    //        guard let cell = menuTabCollectionView.cellForItem(at: indexPath) as? ExCollectionViewCell else { return }
+    //        cell.updateSelectionState() // 선택 해제된 셀 상태 업데이트
+    //    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

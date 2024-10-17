@@ -50,7 +50,7 @@ class ExCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCell() {
-        contentView.backgroundColor = .systemBlue
+//        contentView.backgroundColor = .systemBlue
     }
     
     private func setupLabel() {
