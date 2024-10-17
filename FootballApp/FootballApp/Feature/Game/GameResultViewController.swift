@@ -90,7 +90,7 @@ final class GameResultViewController: UIViewController {
             switch result {
             case .success(let response):
                 print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")
-                print(response)
+                dump(response)
                 self?.fixtures = response.response.reversed()
                 self?.filteredFixtures = self?.fixtures ?? []
                 DispatchQueue.main.async {
@@ -135,7 +135,10 @@ extension GameResultViewController: UITableViewDataSource {
 
 extension GameResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let matchInformationVC = MatchInformationViewController()
+        // 선택된 fixture를 가져옴
+        let selectedFixture = filteredFixtures[indexPath.row]
+        // MatchInformationViewController에 fixture 데이터를 전달
+        let matchInformationVC = MatchInformationViewController(fixture: selectedFixture)
         navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }

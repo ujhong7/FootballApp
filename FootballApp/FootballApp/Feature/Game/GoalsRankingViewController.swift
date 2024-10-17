@@ -96,8 +96,11 @@ extension GoalsRankingViewController: UITableViewDataSource {
 extension GoalsRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 선택된 선수 정보를 가져옴
+        let selectedPlayer = scorers[indexPath.row]
+        let playerInformationVC = PlayerInformationViewController(playerRanking: selectedPlayer)
+        navigationController?.pushViewController(playerInformationVC, animated: true)
     }
-    
 }
 
 // MARK: - configureTableHeaderView
@@ -160,6 +163,4 @@ extension GoalsRankingViewController {
         // 테이블뷰의 tableHeaderView에 설정
         tableView.tableHeaderView = headerView
     }
-    
-    
 }

@@ -11,39 +11,87 @@ class MatchInformationViewController: UIViewController {
     
     // MARK: - Properties
     
-    // 🚨 수정필요
-//    var teamInfo: TeamInformation?
+    var fixture: Fixture?  // 전달받은 경기 정보
     
-//    init(teamInfo: TeamInformation?) {
-//        self.teamInfo = teamInfo
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
+    // 커스텀 이니셜라이저로 Fixture 데이터 전달
+    init(fixture: Fixture?) {
+        self.fixture = fixture
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     private let headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBlue
         return view
     }()
     
-    private let teamNameLabel: UILabel = {
+    private let homeTeamNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textAlignment = .center
+        label.numberOfLines = 2
         return label
     }()
     
-    private let teamLogoImageView: UIImageView = {
+    private let awayTeamNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    private let homeTeamLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
+    private let awayTeamLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let homeTeamGoalsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let awayTeamGoalsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
     private let tableView = UITableView()
+    
     private let menuTabCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -58,13 +106,13 @@ class MatchInformationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDataMatchInformation()
         setupNavigationBar()
         setupBackgroundColor()
         setupHeaderView()
         configureCollectionView()
         configureTableView()
         setupObservers()
-        setDataTeamInformation()
     }
     
     deinit {
@@ -84,25 +132,49 @@ class MatchInformationViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
     }
     
-    private func setDataTeamInformation() {
-        // 🚨 수정필요
-//        print("⚽️ 팀이름: \(teamInfo?.name)")
-//        teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
-//        if let teamName = teamInfo?.name {
-//            //titleView.text = teamName
-//            navigationItem.title = teamName
-//            teamNameLabel.text = teamName
-//        }
+    private func setDataMatchInformation() {
+        // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+        // 전달된 fixture를 사용하여 UI 업데이트
+        if let fixture = fixture {
+            print("Fixture info: \(fixture)")
+            // UI에 경기 정보 표시하는 코드 추가
+            let homeTeam = fixture.teams.home
+            let awayTeam = fixture.teams.away
+            let homeGoals = fixture.goals.home
+            let awayGoals = fixture.goals.away
+            let status = fixture.fixture.status.long
+            let date = fixture.fixture.date
+            
+            homeTeamNameLabel.text = homeTeam.name
+            homeTeamLogoImageView.loadImage(from: homeTeam.logo)
+            awayTeamNameLabel.text = awayTeam.name
+            awayTeamLogoImageView.loadImage(from: awayTeam.logo)
+            homeTeamGoalsLabel.text = "\(homeGoals ?? 0)"
+            awayTeamGoalsLabel.text = "\(awayGoals ?? 0)"
+            navigationItem.title = "\(teamAbbreviations[homeTeam.name] ?? homeTeam.name)     \(homeGoals ?? 0)   -   \(awayGoals ?? 0)     \(teamAbbreviations[awayTeam.name] ?? awayTeam.name)"
+        }
     }
     
     private func setupHeaderView() {
         view.addSubview(headerView)
-        headerView.addSubview(teamLogoImageView)
-        headerView.addSubview(teamNameLabel)
+        headerView.addSubview(homeTeamNameLabel)
+        headerView.addSubview(awayTeamNameLabel)
+        headerView.addSubview(homeTeamLogoImageView)
+        headerView.addSubview(awayTeamLogoImageView)
+        headerView.addSubview(homeTeamGoalsLabel)
+        headerView.addSubview(awayTeamGoalsLabel)
+        headerView.addSubview(statusLabel)
+        headerView.addSubview(dateLabel)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        teamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        teamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 100) // 초기 헤더 높이 설정
         headerViewHeightConstraint.isActive = true
@@ -112,13 +184,28 @@ class MatchInformationViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            teamLogoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            teamLogoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
-            teamLogoImageView.widthAnchor.constraint(equalToConstant: 80), // 로고 이미지 너비
-            teamLogoImageView.heightAnchor.constraint(equalToConstant: 80), // 로고 이미지 높이
+            homeTeamGoalsLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -10),
+            homeTeamGoalsLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor, constant: -40),
+            awayTeamGoalsLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -10),
+            awayTeamGoalsLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor, constant: 40),
             
-            teamNameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            teamNameLabel.leadingAnchor.constraint(equalTo: teamLogoImageView.trailingAnchor, constant: 15),
+            homeTeamLogoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 40),
+            homeTeamLogoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -20),
+            awayTeamLogoImageView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -40),
+            awayTeamLogoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -20),
+            
+            homeTeamLogoImageView.widthAnchor.constraint(equalToConstant: 45),
+            homeTeamLogoImageView.heightAnchor.constraint(equalToConstant: 45),
+            awayTeamLogoImageView.widthAnchor.constraint(equalToConstant: 45),
+            awayTeamLogoImageView.heightAnchor.constraint(equalToConstant: 45),
+            
+            homeTeamNameLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 15),
+            homeTeamNameLabel.topAnchor.constraint(equalTo: homeTeamLogoImageView.bottomAnchor, constant: 10),
+            awayTeamNameLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
+            awayTeamNameLabel.topAnchor.constraint(equalTo: awayTeamLogoImageView.bottomAnchor, constant: 10),
+            
+            homeTeamNameLabel.widthAnchor.constraint(equalToConstant: 100),
+            awayTeamNameLabel.widthAnchor.constraint(equalToConstant: 100),
         ])
     }
     
@@ -173,7 +260,7 @@ class MatchInformationViewController: UIViewController {
             // 헤더 뷰의 알파 값 조정 (투명도)
             let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
             headerView.alpha = alpha
-           
+            
             // 타이틀 텍스트의 알파 값 조정
             let titleAlpha = max(0, min(1, (offset - 60) / 40))
             navigationController?.navigationBar.titleTextAttributes = [

@@ -56,6 +56,7 @@
 		1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */; };
 		1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */; };
 		1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */; };
+		1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		1D61933A2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExCollectionViewCell.swift; sourceTree = "<group>"; };
 		1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTableViewCell.swift; sourceTree = "<group>"; };
 		1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColors.swift; sourceTree = "<group>"; };
+		1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInformationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,8 +232,7 @@
 				1D0244F22CB0E04500650293 /* UpcomingMatchesViewController.swift */,
 				1D0244EE2CB0DC6B00650293 /* GoalsRankingViewController.swift */,
 				1D0244F02CB0DCA100650293 /* AssistsRankingViewController.swift */,
-				1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */,
-				1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */,
+				1D6193402CC0D809003E4CD3 /* InformationVC */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -265,8 +266,8 @@
 		1D0244F42CB0EF0E00650293 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1D0244F52CB0EF3000650293 /* MatchTableViewCell.swift */,
 				1D02450B2CB1175500650293 /* TeamRankingTableViewCell.swift */,
+				1D0244F52CB0EF3000650293 /* MatchTableViewCell.swift */,
 				1D02450D2CB1178C00650293 /* GoalsRankingTableViewCell.swift */,
 				1D02450F2CB1179800650293 /* AssistsRankingTableViewCell.swift */,
 				1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */,
@@ -294,6 +295,16 @@
 				1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		1D6193402CC0D809003E4CD3 /* InformationVC */ = {
+			isa = PBXGroup;
+			children = (
+				1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */,
+				1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */,
+				1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */,
+			);
+			path = InformationVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,6 +391,7 @@
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
 				1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */,
 				1D02450C2CB1175500650293 /* TeamRankingTableViewCell.swift in Sources */,
+				1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */,
 				1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */,
 				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,

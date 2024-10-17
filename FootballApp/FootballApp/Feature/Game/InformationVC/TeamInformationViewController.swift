@@ -43,6 +43,7 @@ class TeamInformationViewController: UIViewController {
     }()
     
     private let tableView = UITableView()
+    
     private let menuTabCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -78,6 +79,8 @@ class TeamInformationViewController: UIViewController {
             //titleView.text = teamName
             navigationItem.title = teamName
             teamNameLabel.text = teamName
+            
+            // 색
             headerView.backgroundColor = TeamColors.color(for: teamName)
             view.backgroundColor = TeamColors.color(for: teamName)
             menuTabCollectionView.backgroundColor = TeamColors.color(for: teamName)
@@ -108,8 +111,9 @@ class TeamInformationViewController: UIViewController {
             
             teamLogoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             teamLogoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
-            teamLogoImageView.widthAnchor.constraint(equalToConstant: 80), // 로고 이미지 너비
-            teamLogoImageView.heightAnchor.constraint(equalToConstant: 80), // 로고 이미지 높이
+            
+            teamLogoImageView.widthAnchor.constraint(equalToConstant: 80),
+            teamLogoImageView.heightAnchor.constraint(equalToConstant: 80),
             
             teamNameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             teamNameLabel.leadingAnchor.constraint(equalTo: teamLogoImageView.trailingAnchor, constant: 15),
