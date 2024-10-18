@@ -15,6 +15,12 @@ final class TeamRankingViewController: UIViewController {
     private let footballService = FootballNetworkService()
     private var teamRankings: [LeagueResponse] = []
     private let loadingIndicatorView = LoadingIndicatorView()
+    private let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: - LifeCycle
     
@@ -29,7 +35,7 @@ final class TeamRankingViewController: UIViewController {
     // MARK: - Methods
     
     private func configureTableView() {
-        tableView.backgroundColor = .premierLeagueBackgroundColor
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TeamRankingTableViewCell.self, forCellReuseIdentifier: TeamRankingTableViewCell.identifier)
@@ -122,7 +128,10 @@ extension TeamRankingViewController {
     private func configureTableHeaderView() {
         // 헤더 뷰의 높이와 넓이를 설정
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        headerView.backgroundColor = .premierLeagueBackgroundColor
+        headerView.backgroundColor = .systemBackground
+        
+        // separatorLine 추가
+        headerView.addSubview(separatorLine)
         
         // 헤더의 UI 요소들 생성
         let rankLabel = UILabel()
@@ -152,7 +161,7 @@ extension TeamRankingViewController {
         let labels = [rankLabel, teamLabel, matchesLabel, pointsLabel, winsLabel, drawsLabel, lossesLabel, goalDifferenceLabel, goalsForLabel, goalsAgainstLabel]
         labels.forEach { label in
             label.font = UIFont.boldSystemFont(ofSize: 10)
-            label.textColor = .premierLeaguePurple
+            label.textColor = .black
             headerView.addSubview(label)
             label.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -198,6 +207,12 @@ extension TeamRankingViewController {
             // 실점 레이블 위치 설정
             goalsAgainstLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 345),
             goalsAgainstLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            
+            // separatorLine 레이아웃 설정
+            separatorLine.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 0.5)
         ])
         
         // 테이블뷰의 tableHeaderView에 설정

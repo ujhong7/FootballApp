@@ -12,15 +12,31 @@ class RoundTabCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = "RoundCollectionViewCell"
-    private let roundLabel = UILabel()
+    
+    private let roundLabel: UILabel = {
+        let label = UILabel()
+        label.text = "예시"
+        label.textColor = .gray
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let selectedBar: UIView = {
+        let bar = UIView()
+        bar.backgroundColor = .premierLeaguePurple
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.isHidden = false
+        return bar
+    }()
     
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
         setupConstraints()
-//        self.backgroundColor = .red
+        setupSelectedBar()
     }
     
     required init?(coder: NSCoder) {
@@ -30,20 +46,9 @@ class RoundTabCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Methods
     
-    private func setupUI() {
-        roundLabel.backgroundColor = .premierLeagueBackgroundColor
-        roundLabel.textColor = .premierLeaguePurple
-        roundLabel.font = .systemFont(ofSize: 16, weight: .bold)
-        roundLabel.layer.cornerRadius = 10
-        roundLabel.layer.masksToBounds = true
-        roundLabel.layer.borderWidth = 1
-        roundLabel.layer.borderColor = UIColor.premierLeaguePurple.cgColor
-        roundLabel.textAlignment = .center
+    private func setupConstraints() {
         roundLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(roundLabel)
-    }
-    
-    private func setupConstraints() {
         NSLayoutConstraint.activate([
             roundLabel.widthAnchor.constraint(equalToConstant: 45),
             roundLabel.heightAnchor.constraint(equalToConstant: 30),
@@ -52,12 +57,22 @@ class RoundTabCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    private func setupSelectedBar() {
+        contentView.addSubview(selectedBar)
+        NSLayoutConstraint.activate([
+            selectedBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            selectedBar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            selectedBar.heightAnchor.constraint(equalToConstant: 8),
+            selectedBar.widthAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
     func configure(round: Int) {
         roundLabel.text = "\(round) R"
     }
     
-    func changeBackgroundColor(isSelected: Bool) {
-        roundLabel.backgroundColor = isSelected ? .premierLeaguePurple : .premierLeagueBackgroundColor
-        roundLabel.textColor = isSelected ? .white : .premierLeaguePurple
+    func changeSelectedColor(isSelected: Bool) {
+        roundLabel.textColor = isSelected ? .premierLeaguePurple : .gray
+        selectedBar.isHidden = !isSelected // 선택되면 표시, 아니면 숨김
     }
 }

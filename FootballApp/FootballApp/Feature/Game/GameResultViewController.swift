@@ -12,12 +12,20 @@ final class GameResultViewController: UIViewController {
     // MARK: - Properties
     
     private let tableView = UITableView()
+    
     private let roundTabCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
+    }()
+    
+    private let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let footballService = FootballNetworkService()
@@ -40,7 +48,7 @@ final class GameResultViewController: UIViewController {
     // MARK: - Methods
     
     private func configureTableView() {
-        tableView.backgroundColor = .premierLeagueBackgroundColor
+        tableView.backgroundColor = .systemBackground
         tableView.rowHeight = 58 // 🚨
         tableView.isScrollEnabled = false
         tableView.delegate = self
@@ -57,7 +65,7 @@ final class GameResultViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        roundTabCollectionView.backgroundColor = .premierLeagueBackgroundColor
+        roundTabCollectionView.backgroundColor = .systemBackground
         roundTabCollectionView.allowsMultipleSelection = false
         roundTabCollectionView.showsHorizontalScrollIndicator = false
         roundTabCollectionView.delegate = self
@@ -69,11 +77,16 @@ final class GameResultViewController: UIViewController {
     private func setupTableViewHeaderView() {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
         headerView.addSubview(roundTabCollectionView)
+        headerView.addSubview(separatorLine)
         NSLayoutConstraint.activate([
             roundTabCollectionView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
             roundTabCollectionView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             roundTabCollectionView.topAnchor.constraint(equalTo: headerView.topAnchor),
-            roundTabCollectionView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+            roundTabCollectionView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 0.5),
+            separatorLine.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
         ])
         tableView.tableHeaderView = headerView
     }
@@ -158,7 +171,7 @@ extension GameResultViewController: UICollectionViewDataSource {
         let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
         let reverseIndex = totalCount - indexPath.row
         cell.configure(round: reverseIndex)
-        cell.changeBackgroundColor(isSelected: indexPath == selectedTabIndex)
+        cell.changeSelectedColor(isSelected: indexPath == selectedTabIndex)
         return cell
     }
 }
@@ -171,17 +184,17 @@ extension GameResultViewController: UICollectionViewDelegate {
         let index = totalCount - indexPath.row
         filterFixturesByRound(roundNumber: index)
         if let previousCell = collectionView.cellForItem(at: selectedTabIndex) as? RoundTabCollectionViewCell {
-            previousCell.changeBackgroundColor(isSelected: false)
+            previousCell.changeSelectedColor(isSelected: false)
         }
         selectedTabIndex = indexPath
         if let cell = collectionView.cellForItem(at: indexPath) as? RoundTabCollectionViewCell {
-            cell.changeBackgroundColor(isSelected: true)
+            cell.changeSelectedColor(isSelected: true)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? RoundTabCollectionViewCell {
-            cell.changeBackgroundColor(isSelected: false)
+            cell.changeSelectedColor(isSelected: false)
         }
     }
 }

@@ -11,7 +11,6 @@ class ExCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ExCollectionViewCell"
     
-    // 레이블 정의
     private let label: UILabel = {
         let label = UILabel()
         label.text = "예시"
@@ -22,12 +21,11 @@ class ExCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    // 선택된 셀을 표시할 하단 바 정의
     private let selectedBar: UIView = {
         let bar = UIView()
         bar.backgroundColor = .white
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.isHidden = true // 기본적으로 숨김
+        bar.isHidden = true
         return bar
     }()
     
@@ -65,15 +63,10 @@ class ExCollectionViewCell: UICollectionViewCell {
     
     private func setupSelectedBar() {
         contentView.addSubview(selectedBar)
-        
-        // 선택된 상태를 보여줄 바의 오토레이아웃 설정
         NSLayoutConstraint.activate([
             selectedBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             selectedBar.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//            selectedBar.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            selectedBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-//            selectedBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 25),
-            selectedBar.heightAnchor.constraint(equalToConstant: 4), // 바의 높이 설정
+            selectedBar.heightAnchor.constraint(equalToConstant: 4),
             selectedBar.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -84,10 +77,10 @@ class ExCollectionViewCell: UICollectionViewCell {
             label.textColor = .white
             label.textAlignment = .center
             label.font = .boldSystemFont(ofSize: 17)
-            selectedBar.isHidden = false // 선택된 셀에 하단 바 표시
+            selectedBar.isHidden = false
         } else {
             label.textColor = .systemGray6
-            selectedBar.isHidden = true // 선택되지 않은 셀에 바 숨김
+            selectedBar.isHidden = true
         }
     }
 }

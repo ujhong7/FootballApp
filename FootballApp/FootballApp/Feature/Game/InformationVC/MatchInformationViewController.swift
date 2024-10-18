@@ -122,9 +122,9 @@ class MatchInformationViewController: UIViewController {
     // MARK: - Methods
     
     private func setupBackgroundColor() {
-        view.backgroundColor = .premierLeaguePurple
-        headerView.backgroundColor = .premierLeaguePurple
-        menuTabCollectionView.backgroundColor = .premierLeaguePurple
+        view.backgroundColor = .footballFieldGreen
+        headerView.backgroundColor = .footballFieldGreen
+        menuTabCollectionView.backgroundColor = .footballFieldGreen
     }
     
     private func setupNavigationBar() {

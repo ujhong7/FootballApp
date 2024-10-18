@@ -4,8 +4,8 @@
 //
 //  Created by yujaehong on 10/11/24.
 //
-
 //
+
 import UIKit
 
 class NavigationTitleUtility {
@@ -13,9 +13,8 @@ class NavigationTitleUtility {
     static func setupNavigationTitle(for viewController: UIViewController, title: String) {
         let titleLabel = UILabel()
         titleLabel.text = title
-//        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
         titleLabel.font = UIFont(name: "AvenirNext-Bold", size: 22) ?? UIFont.boldSystemFont(ofSize: 22) // 기본 폰트 설정
-        titleLabel.textColor = .white
+        titleLabel.textColor = .white // premierLeaguePurple
         titleLabel.textAlignment = .center
         
         viewController.navigationItem.titleView = titleLabel

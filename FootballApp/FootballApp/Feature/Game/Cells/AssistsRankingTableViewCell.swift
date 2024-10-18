@@ -24,7 +24,7 @@ class AssistsRankingTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .premierLeagueBackgroundColor
+        self.backgroundColor = .systemBackground
         setupUI()
         setupConstraints()
     }
@@ -41,10 +41,10 @@ class AssistsRankingTableViewCell: UITableViewCell {
         playerImageView.layer.cornerRadius = 20
         
         // 레이블의 텍스트 색상 설정
-        rankLabel.textColor = .premierLeaguePurple
-        playerNameLabel.textColor = .premierLeaguePurple
-        matchesLabel.textColor = .premierLeaguePurple
-        assistsLabel.textColor = .premierLeaguePurple
+        rankLabel.textColor = .black
+        playerNameLabel.textColor = .black
+        matchesLabel.textColor = .black
+        assistsLabel.textColor = .black
         
         teamLogoImageView.contentMode = .scaleAspectFit
         teamLogoImageView.clipsToBounds = true

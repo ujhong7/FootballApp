@@ -29,7 +29,7 @@ class TeamRankingTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .premierLeagueBackgroundColor
+        self.backgroundColor = .systemBackground
         setupUI()
         setupConstraints()
     }
@@ -45,7 +45,7 @@ class TeamRankingTableViewCell: UITableViewCell {
             let normalLabels = [matchesLabel, winsLabel, drawsLabel, lossesLabel,
                                 goalDifferenceLabel, goalsForLabel, goalsAgainstLabel]
             normalLabels.forEach {
-                $0.textColor = .premierLeaguePurple // 텍스트 색상 설정
+                $0.textColor = .black // 텍스트 색상 설정
                 $0.font = .systemFont(ofSize: 12) // 일반 폰트 설정
                 contentView.addSubview($0) // 레이블 추가
                 $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정
@@ -53,7 +53,7 @@ class TeamRankingTableViewCell: UITableViewCell {
         
         let boldLabels = [rankLabel, teamNameLabel, pointsLabel]
            boldLabels.forEach {
-               $0.textColor = .premierLeaguePurple // 텍스트 색상 설정
+               $0.textColor = .black // 텍스트 색상 설정
                $0.font = .boldSystemFont(ofSize: 14) // 볼드 폰트 설정
                contentView.addSubview($0) // 레이블 추가
                $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정

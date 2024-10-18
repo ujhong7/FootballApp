@@ -15,6 +15,12 @@ final class GoalsRankingViewController: UIViewController {
     private let footballService = FootballNetworkService()
     private var scorers: [PlayerRanking] = []
     private let loadingIndicatorView = LoadingIndicatorView()
+    private let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK: - LifeCycle
     
@@ -30,7 +36,7 @@ final class GoalsRankingViewController: UIViewController {
     // MARK: - Methods
     
     private func configureTableView() {
-        tableView.backgroundColor = .premierLeagueBackgroundColor
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(GoalsRankingTableViewCell.self, forCellReuseIdentifier: GoalsRankingTableViewCell.identifier)
@@ -110,7 +116,10 @@ extension GoalsRankingViewController {
     private func configureTableHeaderView() {
         // 헤더 뷰의 높이와 넓이를 설정
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        headerView.backgroundColor = .premierLeagueBackgroundColor
+        headerView.backgroundColor = .systemBackground
+        
+        // separatorLine 추가
+        headerView.addSubview(separatorLine)
         
         // UI 요소들 생성
         let rankLabel = UILabel()
@@ -157,7 +166,13 @@ extension GoalsRankingViewController {
             
             // 골 수 레이블 위치 설정
             goalsLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-            goalsLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            goalsLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            
+            // separatorLine 레이아웃 설정
+            separatorLine.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 0.5)
         ])
         
         // 테이블뷰의 tableHeaderView에 설정

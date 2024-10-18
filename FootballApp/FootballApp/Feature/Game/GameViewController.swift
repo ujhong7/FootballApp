@@ -23,7 +23,7 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .premierLeaguePurple
+        view.backgroundColor = .premierLeaguePurple // white
         setupNavigationBar()
         setupSegmentedControl()
         setupInitialView()
@@ -61,11 +61,14 @@ final class GameViewController: UIViewController {
     
     private func setupSegmentedControl() {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        // 선택되지 않은 세그먼트의 텍스트 색상을 화이트로 설정
-        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-        // 선택된 세그먼트의 텍스트 색상 설정
-        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.premierLeaguePurple], for: .selected)
+        // 선택되지 않은 세그먼트의 텍스트 색상
+        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal) // gray
+        // 선택된 세그먼트의 텍스트 색상
+        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.premierLeaguePurple, .font: UIFont.boldSystemFont(ofSize: 14)], for: .selected)
+        // 선택되지 않은 세그먼트의 배경색
+        segmentedControl.backgroundColor = UIColor.systemGray6 // systemGray6
+        // 선택된 세그먼트의 배경색
+        segmentedControl.selectedSegmentTintColor = .white // premierLeaguePurple
         
         view.addSubview(segmentedControl)
         

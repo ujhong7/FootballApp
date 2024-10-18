@@ -39,14 +39,12 @@ final class MainTabController: UITabBarController {
          // 탭 바의 외관 설정
          let appearance = UITabBarAppearance()
          appearance.configureWithOpaqueBackground() // 불투명 배경 설정
-         appearance.backgroundColor = .premierLeaguePurple // 원하는 배경색 설정
+         appearance.backgroundColor = .systemGray4 // 원하는 배경색 설정
          appearance.stackedLayoutAppearance.normal.iconColor = .white // 일반 상태 아이콘 색상
          appearance.stackedLayoutAppearance.selected.iconColor = .white // 선택 상태 아이콘 색상 (예: 노란색으로 설정)
-         
          // Appearance를 탭 바에 적용
          tabBar.standardAppearance = appearance
          tabBar.scrollEdgeAppearance = appearance // 스크롤 시에도 동일한 Appearance 유지
-         
          tabBar.isTranslucent = false // 투명도 설정
      }
     

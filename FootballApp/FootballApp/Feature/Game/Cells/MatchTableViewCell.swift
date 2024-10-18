@@ -26,7 +26,7 @@ class MatchTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .premierLeagueBackgroundColor
+        self.backgroundColor = .systemBackground
         setupUI()
         setupConstraints()
     }
@@ -48,12 +48,12 @@ class MatchTableViewCell: UITableViewCell {
         dateLabel.font = .systemFont(ofSize: 14, weight: .medium)
         
         // 텍스트 색상 설정
-        homeTeamNameLabel.textColor = .premierLeaguePurple
-        awayTeamNameLabel.textColor = .premierLeaguePurple
-        homeGoalsLabel.textColor = .premierLeaguePurple
-        awayGoalsLabel.textColor = .premierLeaguePurple
-        statusLabel.textColor = .premierLeaguePurple
-        dateLabel.textColor = .premierLeaguePurple
+        homeTeamNameLabel.textColor = .black
+        awayTeamNameLabel.textColor = .black
+        homeGoalsLabel.textColor = .black
+        awayGoalsLabel.textColor = .black
+        statusLabel.textColor = .black
+        dateLabel.textColor = .black
         
         
         homeTeamNameLabel.numberOfLines = 2
