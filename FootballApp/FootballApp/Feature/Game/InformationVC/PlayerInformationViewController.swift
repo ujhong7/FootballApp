@@ -118,35 +118,31 @@ class PlayerInformationViewController: UIViewController {
         headerView.addSubview(playerNameLabel)
         headerView.addSubview(playerTeamLabel)
         headerView.addSubview(playeTeamImageView)
-        
         headerView.translatesAutoresizingMaskIntoConstraints = false
         playerPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
         playerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         playerTeamLabel.translatesAutoresizingMaskIntoConstraints = false
         playeTeamImageView.translatesAutoresizingMaskIntoConstraints = false
-        
         headerViewHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 100) // 초기 헤더 높이 설정
         headerViewHeightConstraint.isActive = true
-        
+        setupHeaderViewConstraints()
+    }
+    
+    private func setupHeaderViewConstraints() {
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
             playerPhotoImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             playerPhotoImageView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
             playerPhotoImageView.widthAnchor.constraint(equalToConstant: 80),
             playerPhotoImageView.heightAnchor.constraint(equalToConstant: 80),
-            
             playerNameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -20),
             playerNameLabel.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
-            
             playerTeamLabel.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 7),
             playerTeamLabel.leadingAnchor.constraint(equalTo: playeTeamImageView.trailingAnchor, constant: 9),
-            
             playeTeamImageView.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 5),
             playeTeamImageView.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
-            
             playeTeamImageView.widthAnchor.constraint(equalToConstant: 30),
             playeTeamImageView.heightAnchor.constraint(equalToConstant: 30),
         ])
@@ -159,7 +155,10 @@ class PlayerInformationViewController: UIViewController {
         tableView.register(ExTableViewCell.self, forCellReuseIdentifier: ExTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        
+        setupTableViewConstraints()
+    }
+    
+    private func setupTableViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: menuTabCollectionView.bottomAnchor), // 컬렉션 뷰 아래에서 시작
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -175,60 +174,18 @@ class PlayerInformationViewController: UIViewController {
         menuTabCollectionView.dataSource = self
         menuTabCollectionView.translatesAutoresizingMaskIntoConstraints = false
         menuTabCollectionView.register(ExCollectionViewCell.self, forCellWithReuseIdentifier: ExCollectionViewCell.identifier)
+        menuTabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
         view.addSubview(menuTabCollectionView) // 뷰에 컬렉션 뷰 추가
-        
+        setupCollectionViewConstraints()
+    }
+    
+    private func setupCollectionViewConstraints() {
         NSLayoutConstraint.activate([
             menuTabCollectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor), // 헤더 뷰 아래에 위치
             menuTabCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             menuTabCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             menuTabCollectionView.heightAnchor.constraint(equalToConstant: 40) // 원하는 높이로 설정
         ])
-        
-        menuTabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
-    }
-    
-    // MARK: - KVO for scrolling
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentOffset" {
-            guard let tableView = object as? UITableView else { return }
-            let offset = tableView.contentOffset.y
-            
-            // 헤더 뷰의 높이 조정
-            if offset < 0 {
-                headerViewHeightConstraint.constant = 100 - offset // 스크롤이 위로 올라갈 때 헤더 뷰 높이 증가
-            } else {
-                headerViewHeightConstraint.constant = max(0, 100 - offset) // 헤더 뷰 높이 감소
-            }
-            
-            // 헤더 뷰의 알파 값 조정 (투명도)
-            let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
-            headerView.alpha = alpha
-            
-            // 타이틀 텍스트의 알파 값 조정
-            let titleAlpha = max(0, min(1, (offset - 60) / 40))
-            navigationController?.navigationBar.titleTextAttributes = [
-                .foregroundColor: UIColor.white.withAlphaComponent(titleAlpha)
-            ]
-            
-            // 컬렉션 뷰를 화면 상단에 고정
-            if offset > 99 { // 60 포인트 이상 스크롤 시
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.headerViewHeightConstraint.constant = 0 // 헤더 뷰 숨기기
-                    self.menuTabCollectionView.transform = CGAffineTransform(translationX: 0, y: -self.headerViewHeightConstraint.constant) // 컬렉션 뷰 고정
-                    self.view.layoutIfNeeded() // 레이아웃 업데이트
-                })
-            } else {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.menuTabCollectionView.transform = .identity // 원래 위치로 되돌리기
-                    self.view.layoutIfNeeded() // 레이아웃 업데이트
-                })
-            }
-        }
-    }
-    
-    private func setupObservers() {
-        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
-        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
     }
     
 }
@@ -318,4 +275,52 @@ extension PlayerInformationViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
     
+}
+
+// MARK: - KVO for scrolling
+
+extension PlayerInformationViewController {
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentOffset" {
+            guard let tableView = object as? UITableView else { return }
+            let offset = tableView.contentOffset.y
+            
+            // 헤더 뷰의 높이 조정
+            if offset < 0 {
+                headerViewHeightConstraint.constant = 100 - offset // 스크롤이 위로 올라갈 때 헤더 뷰 높이 증가
+            } else {
+                headerViewHeightConstraint.constant = max(0, 100 - offset) // 헤더 뷰 높이 감소
+            }
+            
+            // 헤더 뷰의 알파 값 조정 (투명도)
+            let alpha = max(0, min(1, 1 - (offset / 100))) // 최대 100 포인트 스크롤 시 완전히 투명해짐
+            headerView.alpha = alpha
+            
+            // 타이틀 텍스트의 알파 값 조정
+            let titleAlpha = max(0, min(1, (offset - 60) / 40))
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(titleAlpha)
+            ]
+            
+            // 컬렉션 뷰를 화면 상단에 고정
+            if offset > 99 { // 60 포인트 이상 스크롤 시
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.headerViewHeightConstraint.constant = 0 // 헤더 뷰 숨기기
+                    self.menuTabCollectionView.transform = CGAffineTransform(translationX: 0, y: -self.headerViewHeightConstraint.constant) // 컬렉션 뷰 고정
+                    self.view.layoutIfNeeded() // 레이아웃 업데이트
+                })
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.menuTabCollectionView.transform = .identity // 원래 위치로 되돌리기
+                    self.view.layoutIfNeeded() // 레이아웃 업데이트
+                })
+            }
+        }
+    }
+    
+    private func setupObservers() {
+        // 테이블 뷰의 스크롤 위치를 감지하는 이벤트 설정
+        tableView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
+    }
 }

@@ -57,6 +57,7 @@
 		1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */; };
 		1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */; };
 		1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */; };
+		1D6193442CC25813003E4CD3 /* TableViewScrollHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTableViewCell.swift; sourceTree = "<group>"; };
 		1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColors.swift; sourceTree = "<group>"; };
 		1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInformationViewController.swift; sourceTree = "<group>"; };
+		1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewScrollHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 				1D0245342CB9385A00650293 /* UILabel+Extension.swift */,
 				1D0245362CBA545D00650293 /* ImageCacheManager.swift */,
 				1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */,
+				1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */,
 				1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */,
 				1D02451A2CB4671800650293 /* DetailVideoViewController.swift in Sources */,
+				1D6193442CC25813003E4CD3 /* TableViewScrollHandler.swift in Sources */,
 				1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */,
 				1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */,
 				1D0245122CB2E56B00650293 /* StandingsModel.swift in Sources */,
