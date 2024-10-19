@@ -269,20 +269,6 @@ extension MatchInformationViewController: UITableViewDataSource {
     
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension MatchInformationViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == tableView {
-            // 테이블 뷰의 컨텐츠 오프셋을 확인
-            if tableView.contentOffset.y < 0 {
-                // 테이블 뷰의 스크롤을 막음
-                tableView.contentOffset.y = 0
-            }
-        }
-    }
-}
-
 // MARK: - UICollectionViewDataSource
 
 extension MatchInformationViewController: UICollectionViewDataSource {
@@ -332,6 +318,20 @@ extension MatchInformationViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
     
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension MatchInformationViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == tableView {
+            // 테이블 뷰의 컨텐츠 오프셋을 확인
+            if tableView.contentOffset.y < 0 {
+                // 테이블 뷰의 스크롤을 막음
+                tableView.contentOffset.y = 0
+            }
+        }
+    }
 }
 
 // MARK: - KVO for scrolling

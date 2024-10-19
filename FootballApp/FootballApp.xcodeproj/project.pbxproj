@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244BD2CAF94C900650293 /* AppDelegate.swift */; };
 		1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244BF2CAF94C900650293 /* SceneDelegate.swift */; };
-		1D0244C22CAF94C900650293 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0244C12CAF94C900650293 /* ViewController.swift */; };
 		1D0244C52CAF94C900650293 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1D0244C42CAF94C900650293 /* Base */; };
 		1D0244C72CAF94CB00650293 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D0244C62CAF94CB00650293 /* Assets.xcassets */; };
 		1D0244CA2CAF94CB00650293 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1D0244C92CAF94CB00650293 /* Base */; };
@@ -57,14 +56,20 @@
 		1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */; };
 		1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */; };
 		1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */; };
-		1D6193442CC25813003E4CD3 /* TableViewScrollHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */; };
+		1D6193462CC2ABBA003E4CD3 /* CategoryTabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193452CC2ABBA003E4CD3 /* CategoryTabTableViewCell.swift */; };
+		1D6193482CC2C376003E4CD3 /* TeamInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193472CC2C376003E4CD3 /* TeamInfoResponse.swift */; };
+		1D61934A2CC2C929003E4CD3 /* TeamInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193492CC2C929003E4CD3 /* TeamInformationTableViewCell.swift */; };
+		1D61934C2CC2E4DD003E4CD3 /* ExViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61934B2CC2E4DD003E4CD3 /* ExViewController.swift */; };
+		1D61934F2CC2E97C003E4CD3 /* Ex2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61934E2CC2E97C003E4CD3 /* Ex2ViewController.swift */; };
+		1D6193512CC2E9AF003E4CD3 /* Ex3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193502CC2E9AF003E4CD3 /* Ex3ViewController.swift */; };
+		1D6193532CC2E9BB003E4CD3 /* Ex4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193522CC2E9BB003E4CD3 /* Ex4ViewController.swift */; };
+		1D6193552CC2EA04003E4CD3 /* Ex5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D0244BA2CAF94C900650293 /* FootballApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FootballApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0244BD2CAF94C900650293 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D0244BF2CAF94C900650293 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1D0244C12CAF94C900650293 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1D0244C42CAF94C900650293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1D0244C62CAF94CB00650293 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D0244C92CAF94CB00650293 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -115,7 +120,14 @@
 		1D61933C2CBEC6D9003E4CD3 /* ExTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTableViewCell.swift; sourceTree = "<group>"; };
 		1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamColors.swift; sourceTree = "<group>"; };
 		1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInformationViewController.swift; sourceTree = "<group>"; };
-		1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewScrollHandler.swift; sourceTree = "<group>"; };
+		1D6193452CC2ABBA003E4CD3 /* CategoryTabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTabTableViewCell.swift; sourceTree = "<group>"; };
+		1D6193472CC2C376003E4CD3 /* TeamInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfoResponse.swift; sourceTree = "<group>"; };
+		1D6193492CC2C929003E4CD3 /* TeamInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInformationTableViewCell.swift; sourceTree = "<group>"; };
+		1D61934B2CC2E4DD003E4CD3 /* ExViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViewController.swift; sourceTree = "<group>"; };
+		1D61934E2CC2E97C003E4CD3 /* Ex2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex2ViewController.swift; sourceTree = "<group>"; };
+		1D6193502CC2E9AF003E4CD3 /* Ex3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex3ViewController.swift; sourceTree = "<group>"; };
+		1D6193522CC2E9BB003E4CD3 /* Ex4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex4ViewController.swift; sourceTree = "<group>"; };
+		1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex5ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +170,6 @@
 				1D0244DD2CAFA10C00650293 /* Network */,
 				1D0244E02CAFA6A300650293 /* Model */,
 				1D0244E62CAFA9D300650293 /* Feature */,
-				1D0244C12CAF94C900650293 /* ViewController.swift */,
 				1D0244C32CAF94C900650293 /* Main.storyboard */,
 				1D0244C62CAF94CB00650293 /* Assets.xcassets */,
 				1D0244C82CAF94CB00650293 /* LaunchScreen.storyboard */,
@@ -181,12 +192,13 @@
 		1D0244E02CAFA6A300650293 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1D0244E12CAFA6C300650293 /* NewsResponse.swift */,
 				1D0244FD2CB0FD6E00650293 /* FixtureModel.swift */,
 				1D0245012CB0FD9E00650293 /* PlayerRankingResponse.swift */,
 				1D0245112CB2E56B00650293 /* StandingsModel.swift */,
-				1D02451B2CB4684300650293 /* YouTubeResponse.swift */,
+				1D6193472CC2C376003E4CD3 /* TeamInfoResponse.swift */,
+				1D0244E12CAFA6C300650293 /* NewsResponse.swift */,
 				1D0245232CB52C0300650293 /* YouTubeCommentResponse.swift */,
+				1D02451B2CB4684300650293 /* YouTubeResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -273,6 +285,8 @@
 				1D02450D2CB1178C00650293 /* GoalsRankingTableViewCell.swift */,
 				1D02450F2CB1179800650293 /* AssistsRankingTableViewCell.swift */,
 				1D0245422CBCCCF200650293 /* RoundTabCollectionViewCell.swift */,
+				1D6193452CC2ABBA003E4CD3 /* CategoryTabTableViewCell.swift */,
+				1D6193492CC2C929003E4CD3 /* TeamInformationTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -295,7 +309,6 @@
 				1D0245342CB9385A00650293 /* UILabel+Extension.swift */,
 				1D0245362CBA545D00650293 /* ImageCacheManager.swift */,
 				1D02453E2CBCACB200650293 /* LoadingIndicatorView.swift */,
-				1D6193432CC25813003E4CD3 /* TableViewScrollHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -306,8 +319,21 @@
 				1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */,
 				1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */,
 				1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */,
+				1D61934D2CC2E961003E4CD3 /* Ex */,
 			);
 			path = InformationVC;
+			sourceTree = "<group>";
+		};
+		1D61934D2CC2E961003E4CD3 /* Ex */ = {
+			isa = PBXGroup;
+			children = (
+				1D61934B2CC2E4DD003E4CD3 /* ExViewController.swift */,
+				1D61934E2CC2E97C003E4CD3 /* Ex2ViewController.swift */,
+				1D6193502CC2E9AF003E4CD3 /* Ex3ViewController.swift */,
+				1D6193522CC2E9BB003E4CD3 /* Ex4ViewController.swift */,
+				1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */,
+			);
+			path = Ex;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,8 +410,8 @@
 				1D6193392CBEA27A003E4CD3 /* TeamInformationViewController.swift in Sources */,
 				1D0244EF2CB0DC6B00650293 /* GoalsRankingViewController.swift in Sources */,
 				1D0245282CB8DC2300650293 /* Const.swift in Sources */,
-				1D0244C22CAF94C900650293 /* ViewController.swift in Sources */,
 				1D0245142CB440E100650293 /* TeamAbbreviations.swift in Sources */,
+				1D61934C2CC2E4DD003E4CD3 /* ExViewController.swift in Sources */,
 				1D0244D82CAF9BBB00650293 /* VideoViewController.swift in Sources */,
 				1D0245432CBCCCF200650293 /* RoundTabCollectionViewCell.swift in Sources */,
 				1D0245372CBA545D00650293 /* ImageCacheManager.swift in Sources */,
@@ -397,6 +423,7 @@
 				1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */,
 				1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */,
 				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
+				1D6193552CC2EA04003E4CD3 /* Ex5ViewController.swift in Sources */,
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
@@ -405,22 +432,27 @@
 				1D6193372CBEA103003E4CD3 /* MatchInformationViewController.swift in Sources */,
 				1D02453F2CBCACB200650293 /* LoadingIndicatorView.swift in Sources */,
 				1D02451C2CB4684300650293 /* YouTubeResponse.swift in Sources */,
+				1D6193512CC2E9AF003E4CD3 /* Ex3ViewController.swift in Sources */,
 				1D02450A2CB1046500650293 /* TeamRankingViewController.swift in Sources */,
 				1D0245162CB45BF400650293 /* YouTubeNetworkService.swift in Sources */,
 				1D0244ED2CB0DC1000650293 /* GameResultViewController.swift in Sources */,
+				1D61934F2CC2E97C003E4CD3 /* Ex2ViewController.swift in Sources */,
 				1D02452E2CB92F6600650293 /* NavigationTitleUtility.swift in Sources */,
 				1D0244F62CB0EF3000650293 /* MatchTableViewCell.swift in Sources */,
+				1D6193532CC2E9BB003E4CD3 /* Ex4ViewController.swift in Sources */,
 				1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */,
 				1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */,
+				1D6193482CC2C376003E4CD3 /* TeamInfoResponse.swift in Sources */,
 				1D0244F82CB0FC3D00650293 /* NetworkProvider.swift in Sources */,
 				1D0245022CB0FD9E00650293 /* PlayerRankingResponse.swift in Sources */,
+				1D6193462CC2ABBA003E4CD3 /* CategoryTabTableViewCell.swift in Sources */,
 				1D0244D62CAF9B9900650293 /* GameViewController.swift in Sources */,
 				1D0245222CB529C800650293 /* DetailVideoTableViewCell.swift in Sources */,
 				1D0245332CB932A800650293 /* UIColor+CustomColors.swift in Sources */,
 				1D61933D2CBEC6D9003E4CD3 /* ExTableViewCell.swift in Sources */,
 				1D0244C02CAF94C900650293 /* SceneDelegate.swift in Sources */,
 				1D02451A2CB4671800650293 /* DetailVideoViewController.swift in Sources */,
-				1D6193442CC25813003E4CD3 /* TableViewScrollHandler.swift in Sources */,
+				1D61934A2CC2C929003E4CD3 /* TeamInformationTableViewCell.swift in Sources */,
 				1D0245312CB9308000650293 /* UIImageView+Extension.swift in Sources */,
 				1D0245242CB52C0300650293 /* YouTubeCommentResponse.swift in Sources */,
 				1D0245122CB2E56B00650293 /* StandingsModel.swift in Sources */,

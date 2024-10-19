@@ -39,6 +39,19 @@ final class FootballNetworkService {
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
     }
     
+    // 특정 리그에서 특정 팀의 최근 5경기 가져오기
+    func getLastFiveFixtures(teamID: Int, league: String, season: String, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
+        let path = "/fixtures"
+        let parameters = [
+            "team": String(teamID),
+            "league": league,
+            "season": season,
+            "last": "5" // 최근 5경기
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
     // MARK: - Rankings
     
     // 팀 순위 가져오기 (Team Standings)
@@ -64,4 +77,17 @@ final class FootballNetworkService {
         let headers = ["X-RapidAPI-Key": apiKey]
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
     }
+    
+    // MARK: - 기타
+    
+    // 팀 정보 가져오기 (Team Information)
+    func getTeamInfo(teamID: Int, completion: @escaping (Result<TeamInfoResponse, Error>) -> Void) {
+        let path = "/teams"
+        let parameters = [
+            "id": String(teamID)
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+
 }

@@ -103,6 +103,7 @@ extension AssistsRankingViewController: UITableViewDataSource {
 extension AssistsRankingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(ExViewController(), animated: true)
     }
 }
 
