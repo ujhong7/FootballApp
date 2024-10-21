@@ -68,10 +68,10 @@ final class GameViewController: UIViewController {
     
     private func setupViewControllers() {
         let teamRankingVC = TeamRankingViewController()
-        let gameResultVC = GameResultViewController()
-        let upcomingMatchesVC = UpcomingMatchesViewController()
-        let goalsRankingVC = GoalsRankingViewController()
-        let assistsRankingVC = AssistsRankingViewController()
+        let gameResultVC = MatchResultViewController()
+        let upcomingMatchesVC = UpcomingMatchViewController()
+        let goalsRankingVC = GoalsPlayerViewController()
+        let assistsRankingVC = AssistsPlayerViewController()
         
         viewControllers = [teamRankingVC, gameResultVC, upcomingMatchesVC, goalsRankingVC, assistsRankingVC]
     }

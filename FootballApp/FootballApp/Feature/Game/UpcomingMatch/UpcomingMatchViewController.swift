@@ -1,5 +1,5 @@
 //
-//  UpcomingMatchesViewController.swift
+//  UpcomingMatchViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/5/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class UpcomingMatchesViewController: UIViewController {
+final class UpcomingMatchViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -148,7 +148,7 @@ final class UpcomingMatchesViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension UpcomingMatchesViewController: UITableViewDataSource {
+extension UpcomingMatchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredFixtures.count
@@ -164,7 +164,7 @@ extension UpcomingMatchesViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension UpcomingMatchesViewController: UITableViewDelegate {
+extension UpcomingMatchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFixture = filteredFixtures[indexPath.row]
@@ -175,7 +175,7 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension UpcomingMatchesViewController: UICollectionViewDataSource {
+extension UpcomingMatchViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return maxRound - currentRound
@@ -193,7 +193,7 @@ extension UpcomingMatchesViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension UpcomingMatchesViewController: UICollectionViewDelegate {
+extension UpcomingMatchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let roundNumber = currentRound + indexPath.row + 1 // 선택된 라운드 번호

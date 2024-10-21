@@ -1,5 +1,5 @@
 //
-//  GameResultViewController.swift
+//  MatchResultViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/5/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GameResultViewController: UIViewController {
+final class MatchResultViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -131,7 +131,7 @@ final class GameResultViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension GameResultViewController: UITableViewDataSource {
+extension MatchResultViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredFixtures.count
     }
@@ -146,12 +146,9 @@ extension GameResultViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension GameResultViewController: UITableViewDelegate {
+extension MatchResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 선택된 fixture를 가져옴
         let selectedFixture = filteredFixtures[indexPath.row]
-        // MatchInformationViewController에 fixture 데이터를 전달
-//        let matchInformationVC = MatchInformationViewController(fixture: selectedFixture)
         let matchInformationVC = MatchResultInformationViewController(fixture: selectedFixture)
         navigationController?.pushViewController(matchInformationVC, animated: true)
     }
@@ -159,7 +156,7 @@ extension GameResultViewController: UITableViewDelegate {
 
 // MARK: - UICollectionViewDataSource
 
-extension GameResultViewController: UICollectionViewDataSource {
+extension MatchResultViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let maxRound = fixtures.compactMap({ Int(($0.league.round.filter { $0.isNumber }))}).max() else {
             return 0
@@ -179,7 +176,7 @@ extension GameResultViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension GameResultViewController: UICollectionViewDelegate {
+extension MatchResultViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
         let index = totalCount - indexPath.row

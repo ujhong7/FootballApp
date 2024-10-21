@@ -1,5 +1,5 @@
 //
-//  AssistPlayerInformationViewController.swift
+//  AssistsPlayerInformationViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/21/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssistPlayerInformationViewController: UIViewController {
+class AssistsPlayerInformationViewController: UIViewController {
     
     // MARK: - init
     
@@ -249,7 +249,7 @@ class AssistPlayerInformationViewController: UIViewController {
 
 // MARK: - UIPageViewControllerDataSource
 
-extension AssistPlayerInformationViewController: UIPageViewControllerDataSource {
+extension AssistsPlayerInformationViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index > 0 else {
@@ -268,7 +268,7 @@ extension AssistPlayerInformationViewController: UIPageViewControllerDataSource 
 
 // MARK: - UIPageViewControllerDelegate
 
-extension AssistPlayerInformationViewController: UIPageViewControllerDelegate {
+extension AssistsPlayerInformationViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = viewControllers.firstIndex(of: visibleViewController) {
@@ -281,7 +281,7 @@ extension AssistPlayerInformationViewController: UIPageViewControllerDelegate {
 
 // MARK: - ScrollDelegate
 
-extension AssistPlayerInformationViewController: ScrollDelegate {
+extension AssistsPlayerInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정
