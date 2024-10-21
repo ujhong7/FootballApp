@@ -1,17 +1,30 @@
 //
-//  ExViewController.swift
+//  MatchResultInformationViewController.swift
 //  FootballApp
 //
-//  Created by yujaehong on 10/19/24.
+//  Created by yujaehong on 10/21/24.
 //
-
 
 import UIKit
 
-class ExViewController: UIViewController {
+class MatchResultInformationViewController: UIViewController {
+    
+    // MARK: - init
+    
+    // 커스텀 이니셜라이저로 Fixture 데이터 전달
+    init(fixture: Fixture?) {
+        self.fixture = fixture
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     // MARK: - Properties
     
+    var fixture: Fixture?  // 전달받은 경기 정보
+
     private let InformationView: UIView = {
         let view = UIView()
         return view
@@ -38,6 +51,68 @@ class ExViewController: UIViewController {
     var viewControllers: [UIViewController] = []
     var currentSegmentIndex: Int = 0
     
+    private let homeTeamNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    private let awayTeamNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    private let homeTeamLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let awayTeamLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let homeTeamGoalsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let awayTeamGoalsLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        return label
+    }()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -51,19 +126,65 @@ class ExViewController: UIViewController {
         setupPageViewController()
         setupScrollDelegates()
         setupBackgroundColor()
+        setDataMatchInformation()
+        setupNavigationBar()
     }
     
     // MARK: - Methods
     
     private func setupBackgroundColor() {
-        view.backgroundColor = .systemRed
-        InformationView.backgroundColor = .systemRed
-        segmentedControl.backgroundColor = .systemRed
+        view.backgroundColor = .footballFieldGreen
+        InformationView.backgroundColor = .footballFieldGreen
+        segmentedControl.backgroundColor = .footballFieldGreen
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+    }
+    
+    private func setDataMatchInformation() {
+        // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+        // 전달된 fixture를 사용하여 UI 업데이트
+        if let fixture = fixture {
+            print("Fixture info: \(fixture)")
+            // UI에 경기 정보 표시하는 코드 추가
+            let homeTeam = fixture.teams.home
+            let awayTeam = fixture.teams.away
+            let homeGoals = fixture.goals.home
+            let awayGoals = fixture.goals.away
+            let status = fixture.fixture.status.long
+            let date = fixture.fixture.date
+            
+            homeTeamNameLabel.text = homeTeam.name
+            homeTeamLogoImageView.loadImage(from: homeTeam.logo)
+            awayTeamNameLabel.text = awayTeam.name
+            awayTeamLogoImageView.loadImage(from: awayTeam.logo)
+            homeTeamGoalsLabel.text = "\(homeGoals ?? 0)"
+            awayTeamGoalsLabel.text = "\(awayGoals ?? 0)"
+            navigationItem.title = "\(teamAbbreviations[homeTeam.name] ?? homeTeam.name)     \(homeGoals ?? 0)   -   \(awayGoals ?? 0)     \(teamAbbreviations[awayTeam.name] ?? awayTeam.name)"
+        }
     }
     
     private func setupInformationView() {
         view.addSubview(InformationView)
+        InformationView.addSubview(homeTeamNameLabel)
+        InformationView.addSubview(awayTeamNameLabel)
+        InformationView.addSubview(homeTeamLogoImageView)
+        InformationView.addSubview(awayTeamLogoImageView)
+        InformationView.addSubview(homeTeamGoalsLabel)
+        InformationView.addSubview(awayTeamGoalsLabel)
+        InformationView.addSubview(statusLabel)
+        InformationView.addSubview(dateLabel)
         InformationView.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        homeTeamGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
+        awayTeamGoalsLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupInformationViewConstraints() {
@@ -72,7 +193,25 @@ class ExViewController: UIViewController {
             InformationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             InformationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             InformationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            informationViewHeightConstraint!
+            informationViewHeightConstraint!,
+            homeTeamGoalsLabel.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor, constant: -10),
+            homeTeamGoalsLabel.centerXAnchor.constraint(equalTo: InformationView.centerXAnchor, constant: -40),
+            awayTeamGoalsLabel.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor, constant: -10),
+            awayTeamGoalsLabel.centerXAnchor.constraint(equalTo: InformationView.centerXAnchor, constant: 40),
+            homeTeamLogoImageView.leadingAnchor.constraint(equalTo: InformationView.leadingAnchor, constant: 40),
+            homeTeamLogoImageView.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor, constant: -20),
+            awayTeamLogoImageView.trailingAnchor.constraint(equalTo: InformationView.trailingAnchor, constant: -40),
+            awayTeamLogoImageView.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor, constant: -20),
+            homeTeamLogoImageView.widthAnchor.constraint(equalToConstant: 45),
+            homeTeamLogoImageView.heightAnchor.constraint(equalToConstant: 45),
+            awayTeamLogoImageView.widthAnchor.constraint(equalToConstant: 45),
+            awayTeamLogoImageView.heightAnchor.constraint(equalToConstant: 45),
+            homeTeamNameLabel.leadingAnchor.constraint(equalTo: InformationView.leadingAnchor, constant: 15),
+            homeTeamNameLabel.topAnchor.constraint(equalTo: homeTeamLogoImageView.bottomAnchor, constant: 10),
+            awayTeamNameLabel.trailingAnchor.constraint(equalTo: InformationView.trailingAnchor, constant: -15),
+            awayTeamNameLabel.topAnchor.constraint(equalTo: awayTeamLogoImageView.bottomAnchor, constant: 10),
+            homeTeamNameLabel.widthAnchor.constraint(equalToConstant: 100),
+            awayTeamNameLabel.widthAnchor.constraint(equalToConstant: 100),
         ])
     }
     
@@ -111,7 +250,6 @@ class ExViewController: UIViewController {
             underlineLeadingConstraint!
         ])
     }
-    
     
     private func setupViewControllers() {
         let matchVC = Ex2ViewController()
@@ -170,7 +308,7 @@ class ExViewController: UIViewController {
 
 // MARK: - UIPageViewControllerDataSource
 
-extension ExViewController: UIPageViewControllerDataSource {
+extension MatchResultInformationViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index > 0 else {
@@ -189,7 +327,7 @@ extension ExViewController: UIPageViewControllerDataSource {
 
 // MARK: - UIPageViewControllerDelegate
 
-extension ExViewController: UIPageViewControllerDelegate {
+extension MatchResultInformationViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = viewControllers.firstIndex(of: visibleViewController) {
@@ -200,7 +338,9 @@ extension ExViewController: UIPageViewControllerDelegate {
     }
 }
 
-extension ExViewController: ScrollDelegate {
+// MARK: - ScrollDelegate
+
+extension MatchResultInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정

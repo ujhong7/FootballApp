@@ -9,6 +9,8 @@ import UIKit
 
 class Ex3ViewController: UIViewController {
     
+    weak var scrollDelegate: ScrollDelegate?
+    
     private let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -44,12 +46,16 @@ extension Ex3ViewController: UITableViewDelegate {
 
 extension Ex3ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
-    
-    
+}
+
+extension Ex3ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollDelegate?.didScroll(yOffset: scrollView.contentOffset.y)
+    }
 }

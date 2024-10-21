@@ -1,16 +1,28 @@
 //
-//  ExViewController.swift
+//  TeamRankingInformationViewController.swift
 //  FootballApp
 //
-//  Created by yujaehong on 10/19/24.
+//  Created by yujaehong on 10/21/24.
 //
-
 
 import UIKit
 
-class ExViewController: UIViewController {
+class TeamRankingInformationViewController: UIViewController {
+    
+    // MARK: - init
+    
+    init(teamInfo: TeamInformation?) {
+        self.teamInfo = teamInfo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     // MARK: - Properties
+    
+    var teamInfo: TeamInformation?
     
     private let InformationView: UIView = {
         let view = UIView()
@@ -38,6 +50,20 @@ class ExViewController: UIViewController {
     var viewControllers: [UIViewController] = []
     var currentSegmentIndex: Int = 0
     
+    private let teamNameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let teamLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -51,19 +77,43 @@ class ExViewController: UIViewController {
         setupPageViewController()
         setupScrollDelegates()
         setupBackgroundColor()
+        setDataTeamInformation()
+        setupNavigationBar()
     }
     
     // MARK: - Methods
     
     private func setupBackgroundColor() {
-        view.backgroundColor = .systemRed
-        InformationView.backgroundColor = .systemRed
-        segmentedControl.backgroundColor = .systemRed
+        if let teamName = teamInfo?.name {
+            view.backgroundColor = TeamColors.color(for: teamName)
+            InformationView.backgroundColor = TeamColors.color(for: teamName)
+            segmentedControl.backgroundColor = TeamColors.color(for: teamName)
+        }
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+    }
+    
+    private func setDataTeamInformation() {
+        print("⚽️ 팀이름: \(teamInfo?.name)")
+        print("⚽️ 팀ID: \(teamInfo?.id)")
+        teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
+        if let teamName = teamInfo?.name {
+            //titleView.text = teamName
+            navigationItem.title = teamName
+            teamNameLabel.text = teamName
+        }
     }
     
     private func setupInformationView() {
         view.addSubview(InformationView)
+        InformationView.addSubview(teamLogoImageView)
+        InformationView.addSubview(teamNameLabel)
         InformationView.translatesAutoresizingMaskIntoConstraints = false
+        teamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        teamNameLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupInformationViewConstraints() {
@@ -72,7 +122,13 @@ class ExViewController: UIViewController {
             InformationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             InformationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             InformationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            informationViewHeightConstraint!
+            informationViewHeightConstraint!,
+            teamLogoImageView.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor),
+            teamLogoImageView.leadingAnchor.constraint(equalTo: InformationView.leadingAnchor, constant: 10),
+            teamLogoImageView.widthAnchor.constraint(equalToConstant: 80),
+            teamLogoImageView.heightAnchor.constraint(equalToConstant: 80),
+            teamNameLabel.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor),
+            teamNameLabel.leadingAnchor.constraint(equalTo: teamLogoImageView.trailingAnchor, constant: 15),
         ])
     }
     
@@ -111,7 +167,6 @@ class ExViewController: UIViewController {
             underlineLeadingConstraint!
         ])
     }
-    
     
     private func setupViewControllers() {
         let matchVC = Ex2ViewController()
@@ -170,7 +225,7 @@ class ExViewController: UIViewController {
 
 // MARK: - UIPageViewControllerDataSource
 
-extension ExViewController: UIPageViewControllerDataSource {
+extension TeamRankingInformationViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index > 0 else {
@@ -189,7 +244,7 @@ extension ExViewController: UIPageViewControllerDataSource {
 
 // MARK: - UIPageViewControllerDelegate
 
-extension ExViewController: UIPageViewControllerDelegate {
+extension TeamRankingInformationViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = viewControllers.firstIndex(of: visibleViewController) {
@@ -200,7 +255,9 @@ extension ExViewController: UIPageViewControllerDelegate {
     }
 }
 
-extension ExViewController: ScrollDelegate {
+// MARK: - ScrollDelegate
+
+extension TeamRankingInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정

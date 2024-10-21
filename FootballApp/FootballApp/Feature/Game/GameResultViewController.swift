@@ -151,7 +151,8 @@ extension GameResultViewController: UITableViewDelegate {
         // 선택된 fixture를 가져옴
         let selectedFixture = filteredFixtures[indexPath.row]
         // MatchInformationViewController에 fixture 데이터를 전달
-        let matchInformationVC = MatchInformationViewController(fixture: selectedFixture)
+//        let matchInformationVC = MatchInformationViewController(fixture: selectedFixture)
+        let matchInformationVC = MatchResultInformationViewController(fixture: selectedFixture)
         navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }

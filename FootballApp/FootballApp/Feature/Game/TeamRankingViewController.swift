@@ -117,7 +117,8 @@ extension TeamRankingViewController: UITableViewDelegate {
            let teamStats = standings.first?[indexPath.row] {
             // 팀 정보를 담을 객체 생성
             let teamInfo = TeamInformation(id: teamStats.team.id, name: teamStats.team.name, logo: teamStats.team.logo)
-            let teamInformationVC = TeamInformationViewController(teamInfo: teamInfo)
+//            let teamInformationVC = TeamInformationViewController(teamInfo: teamInfo)
+            let teamInformationVC = TeamRankingInformationViewController(teamInfo: teamInfo)
             navigationController?.pushViewController(teamInformationVC, animated: true)
         }
     }

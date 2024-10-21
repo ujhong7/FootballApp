@@ -8,12 +8,11 @@
 import UIKit
 
 class Ex2ViewController: UIViewController {
-    
-    private let tableView = UITableView()
-    
-    // 🚨
+
     weak var scrollDelegate: ScrollDelegate?
     
+    private let tableView = UITableView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
@@ -27,6 +26,7 @@ class Ex2ViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ExTableViewCell.self, forCellReuseIdentifier: ExTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
         view.addSubview(tableView)
         setupTableViewConstraints()
     }

@@ -101,9 +101,11 @@ extension AssistsRankingViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension AssistsRankingViewController: UITableViewDelegate {
-    
+    // 🚨
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ExViewController(), animated: true)
+        let selectedPlayer = assistRankings[indexPath.row]
+        let assistPlayerInformationVC = AssistPlayerInformationViewController(playerRanking: selectedPlayer)
+        navigationController?.pushViewController(assistPlayerInformationVC, animated: true)
     }
 }
 

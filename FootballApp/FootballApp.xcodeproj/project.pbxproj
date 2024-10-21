@@ -64,6 +64,12 @@
 		1D6193512CC2E9AF003E4CD3 /* Ex3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193502CC2E9AF003E4CD3 /* Ex3ViewController.swift */; };
 		1D6193532CC2E9BB003E4CD3 /* Ex4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193522CC2E9BB003E4CD3 /* Ex4ViewController.swift */; };
 		1D6193552CC2EA04003E4CD3 /* Ex5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */; };
+		1D6193832CC61E87003E4CD3 /* AssistPlayerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193822CC61E87003E4CD3 /* AssistPlayerInformationViewController.swift */; };
+		1D6193872CC6218B003E4CD3 /* GoalsPlayerInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193862CC6218B003E4CD3 /* GoalsPlayerInformationViewController.swift */; };
+		1D6193892CC621E4003E4CD3 /* ScrollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193882CC621E4003E4CD3 /* ScrollDelegate.swift */; };
+		1D61938D2CC633AB003E4CD3 /* MatchResultInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61938C2CC633AB003E4CD3 /* MatchResultInformationViewController.swift */; };
+		1D6193902CC639BB003E4CD3 /* TeamRankingInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D61938F2CC639BB003E4CD3 /* TeamRankingInformationViewController.swift */; };
+		1D6193922CC63FB0003E4CD3 /* UpcomingMatchInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6193912CC63FB0003E4CD3 /* UpcomingMatchInformationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +134,12 @@
 		1D6193502CC2E9AF003E4CD3 /* Ex3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex3ViewController.swift; sourceTree = "<group>"; };
 		1D6193522CC2E9BB003E4CD3 /* Ex4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex4ViewController.swift; sourceTree = "<group>"; };
 		1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ex5ViewController.swift; sourceTree = "<group>"; };
+		1D6193822CC61E87003E4CD3 /* AssistPlayerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistPlayerInformationViewController.swift; sourceTree = "<group>"; };
+		1D6193862CC6218B003E4CD3 /* GoalsPlayerInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsPlayerInformationViewController.swift; sourceTree = "<group>"; };
+		1D6193882CC621E4003E4CD3 /* ScrollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDelegate.swift; sourceTree = "<group>"; };
+		1D61938C2CC633AB003E4CD3 /* MatchResultInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchResultInformationViewController.swift; sourceTree = "<group>"; };
+		1D61938F2CC639BB003E4CD3 /* TeamRankingInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRankingInformationViewController.swift; sourceTree = "<group>"; };
+		1D6193912CC63FB0003E4CD3 /* UpcomingMatchInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMatchInformationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +162,7 @@
 				1D0245272CB8DC2300650293 /* Const.swift */,
 				1D0245132CB440E100650293 /* TeamAbbreviations.swift */,
 				1D61933E2CBFE4A6003E4CD3 /* TeamColors.swift */,
+				1D6193882CC621E4003E4CD3 /* ScrollDelegate.swift */,
 				1D0244E52CAFA9B900650293 /* Delegates */,
 				1D0244BC2CAF94C900650293 /* FootballApp */,
 				1D0244BB2CAF94C900650293 /* Products */,
@@ -319,6 +332,11 @@
 				1D6193382CBEA27A003E4CD3 /* TeamInformationViewController.swift */,
 				1D6193362CBEA103003E4CD3 /* MatchInformationViewController.swift */,
 				1D6193412CC0D844003E4CD3 /* PlayerInformationViewController.swift */,
+				1D61938B2CC63080003E4CD3 /* Team */,
+				1D61938A2CC63073003E4CD3 /* MatcheResult */,
+				1D61938E2CC63960003E4CD3 /* UpcomingMatch */,
+				1D6193852CC620DD003E4CD3 /* Goals */,
+				1D6193842CC620D5003E4CD3 /* Assist */,
 				1D61934D2CC2E961003E4CD3 /* Ex */,
 			);
 			path = InformationVC;
@@ -334,6 +352,46 @@
 				1D6193542CC2EA04003E4CD3 /* Ex5ViewController.swift */,
 			);
 			path = Ex;
+			sourceTree = "<group>";
+		};
+		1D6193842CC620D5003E4CD3 /* Assist */ = {
+			isa = PBXGroup;
+			children = (
+				1D6193822CC61E87003E4CD3 /* AssistPlayerInformationViewController.swift */,
+			);
+			path = Assist;
+			sourceTree = "<group>";
+		};
+		1D6193852CC620DD003E4CD3 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				1D6193862CC6218B003E4CD3 /* GoalsPlayerInformationViewController.swift */,
+			);
+			path = Goals;
+			sourceTree = "<group>";
+		};
+		1D61938A2CC63073003E4CD3 /* MatcheResult */ = {
+			isa = PBXGroup;
+			children = (
+				1D61938C2CC633AB003E4CD3 /* MatchResultInformationViewController.swift */,
+			);
+			path = MatcheResult;
+			sourceTree = "<group>";
+		};
+		1D61938B2CC63080003E4CD3 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				1D61938F2CC639BB003E4CD3 /* TeamRankingInformationViewController.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		1D61938E2CC63960003E4CD3 /* UpcomingMatch */ = {
+			isa = PBXGroup;
+			children = (
+				1D6193912CC63FB0003E4CD3 /* UpcomingMatchInformationViewController.swift */,
+			);
+			path = UpcomingMatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,11 +478,13 @@
 				1D0245102CB1179800650293 /* AssistsRankingTableViewCell.swift in Sources */,
 				1D0245352CB9385A00650293 /* UILabel+Extension.swift in Sources */,
 				1D02450C2CB1175500650293 /* TeamRankingTableViewCell.swift in Sources */,
+				1D6193872CC6218B003E4CD3 /* GoalsPlayerInformationViewController.swift in Sources */,
 				1D6193422CC0D844003E4CD3 /* PlayerInformationViewController.swift in Sources */,
 				1D61933B2CBEC6C0003E4CD3 /* ExCollectionViewCell.swift in Sources */,
 				1D0244F32CB0E04500650293 /* UpcomingMatchesViewController.swift in Sources */,
 				1D6193552CC2EA04003E4CD3 /* Ex5ViewController.swift in Sources */,
 				1D0244F12CB0DCA100650293 /* AssistsRankingViewController.swift in Sources */,
+				1D6193902CC639BB003E4CD3 /* TeamRankingInformationViewController.swift in Sources */,
 				1D0244BE2CAF94C900650293 /* AppDelegate.swift in Sources */,
 				1D02450E2CB1178C00650293 /* GoalsRankingTableViewCell.swift in Sources */,
 				1D61933F2CBFE4A6003E4CD3 /* TeamColors.swift in Sources */,
@@ -439,9 +499,11 @@
 				1D61934F2CC2E97C003E4CD3 /* Ex2ViewController.swift in Sources */,
 				1D02452E2CB92F6600650293 /* NavigationTitleUtility.swift in Sources */,
 				1D0244F62CB0EF3000650293 /* MatchTableViewCell.swift in Sources */,
+				1D6193832CC61E87003E4CD3 /* AssistPlayerInformationViewController.swift in Sources */,
 				1D6193532CC2E9BB003E4CD3 /* Ex4ViewController.swift in Sources */,
 				1D0244D22CAF9A4200650293 /* MainTabController.swift in Sources */,
 				1D0244D42CAF9B6300650293 /* NewsViewController.swift in Sources */,
+				1D6193892CC621E4003E4CD3 /* ScrollDelegate.swift in Sources */,
 				1D6193482CC2C376003E4CD3 /* TeamInfoResponse.swift in Sources */,
 				1D0244F82CB0FC3D00650293 /* NetworkProvider.swift in Sources */,
 				1D0245022CB0FD9E00650293 /* PlayerRankingResponse.swift in Sources */,
@@ -458,8 +520,10 @@
 				1D0245122CB2E56B00650293 /* StandingsModel.swift in Sources */,
 				1D0244E22CAFA6C300650293 /* NewsResponse.swift in Sources */,
 				1D0244DA2CAF9BD900650293 /* SettingsViewController.swift in Sources */,
+				1D6193922CC63FB0003E4CD3 /* UpcomingMatchInformationViewController.swift in Sources */,
 				1D0244E42CAFA73400650293 /* NewsNetworkService.swift in Sources */,
 				1D0244DC2CAFA00000650293 /* NewsTableViewCell.swift in Sources */,
+				1D61938D2CC633AB003E4CD3 /* MatchResultInformationViewController.swift in Sources */,
 				1D0245182CB462DE00650293 /* VideoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -104,8 +104,9 @@ extension GoalsRankingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 선택된 선수 정보를 가져옴
         let selectedPlayer = scorers[indexPath.row]
-        let playerInformationVC = PlayerInformationViewController(playerRanking: selectedPlayer)
-        navigationController?.pushViewController(playerInformationVC, animated: true)
+//        let playerInformationVC = PlayerInformationViewController(playerRanking: selectedPlayer)
+        let goalsPlayerInformationVC = GoalsPlayerInformationViewController(playerRanking: selectedPlayer)
+        navigationController?.pushViewController(goalsPlayerInformationVC, animated: true)
     }
 }
 

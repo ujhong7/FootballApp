@@ -167,7 +167,9 @@ extension UpcomingMatchesViewController: UITableViewDataSource {
 extension UpcomingMatchesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 예정된 경기에 대한 상세 정보를 보여주는 기능 추가 가능
+        let selectedFixture = filteredFixtures[indexPath.row]
+        let matchInformationVC = UpcomingMatchInformationViewController(fixture: selectedFixture)
+        navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }
 
