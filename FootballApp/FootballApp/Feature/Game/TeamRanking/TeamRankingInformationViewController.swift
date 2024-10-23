@@ -30,7 +30,7 @@ class TeamRankingInformationViewController: UIViewController {
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["프로필", "경기", "통계", "경력"])
+        let control = UISegmentedControl(items: ["선수단", "예정경기", "경기기록", "ㅇㅇㅇ"])
         control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
@@ -169,12 +169,13 @@ class TeamRankingInformationViewController: UIViewController {
     }
     
     private func setupViewControllers() {
-        let matchVC = Ex2ViewController()
-        let playerInfoVC = Ex3ViewController()
-        let teamStatsVC = Ex4ViewController()
-        let teamInfoVC = Ex5ViewController()
-        
-        viewControllers = [matchVC, playerInfoVC, teamStatsVC, teamInfoVC]
+        if let teamID = teamInfo?.id {
+            let matchVC = Ex2ViewController()
+            let teamNextMatchVC = TeamNextMatchViewController(teamID: teamID)
+            let teamPreviousMatchVC = TeamPreviousMatchViewController(teamID: teamID)
+            let teamInfoVC = Ex5ViewController()
+            viewControllers = [matchVC, teamNextMatchVC, teamPreviousMatchVC, teamInfoVC]
+        }
     }
     
     private func setupPageViewController() {
@@ -264,11 +265,11 @@ extension TeamRankingInformationViewController: ScrollDelegate {
         if let ex2VC = viewControllers[0] as? Ex2ViewController {
             ex2VC.scrollDelegate = self
         }
-        if let ex3VC = viewControllers[1] as? Ex3ViewController {
-            ex3VC.scrollDelegate = self
+        if let teamNextMatchVC = viewControllers[1] as? TeamNextMatchViewController {
+            teamNextMatchVC.scrollDelegate = self
         }
-        if let ex4VC = viewControllers[2] as? Ex4ViewController {
-            ex4VC.scrollDelegate = self
+        if let teamPreviousMatchVC = viewControllers[2] as? TeamPreviousMatchViewController {
+            teamPreviousMatchVC.scrollDelegate = self
         }
         if let ex5VC = viewControllers[3] as? Ex5ViewController {
             ex5VC.scrollDelegate = self
