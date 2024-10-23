@@ -39,14 +39,27 @@ final class FootballNetworkService {
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
     }
     
-    // 특정 리그에서 특정 팀의 최근 5경기 가져오기
-    func getLastFiveFixtures(teamID: Int, league: String, season: String, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
+    // 특정 리그에서 특정 팀의 이전 경기 가져오기
+    func getTeamPreviousFixtures(teamID: Int, league: String, season: String, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
         let path = "/fixtures"
         let parameters = [
             "team": String(teamID),
             "league": league,
             "season": season,
-            "last": "5" // 최근 5경기
+            "status": "FT"
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
+    // 특정 리그에서 특정 팀의 예정 경기 가져오기
+    func getTeamUpcomingFixtures(teamID: Int, league: String, season: String, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
+        let path = "/fixtures"
+        let parameters = [
+            "team": String(teamID),
+            "league": league,
+            "season": season,
+            "status": "NS"
         ]
         let headers = ["X-RapidAPI-Key": apiKey]
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
@@ -89,5 +102,29 @@ final class FootballNetworkService {
         let headers = ["X-RapidAPI-Key": apiKey]
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
     }
-
+    
+    // MARK: - Player Profile
+    
+    // 특정 선수의 프로필 가져오기 (Player Profile)
+    func getPlayerProfile(playerID: Int, season: String, league: String, completion: @escaping (Result<PlayerProfileResponse, Error>) -> Void) {
+        let path = "/players"
+        let parameters = [
+            "id": String(playerID),
+            "season": season,
+            "league": league
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
+    // 특정 선수의 이적 정보 가져오기 (Player Transfers)
+    func getPlayerTransfers(playerID: Int, completion: @escaping (Result<PlayerTransfersResponse, Error>) -> Void) {
+        let path = "/transfers"
+        let parameters = [
+            "player": String(playerID)
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
 }

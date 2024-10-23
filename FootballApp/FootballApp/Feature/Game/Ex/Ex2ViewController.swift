@@ -9,16 +9,24 @@ import UIKit
 
 class Ex2ViewController: UIViewController {
 
+    // MARK: - init
+    
+    // MARK: - Properties
+    
     weak var scrollDelegate: ScrollDelegate?
     
     private let tableView = UITableView()
 
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
         configureTableView()
         setupTableViewConstraints()
     }
+    
+    // MARK: - Methods
     
     private func configureTableView() {
         tableView.backgroundColor = .systemBackground
@@ -41,9 +49,13 @@ class Ex2ViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension Ex2ViewController: UITableViewDelegate {
     
 }
+
+// MARK: - UITableViewDataSource
 
 extension Ex2ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +67,8 @@ extension Ex2ViewController: UITableViewDataSource {
     }
 }
 
-// 🚨
+// MARK: - UIScrollViewDelegate
+
 extension Ex2ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScroll(yOffset: scrollView.contentOffset.y)
