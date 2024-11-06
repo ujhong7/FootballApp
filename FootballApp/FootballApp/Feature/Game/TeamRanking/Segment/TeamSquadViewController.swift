@@ -24,12 +24,12 @@ class TeamSquadViewController: UIViewController {
     
     private let teamID: Int?
     private let footballService = FootballNetworkService()
-    private var players: [Player3] = []
-    private var goalkeepers: [Player3] = []
-    private var defenders: [Player3] = []
-    private var midfielders: [Player3] = []
-    private var forwards: [Player3] = []
-    private var coachs: [Coach2] = []
+    private var players: [Player] = []
+    private var goalkeepers: [Player] = []
+    private var defenders: [Player] = []
+    private var midfielders: [Player] = []
+    private var forwards: [Player] = []
+    private var coachs: [CoachInfo] = []
     private let loadingIndicatorView = LoadingIndicatorView()
     weak var scrollDelegate: ScrollDelegate?
     private let tableView =  UITableView(frame: .zero, style: .grouped)
@@ -187,7 +187,7 @@ extension TeamSquadViewController: UITableViewDataSource {
         } else {
             // 선수 섹션
             let cell = tableView.dequeueReusableCell(withIdentifier: TeamSquadTableViewCell.identifier, for: indexPath) as! TeamSquadTableViewCell
-            let player: Player3
+            let player: Player
             
             switch indexPath.section {
             case 1:

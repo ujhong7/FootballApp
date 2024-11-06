@@ -15,16 +15,8 @@ struct PlayerTransfersResponse: Decodable {
 
 // MARK: - TransferInfo
 struct TransferInfo: Codable {
-//    let player: FootballPlayer
-//    let update: String
     let transfers: [Transfer]
 }
-
-//// MARK: - FootballPlayer
-//struct FootballPlayer: Codable {
-//    let id: Int
-//    let name: String
-//}
 
 // MARK: - Transfer
 struct Transfer: Codable {

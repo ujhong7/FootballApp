@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - CoachResponse
 struct CoachResponse: Decodable {
-    let response: [Coach2]
+    let response: [CoachInfo]
 }
 
 // MARK: - Coach
-struct Coach2: Decodable {
+struct CoachInfo: Decodable {
     let id: Int
     let name: String
     let firstname: String
@@ -27,20 +27,6 @@ struct Coach2: Decodable {
     let team: Team
     let career: [Career]
 }
-
-// MARK: - Birth
-//struct Birth: Codable {
-//    let date: String
-//    let place: String
-//    let country: String
-//}
-
-// MARK: - Team
-//struct Team: Codable {
-//    let id: Int
-//    let name: String
-//    let logo: String
-//}
 
 // MARK: - Career
 struct Career: Decodable {

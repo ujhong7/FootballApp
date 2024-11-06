@@ -56,20 +56,8 @@ struct TeamInfo: Codable {
     let logo: String
 }
 
-// (중복)
-// 리그 정보 모델 
-//struct LeagueInfo: Codable {
-//    let id: Int
-//    let name: String
-//    let country: String
-//    let logo: String
-//    let flag: String
-//}
-
 // 골 수 정보 모델
 struct GoalsInfo: Codable {
     let total: Int
     let assists: Int
 }
-
-

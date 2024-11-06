@@ -90,7 +90,7 @@ class TeamSquadTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with player: Player3) {
+    func configure(with player: Player) {
         nameLabel.text = player.name
         numberLabel.text = player.number != nil ? "No: \(player.number!)" : "No: -"
         ageLabel.text = "Age: \(player.age)"

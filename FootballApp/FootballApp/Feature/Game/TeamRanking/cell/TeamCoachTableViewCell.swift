@@ -76,7 +76,7 @@ class TeamCoachTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with coach: Coach2) {
+    func configure(with coach: CoachInfo) {
         nameLabel.text = coach.name
         ageLabel.text = "Age: \(coach.age)"
         coachImageView.loadImage(from: coach.photo)

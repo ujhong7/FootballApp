@@ -9,40 +9,17 @@ import Foundation
 
 // MARK: - SquadResponse
 struct SquadResponse: Decodable {
-//    let get: String
-//    let parameters: Parameters
-//    let errors: [String]
-//    let results: Int
-//    let paging: Paging
     let response: [TeamResponse]
 }
-
-//// MARK: - Parameters
-//struct Parameters: Codable {
-//    let team: String
-//}
-
-// MARK: - Paging
-//struct Paging: Codable {
-//    let current: Int
-//    let total: Int
-//}
 
 // MARK: - TeamResponse
 struct TeamResponse: Decodable {
     let team: Team
-    let players: [Player3]
+    let players: [Player]
 }
 
-// MARK: - Team
-//struct Team: Codable {
-//    let id: Int
-//    let name: String
-//    let logo: String
-//}
-
 // MARK: - Player
-struct Player3: Codable {
+struct Player: Codable {
     let id: Int
     let name: String
     let age: Int

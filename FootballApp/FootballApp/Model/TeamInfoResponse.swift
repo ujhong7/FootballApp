@@ -14,12 +14,12 @@ struct TeamInfoResponse: Codable {
 
 // MARK: - TeamDetail
 struct TeamDetail: Codable {
-    let team: Team2
+    let team: TeamDetailInfo
     let venue: Venue
 }
 
 // MARK: - Team
-struct Team2: Codable {
+struct TeamDetailInfo: Codable {
     let id: Int
     let name: String
     let code: String?
