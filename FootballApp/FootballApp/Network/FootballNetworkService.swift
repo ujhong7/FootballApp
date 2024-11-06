@@ -126,5 +126,49 @@ final class FootballNetworkService {
         let headers = ["X-RapidAPI-Key": apiKey]
         networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
     }
+
+    // MARK: - <#내용입력#>
+    
+    // 두 팀 간의 맞대결 기록 가져오기 (Head to Head Fixtures)
+    func getHeadToHeadFixtures(team1ID: Int, team2ID: Int, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
+        let path = "/fixtures/headtohead"
+        let parameters = [
+            "h2h": "\(team1ID)-\(team2ID)",
+            "status": "FT"
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
+    // 경기정보 가져오기 (Get Fixture by ID) 🚨
+    func getFixtureInformation(fixtureID: Int, completion: @escaping (Result<FixturesResponse, Error>) -> Void) {
+        let path = "/fixtures"
+        let parameters = [
+            "id": String(fixtureID)
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
+    
+    // 특정 팀의 선수단 목록 가져오기 (Team Squad)
+    func getTeamSquad(teamID: Int, completion: @escaping (Result<SquadResponse, Error>) -> Void) {
+        let path = "/players/squads"
+        let parameters = [
+            "team": String(teamID)
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
+    
+    // 특정 팀의 코치 목록 가져오기 (Team Coaches)
+    func getTeamCoachs(teamID: Int, completion: @escaping (Result<CoachResponse, Error>) -> Void) {
+        let path = "/coachs"
+        let parameters = [
+            "team": String(teamID)
+        ]
+        let headers = ["X-RapidAPI-Key": apiKey]
+        networkProvider.request(baseURL: baseURL, path: path, headers: headers, parameters: parameters, completion: completion)
+    }
     
 }
