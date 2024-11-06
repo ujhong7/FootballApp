@@ -243,7 +243,7 @@ class SquadTableViewCell: UITableViewCell {
         homeTeamLabel.text = homeTeam.name
         
         if let homeLineup = fixture.lineups?.first(where: { $0.team.id == homeTeam.id }) {
-            homeCoachLabel.text = "Coach: \(homeLineup.coach.name)"
+            homeCoachLabel.text = "Coach: \(homeLineup.coach.name ?? "No Data")"
             homeFormationLabel.text = "Formation: \(homeLineup.formation)"
             
             configureStartingPlayers(homeLineup.startXI, in: homeStartingPlayersStack)
@@ -256,7 +256,7 @@ class SquadTableViewCell: UITableViewCell {
         awayTeamLabel.text = awayTeam.name
         
         if let awayLineup = fixture.lineups?.first(where: { $0.team.id == awayTeam.id }) {
-            awayCoachLabel.text = "Coach: \(awayLineup.coach.name)"
+            awayCoachLabel.text = "Coach: \(awayLineup.coach.name ?? "No Data")"
             awayFormationLabel.text = "Formation: \(awayLineup.formation)"
             
             configureStartingPlayers(awayLineup.startXI, in: awayStartingPlayersStack)

@@ -139,9 +139,9 @@ struct Lineup: Decodable {
 }
 
 struct Coach: Codable {
-    let id: Int
-    let name: String
-    let photo: String
+    let id: Int?
+    let name: String?
+    let photo: String?
 }
 
 struct StartingPlayer: Codable {
