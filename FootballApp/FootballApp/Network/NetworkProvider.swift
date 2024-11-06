@@ -64,15 +64,30 @@ final class NetworkProvider {
             
             // 디버그용으로 받은 JSON 데이터 출력
             if let jsonString = String(data: data, encoding: .utf8) {
-                //dump("Received JSON: \(jsonString)")
-                print("jsonString: \(jsonString)")
+//                print("❌❌❌❌❌❌❌❌❌❌❌❌")
+//                dump("Received JSON: \(jsonString)")
+//                print("❌❌❌❌❌❌❌❌❌❌❌❌")
             }
             
             do {
                 let decodedData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodedData))
+            } catch let DecodingError.dataCorrupted(context) {
+                print("🐧 데이터가 손상되었습니다: \(context.debugDescription)")
+                print("🐧 코딩 경로: \(context.codingPath)")
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("🐧 키를 찾을 수 없습니다: \(key.stringValue)")
+                print("🐧 코딩 경로: \(context.codingPath)")
+            } catch let DecodingError.typeMismatch(type, context) {
+                print("🐧 타입이 일치하지 않습니다: \(type)")
+                print("🐧 코딩 경로: \(context.codingPath)")
+                print("🐧 디버그 설명: \(context.debugDescription)")
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("🐧 값을 찾을 수 없습니다: \(value)")
+                print("🐧 코딩 경로: \(context.codingPath)")
+                print("🐧 디버그 설명: \(context.debugDescription)")
             } catch {
-                completion(.failure(NetworkError.decodingError))
+                print("🐧 예상치 못한 에러: \(error)")
             }
         }
         task.resume()
