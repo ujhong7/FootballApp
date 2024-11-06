@@ -13,7 +13,7 @@ final class NewsViewController: UIViewController {
     
     private let newsService = NewsNetworkService()
     private let tableView = UITableView()
-    private var newsItems: [NewsItem] = [] // 뉴스 아이템 배열
+    private var newsItems: [NewsItem] = []
     private var searchController: UISearchController!
     private let loadingIndicatorView = LoadingIndicatorView()
     
@@ -25,10 +25,7 @@ final class NewsViewController: UIViewController {
         configureTableView()
         configureNavigationBar()
         configureSearchController()
-        
-        fetchNews() // 뉴스 데이터 가져오기
-        
-        
+        fetchNews()
     }
     
     // MARK: - Method
@@ -61,12 +58,12 @@ final class NewsViewController: UIViewController {
             
             switch result {
             case .success(let newsResponse):
-                self?.newsItems = newsResponse.items // 뉴스 아이템 저장
+                self?.newsItems = newsResponse.items
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData() // 메인 스레드에서 테이블 뷰 갱신
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("Error fetching news: \(error)") // 에러 핸들링
+                print("Error fetching news: \(error)")
             }
         }
     }

@@ -33,6 +33,14 @@ final class AssistsPlayerViewController: UIViewController {
         fetchTopAssists()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: - Methods
     
     private func configureTableView() {
@@ -104,7 +112,7 @@ extension AssistsPlayerViewController: UITableViewDelegate {
     // 🚨
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPlayer = assistRankings[indexPath.row]
-        let assistPlayerInformationVC = AssistsPlayerInformationViewController(playerRanking: selectedPlayer)
+        let assistPlayerInformationVC = PlayerInformationViewController(playerRanking: selectedPlayer)
         navigationController?.pushViewController(assistPlayerInformationVC, animated: true)
     }
 }

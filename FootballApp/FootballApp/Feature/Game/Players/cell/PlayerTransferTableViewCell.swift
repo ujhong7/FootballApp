@@ -106,7 +106,7 @@ class PlayerTransferTableViewCell: UITableViewCell {
             // 셀 하단 여백을 위한 제약 조건
             inTeamLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
-
+        
     }
     
     // 데이터 구성 메서드

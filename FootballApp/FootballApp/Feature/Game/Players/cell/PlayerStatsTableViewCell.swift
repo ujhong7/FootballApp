@@ -147,7 +147,5 @@ class PlayerStatsTableViewCell: UITableViewCell {
             penaltyLabel.text = "No penalty data"
         }
     }
-
     
 }
-

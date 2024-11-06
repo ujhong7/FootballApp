@@ -90,6 +90,6 @@ class GoalsRankingTableViewCell: UITableViewCell {
         
         // 이미지 로딩
         teamLogoImageView.loadImage(from: playerRanking.statistics.first?.team.logo ?? "")
-        playerImageView.loadImage(from: playerRanking.player.photo)
+        playerImageView.loadImage(from: playerRanking.player.photo ?? "")
     }
 }

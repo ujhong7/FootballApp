@@ -28,7 +28,7 @@ class PlayerStatsViewController: UIViewController {
     private let loadingIndicatorView = LoadingIndicatorView()
     private let tableView = UITableView()
     weak var scrollDelegate: ScrollDelegate?
-
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -103,6 +103,7 @@ extension PlayerStatsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlayerStatsTableViewCell.identifier, for: indexPath) as! PlayerStatsTableViewCell
         let playerResponse = playerResponse[indexPath.row]
         cell.configure(with: playerResponse)
+        cell.selectionStyle = .none
         return cell
     }
 }

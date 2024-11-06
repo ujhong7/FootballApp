@@ -1,5 +1,5 @@
 //
-//  PlayerProfileViewController.swift
+//  PlayerTransferViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/22/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlayerProfileViewController: UIViewController {
+class PlayerTransferViewController: UIViewController {
     
     // MARK: - init
     
@@ -24,10 +24,10 @@ class PlayerProfileViewController: UIViewController {
     
     private let playerID: Int?
     private let footballService = FootballNetworkService()
-    private var playerResponse: [PlayerResponse] = []
+    private var transfer: [Transfer] = []
     private let loadingIndicatorView = LoadingIndicatorView()
-    weak var scrollDelegate: ScrollDelegate?
     private let tableView = UITableView()
+    weak var scrollDelegate: ScrollDelegate?
     
     // MARK: - LifeCycle
     
@@ -36,16 +36,17 @@ class PlayerProfileViewController: UIViewController {
         view.backgroundColor = .systemRed
         configureTableView()
         setupTableViewConstraints()
-        fetchPlayerProfile()
+        fetchTransferInformation()
     }
     
     // MARK: - Methods
     
     private func configureTableView() {
         tableView.backgroundColor = .systemBackground
+        tableView.rowHeight = 100
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PlayerProfileTableViewCell.self, forCellReuseIdentifier: PlayerProfileTableViewCell.identifier)
+        tableView.register(PlayerTransferTableViewCell.self, forCellReuseIdentifier: PlayerTransferTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.showsVerticalScrollIndicator = false
         view.addSubview(tableView)
@@ -61,70 +62,49 @@ class PlayerProfileViewController: UIViewController {
         ])
     }
     
-    private func fetchPlayerProfile() {
+    private func fetchTransferInformation() {
         loadingIndicatorView.show(in: view)
         if let playerID = playerID {
-            print("🥶\(playerID)")
-            footballService.getPlayerProfile(playerID: playerID, season: season2024, league: premierLeague) { [weak self] result in
+            footballService.getPlayerTransfers(playerID: playerID) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.loadingIndicatorView.hide()
                 }
                 switch result {
                 case .success(let response):
-                    print("🥶🥶🥶🥶🥶🥶🥶🥶🥶🥶")
+                    print("😤😤😤😤😤😤😤😤😤😤")
                     dump(response)
-                    self?.playerResponse = response.response
+                    self?.transfer = response.response.first?.transfers ?? []
                     DispatchQueue.main.async {
                         self?.tableView.reloadData()
                     }
                 case .failure(let error):
-                    if let networkError = error as? NetworkError {
-                        switch networkError {
-                        case .invalidURL:
-                            print("유효하지 않은 URL입니다.")
-                        case .noData:
-                            print("데이터가 없습니다.")
-                        case .decodingError:
-                            print("데이터 디코딩 실패.")
-                        case .httpError(let statusCode):
-                            print("HTTP 오류 발생: 상태 코드 \(statusCode)")
-                        case .unknownError:
-                            print("알 수 없는 오류 발생.")
-                        }
-                    } else {
-                        print("기타 오류 발생: \(error.localizedDescription)")
-                    }
+                    print("Error fetching team rankings: \(error.localizedDescription)")
                 }
             }
         }
     }
+}
+
+extension PlayerTransferViewController: UITableViewDelegate {
     
 }
 
-// MARK: - UITableViewDelegate
-
-extension PlayerProfileViewController: UITableViewDelegate {
-    
-}
-
-// MARK: - UITableViewDataSource
-
-extension PlayerProfileViewController: UITableViewDataSource {
+extension PlayerTransferViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playerResponse.count
+        return transfer.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlayerProfileTableViewCell.identifier, for: indexPath) as! PlayerProfileTableViewCell
-        let playerResponse = playerResponse[indexPath.row]
-        cell.configure(with: playerResponse)
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlayerTransferTableViewCell.identifier, for: indexPath) as! PlayerTransferTableViewCell
+        let transfer = transfer[indexPath.row]
+        cell.configure(with: transfer)
+        cell.selectionStyle = .none
         return cell
+        
     }
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension PlayerProfileViewController: UIScrollViewDelegate {
+extension PlayerTransferViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScroll(yOffset: scrollView.contentOffset.y)
     }

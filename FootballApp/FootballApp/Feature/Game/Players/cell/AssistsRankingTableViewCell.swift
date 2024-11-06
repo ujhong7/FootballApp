@@ -38,7 +38,7 @@ class AssistsRankingTableViewCell: UITableViewCell {
     private func setupUI() {
         playerImageView.contentMode = .scaleAspectFill
         playerImageView.clipsToBounds = true
-        playerImageView.layer.cornerRadius = 20
+        playerImageView.layer.cornerRadius = 15
         
         // 레이블의 텍스트 색상 설정
         rankLabel.textColor = .black

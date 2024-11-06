@@ -33,6 +33,14 @@ final class GoalsPlayerViewController: UIViewController {
         fetchTopScorers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: - Methods
     
     private func configureTableView() {
@@ -104,7 +112,7 @@ extension GoalsPlayerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 선택된 선수 정보를 가져옴
         let selectedPlayer = scorers[indexPath.row]
-        let goalsPlayerInformationVC = GoalsPlayerInformationViewController(playerRanking: selectedPlayer)
+        let goalsPlayerInformationVC = PlayerInformationViewController(playerRanking: selectedPlayer)
         navigationController?.pushViewController(goalsPlayerInformationVC, animated: true)
     }
 }

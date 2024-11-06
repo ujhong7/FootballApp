@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalsPlayerInformationViewController: UIViewController {
+class PlayerInformationViewController: UIViewController {
     
     // MARK: - init
     
@@ -31,7 +31,7 @@ class GoalsPlayerInformationViewController: UIViewController {
     
     private let segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["프로필", "통계", "이력"])
-        control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
+        control.selectedSegmentIndex = 0 
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
         return control
@@ -69,12 +69,12 @@ class GoalsPlayerInformationViewController: UIViewController {
     private let playerPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 50
+        imageView.layer.cornerRadius = 35
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    private let playeTeamImageView: UIImageView = {
+    private let playerTeamImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -106,19 +106,23 @@ class GoalsPlayerInformationViewController: UIViewController {
             segmentedControl.backgroundColor = TeamColors.color(for: playerRanking.statistics.first?.team.name ?? "")
         }
     }
-    
+
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0)
+        ]
     }
     
     private func setDataPlayerInformation() {
         if let playerRanking = playerRanking {
+            
             navigationItem.title = playerRanking.player.name
             playerNameLabel.text = playerRanking.player.name
             playerPhotoImageView.loadImage(from: playerRanking.player.photo)
             playerTeamLabel.text = playerRanking.statistics.first?.team.name
-            playeTeamImageView.loadImage(from: playerRanking.statistics.first?.team.logo ?? "")
+            playerTeamImageView.loadImage(from: playerRanking.statistics.first?.team.logo ?? "")
         }
     }
     
@@ -136,13 +140,13 @@ class GoalsPlayerInformationViewController: UIViewController {
         InformationView.addSubview(playerPhotoImageView)
         InformationView.addSubview(playerNameLabel)
         InformationView.addSubview(playerTeamLabel)
-        InformationView.addSubview(playeTeamImageView)
+        InformationView.addSubview(playerTeamImageView)
         InformationView.translatesAutoresizingMaskIntoConstraints = false
         playerPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
         playerNameLabel.translatesAutoresizingMaskIntoConstraints = false
         playerTeamLabel.translatesAutoresizingMaskIntoConstraints = false
-        playeTeamImageView.translatesAutoresizingMaskIntoConstraints = false
-//        InformationViewHeightConstraint = InformationView.heightAnchor.constraint(equalToConstant: 100) // 초기 헤더 높이 설정
+        playerTeamImageView.translatesAutoresizingMaskIntoConstraints = false
+        //        InformationViewHeightConstraint = InformationView.heightAnchor.constraint(equalToConstant: 100) // 초기 헤더 높이 설정
     }
     
     private func setupInformationViewConstraints() {
@@ -154,16 +158,16 @@ class GoalsPlayerInformationViewController: UIViewController {
             InformationViewHeightConstraint!,
             playerPhotoImageView.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor),
             playerPhotoImageView.leadingAnchor.constraint(equalTo: InformationView.leadingAnchor, constant: 10),
-            playerPhotoImageView.widthAnchor.constraint(equalToConstant: 80),
-            playerPhotoImageView.heightAnchor.constraint(equalToConstant: 80),
+            playerPhotoImageView.widthAnchor.constraint(equalToConstant: 70),
+            playerPhotoImageView.heightAnchor.constraint(equalToConstant: 70),
             playerNameLabel.centerYAnchor.constraint(equalTo: InformationView.centerYAnchor, constant: -20),
             playerNameLabel.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
             playerTeamLabel.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 7),
-            playerTeamLabel.leadingAnchor.constraint(equalTo: playeTeamImageView.trailingAnchor, constant: 9),
-            playeTeamImageView.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 5),
-            playeTeamImageView.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
-            playeTeamImageView.widthAnchor.constraint(equalToConstant: 30),
-            playeTeamImageView.heightAnchor.constraint(equalToConstant: 30),
+            playerTeamLabel.leadingAnchor.constraint(equalTo: playerTeamImageView.trailingAnchor, constant: 9),
+            playerTeamImageView.topAnchor.constraint(equalTo: playerNameLabel.bottomAnchor, constant: 5),
+            playerTeamImageView.leadingAnchor.constraint(equalTo: playerPhotoImageView.trailingAnchor, constant: 15),
+            playerTeamImageView.widthAnchor.constraint(equalToConstant: 30),
+            playerTeamImageView.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
@@ -250,7 +254,7 @@ class GoalsPlayerInformationViewController: UIViewController {
 
 // MARK: - UIPageViewControllerDataSource
 
-extension GoalsPlayerInformationViewController: UIPageViewControllerDataSource {
+extension PlayerInformationViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index > 0 else {
@@ -269,7 +273,7 @@ extension GoalsPlayerInformationViewController: UIPageViewControllerDataSource {
 
 // MARK: - UIPageViewControllerDelegate
 
-extension GoalsPlayerInformationViewController: UIPageViewControllerDelegate {
+extension PlayerInformationViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = viewControllers.firstIndex(of: visibleViewController) {
@@ -282,17 +286,17 @@ extension GoalsPlayerInformationViewController: UIPageViewControllerDelegate {
 
 // MARK: - ScrollDelegate
 
-extension GoalsPlayerInformationViewController: ScrollDelegate {
+extension PlayerInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정
         if let playerProfileVC = viewControllers[0] as? PlayerProfileViewController {
             playerProfileVC.scrollDelegate = self
         }
-        if let playerStatsVC = viewControllers[2] as? PlayerStatsViewController {
+        if let playerStatsVC = viewControllers[1] as? PlayerStatsViewController {
             playerStatsVC.scrollDelegate = self
         }
-        if let playerTransferVC = viewControllers[1] as? PlayerTransferViewController {
+        if let playerTransferVC = viewControllers[2] as? PlayerTransferViewController {
             playerTransferVC.scrollDelegate = self
         }
     }
@@ -313,8 +317,10 @@ extension GoalsPlayerInformationViewController: ScrollDelegate {
         UIView.animate(withDuration: 0.3) {
             self.InformationView.alpha = alpha
             self.InformationViewHeightConstraint?.constant = newHeight
+            self.navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(1 - alpha)
+            ]
             self.view.layoutIfNeeded() // 레이아웃을 즉시 업데이트
         }
     }
 }
-
