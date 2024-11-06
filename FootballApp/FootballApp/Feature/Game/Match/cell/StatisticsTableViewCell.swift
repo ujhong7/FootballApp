@@ -51,92 +51,85 @@ class StatisticsTableViewCell: UITableViewCell {
     
     func configure(with fixture: Fixture) {
         // Clear previous statistics
-        statisticsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        clearPreviousStatistics()
         
         // Configure the cell with statistics
         guard let teamStatistics = fixture.statistics, let teams = fixture.teams else { return }
         
         // 홈팀과 어웨이팀의 통계를 각각 찾기
-        let homeTeamStatistics = teamStatistics.first { $0.team.id == teams.home?.id }
-        let awayTeamStatistics = teamStatistics.first { $0.team.id == teams.away?.id }
-        
-        // 두 팀의 통계가 모두 있어야 함
-        guard let homeStats = homeTeamStatistics?.statistics, let awayStats = awayTeamStatistics?.statistics else { return }
+        guard let homeStats = getTeamStatistics(for: teams.home, from: teamStatistics),
+              let awayStats = getTeamStatistics(for: teams.away, from: teamStatistics) else { return }
         
         // 통계 항목들을 하나씩 처리
         for (index, homeStatistic) in homeStats.enumerated() {
-            // 어웨이팀의 같은 index에서 통계 데이터를 가져옴
             let awayStatistic = awayStats[index]
-            
-            let statisticContainer = UIStackView()
-            statisticContainer.axis = .horizontal
-            statisticContainer.alignment = .center
-            statisticContainer.distribution = .equalSpacing // 각 요소를 고르게 분배
-            statisticContainer.spacing = 16
-            statisticContainer.translatesAutoresizingMaskIntoConstraints = false
-            
-            let homeValueLabel = UILabel()
-            homeValueLabel.font = UIFont.systemFont(ofSize: 16)
-            homeValueLabel.textColor = .label
-            homeValueLabel.textAlignment = .right
-            
-            let statisticLabel = UILabel()
-            // 한글로 바꿈 ⭐️
-            // statisticLabel.text = homeStatistic.type // 통계 항목 이름
-            let statisticMappingKorean = StatisticsMapping.mappingKorean[homeStatistic.type] ?? homeStatistic.type
-            statisticLabel.text = statisticMappingKorean
-            // ⭐️
-            statisticLabel.font = UIFont.boldSystemFont(ofSize: 16)
-            statisticLabel.textColor = .label
-            statisticLabel.textAlignment = .center
-            
-            let awayValueLabel = UILabel()
-            awayValueLabel.font = UIFont.systemFont(ofSize: 16)
-            awayValueLabel.textColor = .label
-            awayValueLabel.textAlignment = .right
-            
-            // Label Width Constraint 설정
-            homeValueLabel.widthAnchor.constraint(equalToConstant: 35).isActive = true
-            awayValueLabel.widthAnchor.constraint(equalToConstant: 35).isActive = true
-            
-            // 홈팀 값 처리
-            let homeValueDescription: String
-            if let value = homeStatistic.value {
-                switch value {
-                case .int(let intValue):
-                    homeValueDescription = "\(intValue)"
-                case .string(let stringValue):
-                    homeValueDescription = stringValue
-                default:
-                    homeValueDescription = "0"
-                }
-            } else {
-                homeValueDescription = "0"
-            }
-            homeValueLabel.text = homeValueDescription
-            
-            // 어웨이팀 값 처리
-            let awayValueDescription: String
-            if let value = awayStatistic.value {
-                switch value {
-                case .int(let intValue):
-                    awayValueDescription = "\(intValue)"
-                case .string(let stringValue):
-                    awayValueDescription = stringValue
-                default:
-                    awayValueDescription = "0"
-                }
-            } else {
-                awayValueDescription = "0"
-            }
-            awayValueLabel.text = awayValueDescription
-            
-            statisticContainer.addArrangedSubview(homeValueLabel) // 홈팀 값
-            statisticContainer.addArrangedSubview(statisticLabel) // 통계 항목 이름
-            statisticContainer.addArrangedSubview(awayValueLabel) // 어웨이팀 값
-            
+            let statisticContainer = createStatisticContainer(for: homeStatistic, awayStatistic: awayStatistic)
             statisticsStackView.addArrangedSubview(statisticContainer)
         }
     }
-    
+
+    private func clearPreviousStatistics() {
+        statisticsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+    }
+
+    private func getTeamStatistics(for team: Team3?, from statistics: [TeamStatistics]) -> [Statistic]? {
+        guard let team = team else { return nil }
+        return statistics.first { $0.team.id == team.id }?.statistics
+    }
+
+    private func createStatisticContainer(for homeStatistic: Statistic, awayStatistic: Statistic) -> UIStackView {
+        let statisticContainer = UIStackView()
+        statisticContainer.axis = .horizontal
+        statisticContainer.alignment = .center
+        statisticContainer.distribution = .equalSpacing
+        statisticContainer.spacing = 16
+        statisticContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        let homeValueLabel = createValueLabel(for: homeStatistic)
+        let statisticLabel = createStatisticLabel(for: homeStatistic)
+        let awayValueLabel = createValueLabel(for: awayStatistic)
+        
+        statisticContainer.addArrangedSubview(homeValueLabel)
+        statisticContainer.addArrangedSubview(statisticLabel)
+        statisticContainer.addArrangedSubview(awayValueLabel)
+        
+        return statisticContainer
+    }
+
+    private func createValueLabel(for statistic: Statistic) -> UILabel {
+        let valueLabel = UILabel()
+        valueLabel.font = UIFont.systemFont(ofSize: 16)
+        valueLabel.textColor = .label
+        valueLabel.textAlignment = .right
+        valueLabel.widthAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        let valueDescription: String
+        if let value = statistic.value {
+            switch value {
+            case .int(let intValue):
+                valueDescription = "\(intValue)"
+            case .string(let stringValue):
+                valueDescription = stringValue
+            default:
+                valueDescription = "0"
+            }
+        } else {
+            valueDescription = "0"
+        }
+        valueLabel.text = valueDescription
+        
+        return valueLabel
+    }
+
+    private func createStatisticLabel(for statistic: Statistic) -> UILabel {
+        let statisticLabel = UILabel()
+        let statisticMappingKorean = StatisticsMapping.mappingKorean[statistic.type] ?? statistic.type
+        statisticLabel.text = statisticMappingKorean
+        statisticLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        statisticLabel.textColor = .label
+        statisticLabel.textAlignment = .center
+        
+        return statisticLabel
+    }
+
 }
