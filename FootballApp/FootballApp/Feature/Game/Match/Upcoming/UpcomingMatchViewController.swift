@@ -47,6 +47,14 @@ final class UpcomingMatchViewController: UIViewController {
         fetchUpcomingFixtures()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: - Methods
     
     private func configureTableView() {
@@ -183,7 +191,7 @@ extension UpcomingMatchViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = roundTabCollectionView.dequeueReusableCell(withReuseIdentifier: RoundTabCollectionViewCell.identifier, for: indexPath) as? RoundTabCollectionViewCell else { return UICollectionViewCell() }
-        // ★ 수정: 현재 라운드부터 순차적으로 탭에 표시
+        // 현재 라운드부터 순차적으로 탭에 표시
         let round = currentRound + indexPath.row + 1
         cell.configure(round: round)
         cell.changeSelectedColor(isSelected: indexPath == selectedTabIndex)

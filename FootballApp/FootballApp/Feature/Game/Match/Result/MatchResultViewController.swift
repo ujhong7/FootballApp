@@ -45,6 +45,14 @@ final class MatchResultViewController: UIViewController {
         fetchPastFixtures()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: - Methods
     
     private func configureTableView() {
@@ -110,7 +118,22 @@ final class MatchResultViewController: UIViewController {
                     self?.setupRoundTabCollectionView()
                 }
             case .failure(let error):
-                print("Error fetching fixtures: \(error.localizedDescription)")
+                if let networkError = error as? NetworkError {
+                    switch networkError {
+                    case .invalidURL:
+                        print("유효하지 않은 URL입니다.")
+                    case .noData:
+                        print("데이터가 없습니다.")
+                    case .decodingError:
+                        print("데이터 디코딩 실패.")
+                    case .httpError(let statusCode):
+                        print("HTTP 오류 발생: 상태 코드 \(statusCode)")
+                    case .unknownError:
+                        print("알 수 없는 오류 발생.")
+                    }
+                } else {
+                    print("기타 오류 발생: \(error.localizedDescription)")
+                }
             }
         }
     }

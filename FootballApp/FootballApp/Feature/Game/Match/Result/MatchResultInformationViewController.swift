@@ -24,14 +24,14 @@ class MatchResultInformationViewController: UIViewController {
     // MARK: - Properties
     
     var fixture: Fixture?  // 전달받은 경기 정보
-
+    
     private let InformationView: UIView = {
         let view = UIView()
         return view
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["프로필", "경기", "통계", "경력"])
+        let control = UISegmentedControl(items: ["경기", "선수명단", "통계", "상대전적"])
         control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
@@ -141,16 +141,23 @@ class MatchResultInformationViewController: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0)
+        ]
     }
     
     private func setDataMatchInformation() {
         // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
         // 전달된 fixture를 사용하여 UI 업데이트
         if let fixture = fixture {
-            print("Fixture info: \(fixture)")
+            dump("Fixture info: \(fixture)")
             // UI에 경기 정보 표시하는 코드 추가
-            let homeTeam = fixture.teams.home
-            let awayTeam = fixture.teams.away
+            guard let homeTeam = fixture.teams?.home,
+                  let awayTeam = fixture.teams?.away else {
+                return
+            }
+            //            let homeTeam = fixture.teams.home
+            //            let awayTeam = fixture.teams.away
             let homeGoals = fixture.goals.home
             let awayGoals = fixture.goals.away
             let status = fixture.fixture.status.long
@@ -252,12 +259,22 @@ class MatchResultInformationViewController: UIViewController {
     }
     
     private func setupViewControllers() {
-        let matchVC = Ex2ViewController()
-        let playerInfoVC = Ex3ViewController()
-        let teamStatsVC = Ex4ViewController()
-        let teamInfoVC = Ex5ViewController()
+        guard let fixture = fixture,
+              let homeTeamID = fixture.teams?.home?.id,
+              let awayTeamID = fixture.teams?.away?.id else {
+            print("팀 정보가 존재하지 않거나 fixture가 nil입니다.")
+            return
+        }
         
-        viewControllers = [matchVC, playerInfoVC, teamStatsVC, teamInfoVC]
+        print("🔥🔥🔥 경기ID: \(fixture.fixture.id) 🔥🔥🔥")
+        print("🔥🔥🔥 홈팀ID: \(homeTeamID), 어웨이팀ID: \(awayTeamID) 🔥🔥🔥")
+        
+        let matchSummaryVC = MatchSummaryViewController(fixtureID: fixture.fixture.id)
+        let squadVC = SquadViewController(fixtureID: fixture.fixture.id)
+        let statisticsVC = StatisticsViewController(fixtureID: fixture.fixture.id)
+        let headToheadVC = HeadToHeadViewController(homeTeamID: homeTeamID, awayTeamID: awayTeamID)
+        
+        viewControllers = [matchSummaryVC, squadVC, statisticsVC, headToheadVC]
     }
     
     private func setupPageViewController() {
@@ -344,22 +361,22 @@ extension MatchResultInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정
-        if let ex2VC = viewControllers[0] as? Ex2ViewController {
-            ex2VC.scrollDelegate = self
+        guard let matchSummaryVC = viewControllers[0] as? MatchSummaryViewController,
+              let squadVC = viewControllers[1] as? SquadViewController,
+              let statisticsVC = viewControllers[2] as? StatisticsViewController,
+              let headToheadVC = viewControllers[3] as? HeadToHeadViewController else {
+            return
         }
-        if let ex3VC = viewControllers[1] as? Ex3ViewController {
-            ex3VC.scrollDelegate = self
-        }
-        if let ex4VC = viewControllers[2] as? Ex4ViewController {
-            ex4VC.scrollDelegate = self
-        }
-        if let ex5VC = viewControllers[3] as? Ex5ViewController {
-            ex5VC.scrollDelegate = self
-        }
+        // 모든 뷰 컨트롤러가 안전하게 언래핑된 후, scrollDelegate 설정
+        matchSummaryVC.scrollDelegate = self
+        squadVC.scrollDelegate = self
+        statisticsVC.scrollDelegate = self
+        headToheadVC.scrollDelegate = self
+        
     }
     
     func didScroll(yOffset: CGFloat) {
-        print(#fileID, #function, #line, "🐧 yOffset:\(yOffset)")
+        //        print(#fileID, #function, #line, "🐧 yOffset:\(yOffset)")
         
         // 최소 및 최대 높이 설정 (필요에 따라 변경 가능)
         let minHeight: CGFloat = 0
@@ -374,6 +391,9 @@ extension MatchResultInformationViewController: ScrollDelegate {
         UIView.animate(withDuration: 0.3) {
             self.InformationView.alpha = alpha
             self.informationViewHeightConstraint?.constant = newHeight
+            self.navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(1 - alpha)
+            ]
             self.view.layoutIfNeeded() // 레이아웃을 즉시 업데이트
         }
     }

@@ -93,12 +93,12 @@ class MatchTableViewCell: UITableViewCell {
             awayTeamLogoImageView.widthAnchor.constraint(equalToConstant: 30),
             awayTeamLogoImageView.heightAnchor.constraint(equalToConstant: 30),
             
-//            statusLabel.topAnchor.constraint(equalTo: homeTeamLogoImageView.bottomAnchor, constant: 5),
-//            statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//            
-//            dateLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
-//            dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            //            statusLabel.topAnchor.constraint(equalTo: homeTeamLogoImageView.bottomAnchor, constant: 5),
+            //            statusLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            //            
+            //            dateLabel.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 5),
+            //            dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            //            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     
@@ -106,8 +106,15 @@ class MatchTableViewCell: UITableViewCell {
 
 extension MatchTableViewCell {
     func configure(with fixture: Fixture) {
-        let homeTeam = fixture.teams.home
-        let awayTeam = fixture.teams.away
+        
+        guard let homeTeam = fixture.teams?.home,
+              let awayTeam = fixture.teams?.away else {
+            return
+        }
+        
+        
+        //        let homeTeam = fixture.teams.home
+        //        let awayTeam = fixture.teams.away
         let homeGoals = fixture.goals.home
         let awayGoals = fixture.goals.away
         let status = fixture.fixture.status.long
