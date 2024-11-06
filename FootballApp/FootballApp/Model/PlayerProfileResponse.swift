@@ -20,24 +20,25 @@ struct PlayerResponse: Codable {
 
 // MARK: - Player
 struct Player: Codable {
-    let id: Int
-    let name: String
-    let firstname: String
-    let lastname: String
-    let age: Int
-    let birth: Birth
-    let nationality: String
-    let height: String
-    let weight: String
-    let injured: Bool
-    let photo: String
+    let id: Int //
+    let name: String //
+    let pos: String?
+    let firstname: String?
+    let lastname: String?
+    let age: Int? //
+    let birth: Birth?
+    let nationality: String?
+    let height: String?
+    let weight: String?
+    let injured: Bool?
+    let photo: String? //
 }
 
 // MARK: - Birth
 struct Birth: Codable {
-    let date: String
-    let place: String
-    let country: String
+    let date: String?
+    let place: String?
+    let country: String?
 }
 
 // MARK: - PlayerStatistics

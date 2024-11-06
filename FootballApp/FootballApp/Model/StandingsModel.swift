@@ -42,6 +42,7 @@ struct Team: Decodable {
     let id: Int
     let name: String             // 팀 이름
     let logo: String             // 팀 로고
+    let winner: Bool?
 }
 
 // 팀의 경기 기록을 담은 구조체
