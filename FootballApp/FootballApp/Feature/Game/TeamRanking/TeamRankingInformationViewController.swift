@@ -30,7 +30,7 @@ class TeamRankingInformationViewController: UIViewController {
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["선수단", "예정경기", "경기기록", "ㅇㅇㅇ"])
+        let control = UISegmentedControl(items: ["스쿼드", "예정경기", "경기기록"])
         control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
@@ -94,6 +94,11 @@ class TeamRankingInformationViewController: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = UIColor.white // 버튼 색상
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white] // 타이틀 색상
+        // ⭐️
+        // 초기 설정: 네비게이션 타이틀을 보이지 않게 함
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white.withAlphaComponent(0) // 초기에는 완전히 투명하게
+        ]
     }
     
     private func setDataTeamInformation() {
@@ -101,9 +106,8 @@ class TeamRankingInformationViewController: UIViewController {
         print("⚽️ 팀ID: \(teamInfo?.id)")
         teamLogoImageView.loadImage(from: teamInfo?.logo ?? "")
         if let teamName = teamInfo?.name {
-            //titleView.text = teamName
-            navigationItem.title = teamName
             teamNameLabel.text = teamName
+            navigationItem.title = teamName
         }
     }
     
@@ -170,11 +174,10 @@ class TeamRankingInformationViewController: UIViewController {
     
     private func setupViewControllers() {
         if let teamID = teamInfo?.id {
-            let matchVC = Ex2ViewController()
+            let teamSquadVC = TeamSquadViewController(teamID: teamID)
             let teamNextMatchVC = TeamNextMatchViewController(teamID: teamID)
             let teamPreviousMatchVC = TeamPreviousMatchViewController(teamID: teamID)
-            let teamInfoVC = Ex5ViewController()
-            viewControllers = [matchVC, teamNextMatchVC, teamPreviousMatchVC, teamInfoVC]
+            viewControllers = [teamSquadVC, teamNextMatchVC, teamPreviousMatchVC]
         }
     }
     
@@ -262,8 +265,8 @@ extension TeamRankingInformationViewController: ScrollDelegate {
     
     private func setupScrollDelegates() {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정
-        if let ex2VC = viewControllers[0] as? Ex2ViewController {
-            ex2VC.scrollDelegate = self
+        if let teamSquadVC = viewControllers[0] as? TeamSquadViewController {
+            teamSquadVC.scrollDelegate = self
         }
         if let teamNextMatchVC = viewControllers[1] as? TeamNextMatchViewController {
             teamNextMatchVC.scrollDelegate = self
@@ -271,13 +274,10 @@ extension TeamRankingInformationViewController: ScrollDelegate {
         if let teamPreviousMatchVC = viewControllers[2] as? TeamPreviousMatchViewController {
             teamPreviousMatchVC.scrollDelegate = self
         }
-        if let ex5VC = viewControllers[3] as? Ex5ViewController {
-            ex5VC.scrollDelegate = self
-        }
     }
     
     func didScroll(yOffset: CGFloat) {
-        print(#fileID, #function, #line, "🐧 yOffset:\(yOffset)")
+        //        print(#fileID, #function, #line, "🐧 yOffset:\(yOffset)")
         
         // 최소 및 최대 높이 설정 (필요에 따라 변경 가능)
         let minHeight: CGFloat = 0
@@ -292,6 +292,10 @@ extension TeamRankingInformationViewController: ScrollDelegate {
         UIView.animate(withDuration: 0.3) {
             self.InformationView.alpha = alpha
             self.informationViewHeightConstraint?.constant = newHeight
+            // ⭐️
+            self.navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white.withAlphaComponent(1 - alpha)
+            ]
             self.view.layoutIfNeeded() // 레이아웃을 즉시 업데이트
         }
     }

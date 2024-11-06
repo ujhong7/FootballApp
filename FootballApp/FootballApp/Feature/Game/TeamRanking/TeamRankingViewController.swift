@@ -32,6 +32,14 @@ final class TeamRankingViewController: UIViewController {
         fetchTeamRankings()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
     // MARK: - Methods
     
     private func configureTableView() {

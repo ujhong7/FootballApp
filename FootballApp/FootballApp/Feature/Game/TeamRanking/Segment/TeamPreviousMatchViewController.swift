@@ -1,5 +1,5 @@
 //
-//  TeamNextMatchViewController.swift
+//  TeamPreviousMatchViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/21/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TeamNextMatchViewController: UIViewController {
-
+class TeamPreviousMatchViewController: UIViewController {
+    
     // MARK: - init
     
     init(teamID: Int?) {
@@ -28,15 +28,23 @@ class TeamNextMatchViewController: UIViewController {
     private let loadingIndicatorView = LoadingIndicatorView()
     weak var scrollDelegate: ScrollDelegate?
     private let tableView = UITableView()
-
-    // MARK: - LiftCycle
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
         configureTableView()
         setupTableViewConstraints()
-        fetchUpcomingMatch()
+        fetchPreviousMatch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택된 셀이 있을 경우 선택 해제
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     // MARK: - Methods
@@ -61,16 +69,16 @@ class TeamNextMatchViewController: UIViewController {
         ])
     }
     
-    private func fetchUpcomingMatch() {
+    private func fetchPreviousMatch() {
         loadingIndicatorView.show(in: view)
         if let teamID = teamID {
-            footballService.getTeamUpcomingFixtures(teamID: teamID, league: premierLeague, season: season2024) { [weak self] result in
+            footballService.getTeamPreviousFixtures(teamID: teamID, league: premierLeague, season: season2024) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.loadingIndicatorView.hide()
                 }
                 switch  result {
                 case .success(let response):
-                    print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
+                    print("🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣")
                     dump(response)
                     self?.fixtures = response.response
                     DispatchQueue.main.async {
@@ -82,17 +90,22 @@ class TeamNextMatchViewController: UIViewController {
             }
         }
     }
+    
 }
 
 // MARK: - UITableViewDelegate
 
-extension TeamNextMatchViewController: UITableViewDelegate {
-    
+extension TeamPreviousMatchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedFixture = fixtures[indexPath.row]
+        let matchInformationVC = MatchResultInformationViewController(fixture: selectedFixture)
+        navigationController?.pushViewController(matchInformationVC, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource
 
-extension TeamNextMatchViewController: UITableViewDataSource {
+extension TeamPreviousMatchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fixtures.count
     }
@@ -107,7 +120,7 @@ extension TeamNextMatchViewController: UITableViewDataSource {
 
 // MARK: - UIScrollViewDelegate
 
-extension TeamNextMatchViewController: UIScrollViewDelegate {
+extension TeamPreviousMatchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScroll(yOffset: scrollView.contentOffset.y)
     }

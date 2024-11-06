@@ -42,22 +42,22 @@ class TeamRankingTableViewCell: UITableViewCell {
     
     private func setupUI() {
         // 일반 레이블 설정
-            let normalLabels = [matchesLabel, winsLabel, drawsLabel, lossesLabel,
-                                goalDifferenceLabel, goalsForLabel, goalsAgainstLabel]
-            normalLabels.forEach {
-                $0.textColor = .black // 텍스트 색상 설정
-                $0.font = .systemFont(ofSize: 12) // 일반 폰트 설정
-                contentView.addSubview($0) // 레이블 추가
-                $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정
-            }
+        let normalLabels = [matchesLabel, winsLabel, drawsLabel, lossesLabel,
+                            goalDifferenceLabel, goalsForLabel, goalsAgainstLabel]
+        normalLabels.forEach {
+            $0.textColor = .black // 텍스트 색상 설정
+            $0.font = .systemFont(ofSize: 12) // 일반 폰트 설정
+            contentView.addSubview($0) // 레이블 추가
+            $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정
+        }
         
         let boldLabels = [rankLabel, teamNameLabel, pointsLabel]
-           boldLabels.forEach {
-               $0.textColor = .black // 텍스트 색상 설정
-               $0.font = .boldSystemFont(ofSize: 14) // 볼드 폰트 설정
-               contentView.addSubview($0) // 레이블 추가
-               $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정
-           }
+        boldLabels.forEach {
+            $0.textColor = .black // 텍스트 색상 설정
+            $0.font = .boldSystemFont(ofSize: 14) // 볼드 폰트 설정
+            contentView.addSubview($0) // 레이블 추가
+            $0.translatesAutoresizingMaskIntoConstraints = false // 오토레이아웃 설정
+        }
         
         contentView.addSubview(teamLogoImageView)
         teamLogoImageView.translatesAutoresizingMaskIntoConstraints = false
