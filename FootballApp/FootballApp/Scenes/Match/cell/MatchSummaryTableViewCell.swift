@@ -142,7 +142,7 @@ class MatchSummaryTableViewCell: UITableViewCell {
             eventDescription = "\(eventTime)' \(cardEmoji) \(eventPlayer)"
         case "subst":
             let assistPlayer = event.assist?.name ?? "Unknown Substitute"
-            eventDescription = "\(eventTime)' \(eventPlayer) \n      ➡️ \(assistPlayer)"
+            eventDescription = "\(eventTime)' \(assistPlayer) \n      ➡️ \(eventPlayer)"
         case "foul":
             eventDescription = "\(eventTime)' 🛑 Foul \(eventPlayer)"
         case "penalty":

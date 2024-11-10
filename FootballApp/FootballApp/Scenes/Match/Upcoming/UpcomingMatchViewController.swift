@@ -1,5 +1,5 @@
 //
-//  MatchResultViewController.swift
+//  UpcomingMatchViewController.swift
 //  FootballApp
 //
 //  Created by yujaehong on 10/5/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MatchResultViewController: UIViewController {
+final class UpcomingMatchViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -29,20 +29,22 @@ final class MatchResultViewController: UIViewController {
     }()
     
     private let footballService = FootballNetworkService()
-    private var fixtures: [Fixture] = []
+    private var upcomingFixtures: [Fixture] = []
     private var filteredFixtures: [Fixture] = []
     private let loadingIndicatorView = LoadingIndicatorView()
     private var selectedTabIndex: IndexPath = IndexPath(row: 0, section: 0)
+    private var currentRound: Int = 0  // ★ 수정: 현재 진행된 라운드를 저장하는 프로퍼티
+    private var maxRound: Int = 0  // ★ 수정: 최대 라운드를 저장하는 프로퍼티
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = .gray
         configureTableView()
         configureCollectionView()
         setupTableViewHeaderView()
-        fetchPastFixtures()
+        fetchUpcomingFixtures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +59,7 @@ final class MatchResultViewController: UIViewController {
     
     private func configureTableView() {
         tableView.backgroundColor = .systemBackground
-        tableView.rowHeight = 58 // 🚨
+        tableView.rowHeight = 64 // 🚨
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
@@ -99,41 +101,32 @@ final class MatchResultViewController: UIViewController {
         tableView.tableHeaderView = headerView
     }
     
-    private func fetchPastFixtures() {
+    private func fetchUpcomingFixtures() {
         loadingIndicatorView.show(in: view)
-        
-        footballService.getPastFixtures(league: premierLeague, season: season2024) { [weak self] result in
-            
+        footballService.getUpcomingFixtures(league: premierLeague, season: season2024) { [weak self] result in
             DispatchQueue.main.async {
                 self?.loadingIndicatorView.hide()
             }
-            
             switch result {
             case .success(let response):
-                print("🟢🟢🟢🟢🟢🟢🟢🟢🟢")
+                print("🟡🟡🟡🟡🟡🟡🟡🟡")
                 dump(response)
-                self?.fixtures = response.response.reversed()
-                self?.filteredFixtures = self?.fixtures ?? []
+                self?.upcomingFixtures = response.response
+                self?.filteredFixtures = self?.upcomingFixtures ?? []
+                
+                // 현재 라운드 및 최대 라운드 설정
+                if let max = response.response.compactMap({ Int($0.league.round.filter { $0.isNumber }) }).max() {
+                    self?.maxRound = max
+                }
+                if let current = response.response.compactMap({ Int($0.league.round.filter { $0.isNumber }) }).min() {
+                    self?.currentRound = current - 1
+                }
+                
                 DispatchQueue.main.async {
                     self?.setupRoundTabCollectionView()
                 }
             case .failure(let error):
-                if let networkError = error as? NetworkError {
-                    switch networkError {
-                    case .invalidURL:
-                        print("유효하지 않은 URL입니다.")
-                    case .noData:
-                        print("데이터가 없습니다.")
-                    case .decodingError:
-                        print("데이터 디코딩 실패.")
-                    case .httpError(let statusCode):
-                        print("HTTP 오류 발생: 상태 코드 \(statusCode)")
-                    case .unknownError:
-                        print("알 수 없는 오류 발생.")
-                    }
-                } else {
-                    print("기타 오류 발생: \(error.localizedDescription)")
-                }
+                print("Error fetching upcoming fixtures: \(error.localizedDescription)")
             }
         }
     }
@@ -146,15 +139,25 @@ final class MatchResultViewController: UIViewController {
     }
     
     private func filterFixturesByRound(roundNumber: Int) {
-        filteredFixtures = fixtures.filter { $0.league.round.contains(String(roundNumber)) }
+        filteredFixtures = upcomingFixtures.filter {
+            // 라운드 문자열에서 숫자만 추출하여 정확하게 일치하는지 확인
+            if let fixtureRound = Int($0.league.round.filter { $0.isNumber }) {
+                return fixtureRound == roundNumber
+            }
+            return false
+        }
+        print("🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨")
+        dump(filteredFixtures)
         self.tableView.reloadData()
     }
+    
     
 }
 
 // MARK: - UITableViewDataSource
 
-extension MatchResultViewController: UITableViewDataSource {
+extension UpcomingMatchViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredFixtures.count
     }
@@ -169,29 +172,28 @@ extension MatchResultViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension MatchResultViewController: UITableViewDelegate {
+extension UpcomingMatchViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFixture = filteredFixtures[indexPath.row]
-        let matchInformationVC = MatchResultInformationViewController(fixture: selectedFixture)
+        let matchInformationVC = UpcomingMatchInformationViewController(fixture: selectedFixture)
         navigationController?.pushViewController(matchInformationVC, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension MatchResultViewController: UICollectionViewDataSource {
+extension UpcomingMatchViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let maxRound = fixtures.compactMap({ Int(($0.league.round.filter { $0.isNumber }))}).max() else {
-            return 0
-        }
-        return maxRound
+        return maxRound - currentRound
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = roundTabCollectionView.dequeueReusableCell(withReuseIdentifier: RoundTabCollectionViewCell.identifier, for: indexPath) as? RoundTabCollectionViewCell else { return UICollectionViewCell() }
-        let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
-        let reverseIndex = totalCount - indexPath.row
-        cell.configure(round: reverseIndex)
+        // 현재 라운드부터 순차적으로 탭에 표시
+        let round = currentRound + indexPath.row + 1
+        cell.configure(round: round)
         cell.changeSelectedColor(isSelected: indexPath == selectedTabIndex)
         return cell
     }
@@ -199,11 +201,12 @@ extension MatchResultViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension MatchResultViewController: UICollectionViewDelegate {
+extension UpcomingMatchViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let totalCount = collectionView.numberOfItems(inSection: indexPath.section)
-        let index = totalCount - indexPath.row
-        filterFixturesByRound(roundNumber: index)
+        let roundNumber = currentRound + indexPath.row + 1 // 선택된 라운드 번호
+        filterFixturesByRound(roundNumber: roundNumber) // 선택된 라운드에 맞춰 필터링
+        
         if let previousCell = collectionView.cellForItem(at: selectedTabIndex) as? RoundTabCollectionViewCell {
             previousCell.changeSelectedColor(isSelected: false)
         }

@@ -80,7 +80,7 @@ class TeamPreviousMatchViewController: UIViewController {
                 case .success(let response):
                     print("🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣")
                     dump(response)
-                    self?.fixtures = response.response
+                    self?.fixtures = response.response.reversed()
                     DispatchQueue.main.async {
                         self?.tableView.reloadData()
                     }

@@ -59,7 +59,7 @@ class PlayerStatsViewController: UIViewController {
     private func fetchPlayerStats() {
         loadingIndicatorView.show(in: view)
         
-        // 최근 5개 시즌 데이터를 비동기 요청
+        // ⭐️ 최근 5개 시즌 데이터를 비동기 요청 ⭐️
         let dispatchGroup = DispatchGroup()
         
         for season in recentSeasons {

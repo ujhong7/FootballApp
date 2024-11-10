@@ -31,7 +31,7 @@ class MatchResultInformationViewController: UIViewController {
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["경기", "선수명단", "통계", "상대전적"])
+        let control = UISegmentedControl(items: ["경기", "선수명단", "통계"])
         control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
@@ -272,9 +272,8 @@ class MatchResultInformationViewController: UIViewController {
         let matchSummaryVC = MatchSummaryViewController(fixtureID: fixture.fixture.id)
         let squadVC = SquadViewController(fixtureID: fixture.fixture.id)
         let statisticsVC = StatisticsViewController(fixtureID: fixture.fixture.id)
-        let headToheadVC = HeadToHeadViewController(homeTeamID: homeTeamID, awayTeamID: awayTeamID)
         
-        viewControllers = [matchSummaryVC, squadVC, statisticsVC, headToheadVC]
+        viewControllers = [matchSummaryVC, squadVC, statisticsVC]
     }
     
     private func setupPageViewController() {
@@ -363,16 +362,13 @@ extension MatchResultInformationViewController: ScrollDelegate {
         // 각 하위 뷰컨트롤러의 스크롤 델리게이트 설정
         guard let matchSummaryVC = viewControllers[0] as? MatchSummaryViewController,
               let squadVC = viewControllers[1] as? SquadViewController,
-              let statisticsVC = viewControllers[2] as? StatisticsViewController,
-              let headToheadVC = viewControllers[3] as? HeadToHeadViewController else {
+              let statisticsVC = viewControllers[2] as? StatisticsViewController else {
             return
         }
         // 모든 뷰 컨트롤러가 안전하게 언래핑된 후, scrollDelegate 설정
         matchSummaryVC.scrollDelegate = self
         squadVC.scrollDelegate = self
-        statisticsVC.scrollDelegate = self
-        headToheadVC.scrollDelegate = self
-        
+        statisticsVC.scrollDelegate = self        
     }
     
     func didScroll(yOffset: CGFloat) {

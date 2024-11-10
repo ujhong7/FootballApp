@@ -31,12 +31,10 @@ class StatisticsTableViewCell: UITableViewCell {
     // MARK: - Methods
     
     private func setupUI() {
-        // Set up the statistics stack view
         statisticsStackView.axis = .vertical
-        statisticsStackView.spacing = 8
+        statisticsStackView.spacing = 13
         statisticsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add stack view to the content view
         contentView.addSubview(statisticsStackView)
     }
     
@@ -50,17 +48,13 @@ class StatisticsTableViewCell: UITableViewCell {
     }
     
     func configure(with fixture: Fixture) {
-        // Clear previous statistics
         clearPreviousStatistics()
         
-        // Configure the cell with statistics
         guard let teamStatistics = fixture.statistics, let teams = fixture.teams else { return }
         
-        // 홈팀과 어웨이팀의 통계를 각각 찾기
         guard let homeStats = getTeamStatistics(for: teams.home, from: teamStatistics),
               let awayStats = getTeamStatistics(for: teams.away, from: teamStatistics) else { return }
         
-        // 통계 항목들을 하나씩 처리
         for (index, homeStatistic) in homeStats.enumerated() {
             let awayStatistic = awayStats[index]
             let statisticContainer = createStatisticContainer(for: homeStatistic, awayStatistic: awayStatistic)
@@ -82,16 +76,26 @@ class StatisticsTableViewCell: UITableViewCell {
         statisticContainer.axis = .horizontal
         statisticContainer.alignment = .center
         statisticContainer.distribution = .equalSpacing
-        statisticContainer.spacing = 16
+        statisticContainer.spacing = 8
         statisticContainer.translatesAutoresizingMaskIntoConstraints = false
         
+        // 홈팀 막대와 레이블
+        let homeBar = createValueBar(for: homeStatistic, comparedTo: awayStatistic)
         let homeValueLabel = createValueLabel(for: homeStatistic)
-        let statisticLabel = createStatisticLabel(for: homeStatistic)
-        let awayValueLabel = createValueLabel(for: awayStatistic)
         
+        // 통계명 레이블
+        let statisticLabel = createStatisticLabel(for: homeStatistic)
+        
+        // 어웨이팀 레이블과 막대
+        let awayValueLabel = createValueLabel(for: awayStatistic)
+        let awayBar = createValueBar(for: awayStatistic, comparedTo: homeStatistic)
+        
+        // 홈팀 막대 -> 홈팀 수치 -> 항목 레이블 -> 어웨이팀 수치 -> 어웨이팀 막대 순서로 컨테이너에 추가
+        statisticContainer.addArrangedSubview(homeBar)
         statisticContainer.addArrangedSubview(homeValueLabel)
         statisticContainer.addArrangedSubview(statisticLabel)
         statisticContainer.addArrangedSubview(awayValueLabel)
+        statisticContainer.addArrangedSubview(awayBar)
         
         return statisticContainer
     }
@@ -131,5 +135,43 @@ class StatisticsTableViewCell: UITableViewCell {
         
         return statisticLabel
     }
-
+    
+    private func createValueBar(for statistic: Statistic, comparedTo otherStatistic: Statistic) -> UIView {
+        let barView = UIView()
+        barView.backgroundColor = .systemBlue
+        barView.layer.cornerRadius = 3
+        barView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 최대 막대 길이 설정
+        let maxBarWidth: CGFloat = 100
+        
+        // 홈팀과 어웨이팀의 값 비교하여 상대적 너비 계산
+        let value = getStatisticValue(from: statistic)
+        let otherValue = getStatisticValue(from: otherStatistic)
+        
+        // 두 값을 기준으로 상대적인 너비 계산
+        let total = value + otherValue
+        let barWidth = total > 0 ? (value / total) * maxBarWidth : 0 // 값이 0인 경우 길이는 0
+        
+        NSLayoutConstraint.activate([
+            barView.widthAnchor.constraint(equalToConstant: barWidth),
+            barView.heightAnchor.constraint(equalToConstant: 8)
+        ])
+        
+        return barView
+    }
+    
+    private func getStatisticValue(from statistic: Statistic) -> CGFloat {
+        if let statisticValue = statistic.value {
+            switch statisticValue {
+            case .int(let intValue):
+                return CGFloat(intValue)
+            case .string(let stringValue):
+                return CGFloat(Double(stringValue) ?? 0)
+            default:
+                return 0
+            }
+        }
+        return 0
+    }
 }

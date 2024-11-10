@@ -55,28 +55,14 @@ class SquadTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let homeStartingPlayersLabel: UILabel = {
+    private let startingPlayersLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "선발"
         return label
     }()
     
-    private let awayStartingPlayersLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "선발"
-        return label
-    }()
-    
-    private let homeSubstitutesLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "교체명단"
-        return label
-    }()
-    
-    private let awaySubstitutesLabel: UILabel = {
+    private let substitutesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.text = "교체명단"
@@ -136,10 +122,8 @@ class SquadTableViewCell: UITableViewCell {
         contentView.addSubview(awayFormationLabel)
         
         // 선발 및 교체명단 레이블 추가
-        contentView.addSubview(homeStartingPlayersLabel)
-        contentView.addSubview(awayStartingPlayersLabel)
-        contentView.addSubview(homeSubstitutesLabel)
-        contentView.addSubview(awaySubstitutesLabel)
+        contentView.addSubview(startingPlayersLabel)
+        contentView.addSubview(substitutesLabel)
         
         contentView.addSubview(homeStartingPlayersStack)
         contentView.addSubview(awayStartingPlayersStack)
@@ -148,17 +132,14 @@ class SquadTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        // 제약 조건 설정
         homeTeamLabel.translatesAutoresizingMaskIntoConstraints = false
         awayTeamLabel.translatesAutoresizingMaskIntoConstraints = false
         homeCoachLabel.translatesAutoresizingMaskIntoConstraints = false
         awayCoachLabel.translatesAutoresizingMaskIntoConstraints = false
         homeFormationLabel.translatesAutoresizingMaskIntoConstraints = false
         awayFormationLabel.translatesAutoresizingMaskIntoConstraints = false
-        homeStartingPlayersLabel.translatesAutoresizingMaskIntoConstraints = false
-        awayStartingPlayersLabel.translatesAutoresizingMaskIntoConstraints = false
-        homeSubstitutesLabel.translatesAutoresizingMaskIntoConstraints = false
-        awaySubstitutesLabel.translatesAutoresizingMaskIntoConstraints = false
+        startingPlayersLabel.translatesAutoresizingMaskIntoConstraints = false
+        substitutesLabel.translatesAutoresizingMaskIntoConstraints = false
         homeStartingPlayersStack.translatesAutoresizingMaskIntoConstraints = false
         awayStartingPlayersStack.translatesAutoresizingMaskIntoConstraints = false
         homeSubstitutesStack.translatesAutoresizingMaskIntoConstraints = false
@@ -184,33 +165,27 @@ class SquadTableViewCell: UITableViewCell {
             awayFormationLabel.topAnchor.constraint(equalTo: awayCoachLabel.bottomAnchor, constant: 4),
             
             // 선발 레이블 제약 조건
-            homeStartingPlayersLabel.leadingAnchor.constraint(equalTo: homeTeamLabel.leadingAnchor),
-            homeStartingPlayersLabel.topAnchor.constraint(equalTo: homeFormationLabel.bottomAnchor, constant: 8),
-            
-            awayStartingPlayersLabel.trailingAnchor.constraint(equalTo: awayTeamLabel.trailingAnchor),
-            awayStartingPlayersLabel.topAnchor.constraint(equalTo: awayFormationLabel.bottomAnchor, constant: 8),
+            startingPlayersLabel.leadingAnchor.constraint(equalTo: homeTeamLabel.leadingAnchor),
+            startingPlayersLabel.topAnchor.constraint(equalTo: homeFormationLabel.bottomAnchor, constant: 30),
             
             // 주전 선수 스택 제약 조건
-            homeStartingPlayersStack.leadingAnchor.constraint(equalTo: homeStartingPlayersLabel.leadingAnchor),
-            homeStartingPlayersStack.topAnchor.constraint(equalTo: homeStartingPlayersLabel.bottomAnchor, constant: 4),
+            homeStartingPlayersStack.leadingAnchor.constraint(equalTo: startingPlayersLabel.leadingAnchor),
+            homeStartingPlayersStack.topAnchor.constraint(equalTo: startingPlayersLabel.bottomAnchor, constant: 4),
             
-            awayStartingPlayersStack.trailingAnchor.constraint(equalTo: awayStartingPlayersLabel.trailingAnchor),
-            awayStartingPlayersStack.topAnchor.constraint(equalTo: awayStartingPlayersLabel.bottomAnchor, constant: 4),
+            awayStartingPlayersStack.trailingAnchor.constraint(equalTo: awayTeamLabel.trailingAnchor),
+            awayStartingPlayersStack.topAnchor.constraint(equalTo: startingPlayersLabel.bottomAnchor, constant: 4),
             
             // 교체명단 레이블 제약 조건
-            homeSubstitutesLabel.leadingAnchor.constraint(equalTo: homeTeamLabel.leadingAnchor),
-            homeSubstitutesLabel.topAnchor.constraint(equalTo: homeStartingPlayersStack.bottomAnchor, constant: 8),
-            
-            awaySubstitutesLabel.trailingAnchor.constraint(equalTo: awayTeamLabel.trailingAnchor),
-            awaySubstitutesLabel.topAnchor.constraint(equalTo: awayStartingPlayersStack.bottomAnchor, constant: 8),
+            substitutesLabel.leadingAnchor.constraint(equalTo: homeTeamLabel.leadingAnchor),
+            substitutesLabel.topAnchor.constraint(equalTo: homeStartingPlayersStack.bottomAnchor, constant: 35),
             
             // 교체 선수 스택 제약 조건
-            homeSubstitutesStack.leadingAnchor.constraint(equalTo: homeSubstitutesLabel.leadingAnchor),
-            homeSubstitutesStack.topAnchor.constraint(equalTo: homeSubstitutesLabel.bottomAnchor, constant: 4),
+            homeSubstitutesStack.leadingAnchor.constraint(equalTo: substitutesLabel.leadingAnchor),
+            homeSubstitutesStack.topAnchor.constraint(equalTo: substitutesLabel.bottomAnchor, constant: 4),
             homeSubstitutesStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
-            awaySubstitutesStack.trailingAnchor.constraint(equalTo: awaySubstitutesLabel.trailingAnchor),
-            awaySubstitutesStack.topAnchor.constraint(equalTo: awaySubstitutesLabel.bottomAnchor, constant: 4),
+            awaySubstitutesStack.trailingAnchor.constraint(equalTo: awayTeamLabel.trailingAnchor),
+            awaySubstitutesStack.topAnchor.constraint(equalTo: substitutesLabel.bottomAnchor, constant: 4),
             awaySubstitutesStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }

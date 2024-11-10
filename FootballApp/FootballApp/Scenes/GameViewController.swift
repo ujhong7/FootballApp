@@ -31,19 +31,6 @@ final class GameViewController: UIViewController {
     
     private func setupNavigationBar() {
         NavigationTitleUtility.setupNavigationTitle(for: self, title: "Premier League")
-        let image = UIImage(named: "pl")
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        let imageBarButtonItem = UIBarButtonItem(customView: imageView)
-        imageBarButtonItem.width = 40
-        self.navigationItem.leftBarButtonItem = imageBarButtonItem
-        
-        NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 30),
-            imageView.widthAnchor.constraint(equalToConstant: 30)
-        ])
     }
     
     private func setupSegmentedControl() {
