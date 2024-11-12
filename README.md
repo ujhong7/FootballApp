@@ -13,11 +13,11 @@
 
 <table align="center" width="100%">
   <tr>
-    <td align="center"><img src="https://i.imgur.com/6eAZbIF.gif" width="180"><br>인물 선택하기</td>
-    <td align="center"><img src="https://imgur.com/mGQtPsL.gif" width="180"><br>고민 입력하기</td>
-    <td align="center"><img src="https://imgur.com/esVTiVw.gif" width="180"><br>결과 확인 및 저장하기</td>
-    <td align="center"><img src="https://imgur.com/lFmnwKs.gif" width="180"><br>설명 4</td>
-    <td align="center"><img src="https://imgur.com/RKFt7Jz.gif" width="180"><br>설명 5</td>
+    <td align="center"><img src="https://i.imgur.com/6eAZbIF.gif" width="175"><br>인물 선택하기</td>
+    <td align="center"><img src="https://imgur.com/mGQtPsL.gif" width="175"><br>고민 입력하기</td>
+    <td align="center"><img src="https://imgur.com/esVTiVw.gif" width="175"><br>결과 확인 및 저장하기</td>
+    <td align="center"><img src="https://imgur.com/lFmnwKs.gif" width="175"><br>설명 4</td>
+    <td align="center"><img src="https://imgur.com/RKFt7Jz.gif" width="175"><br>설명 5</td>
   </tr>
 </table>
 
