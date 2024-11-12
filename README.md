@@ -12,8 +12,8 @@
 ### 앱 미리보기
 
 <p align="center" witdh="100%">
-<img src="https://imgur.com/mUBnFXN.gif" width="19%">
-<img src="" width="20%">
+<img src="https://imgur.com/VJzZ7YR" width="19%">
+<img src="https://imgur.com/VJzZ7YR" width="20%">
 <img src="" width="20%">
 <img src="" width="40%">
 </p>
