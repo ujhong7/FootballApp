@@ -149,7 +149,7 @@ struct StartingPlayer: Codable {
 }
 
 struct SubstitutePlayer: Codable {
-    let player: PlayerDetailInfo
+    let player: PlayerDetailInfo?
 }
 
 struct TeamStatistics: Decodable {

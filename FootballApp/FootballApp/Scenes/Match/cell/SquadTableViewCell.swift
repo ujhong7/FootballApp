@@ -212,7 +212,7 @@ class SquadTableViewCell: UITableViewCell {
         configureHomeTeam(fixture: fixture)
         configureAwayTeam(fixture: fixture)
     }
-
+    
     private func configureHomeTeam(fixture: Fixture) {
         guard let homeTeam = fixture.teams?.home else { return }
         homeTeamLabel.text = homeTeam.name
@@ -221,11 +221,12 @@ class SquadTableViewCell: UITableViewCell {
             homeCoachLabel.text = "Coach: \(homeLineup.coach.name ?? "No Data")"
             homeFormationLabel.text = "Formation: \(homeLineup.formation)"
             
-            configureStartingPlayers(homeLineup.startXI, in: homeStartingPlayersStack)
-            configureSubstitutePlayers(homeLineup.substitutes, in: homeSubstitutesStack)
+            // 선발 선수와 교체 선수들에게 각각 해당하는 레이팅을 전달
+            configureStartingPlayers(homeLineup.startXI, in: homeStartingPlayersStack, fixture: fixture)
+            configureSubstitutePlayers(homeLineup.substitutes, in: homeSubstitutesStack, fixture: fixture)
         }
     }
-
+    
     private func configureAwayTeam(fixture: Fixture) {
         guard let awayTeam = fixture.teams?.away else { return }
         awayTeamLabel.text = awayTeam.name
@@ -234,39 +235,84 @@ class SquadTableViewCell: UITableViewCell {
             awayCoachLabel.text = "Coach: \(awayLineup.coach.name ?? "No Data")"
             awayFormationLabel.text = "Formation: \(awayLineup.formation)"
             
-            configureStartingPlayers(awayLineup.startXI, in: awayStartingPlayersStack)
-            configureSubstitutePlayers(awayLineup.substitutes, in: awaySubstitutesStack)
+            // 선발 선수와 교체 선수들에게 각각 해당하는 레이팅을 전달
+            configureStartingPlayers(awayLineup.startXI, in: awayStartingPlayersStack, fixture: fixture)
+            configureSubstitutePlayers(awayLineup.substitutes, in: awaySubstitutesStack, fixture: fixture)
         }
     }
-
+    
     // 선발 선수 배열을 받아 라벨을 추가하는 메서드
-    private func configureStartingPlayers(_ startingPlayers: [StartingPlayer]?, in stackView: UIStackView) {
+    private func configureStartingPlayers(_ startingPlayers: [StartingPlayer]?, in stackView: UIStackView, fixture: Fixture) {
         guard let startingPlayers = startingPlayers else { return }
         
+        // 홈팀과 어웨이팀의 선수 배열을 구별
+        let homePlayers = fixture.players?.first(where: { $0.team.id == fixture.teams?.home?.id })?.players ?? []
+        let awayPlayers = fixture.players?.first(where: { $0.team.id == fixture.teams?.away?.id })?.players ?? []
+        
         for startingPlayer in startingPlayers {
-            let playerLabel = createPlayerLabel(with: startingPlayer.player?.name, position: startingPlayer.player?.pos)
-            stackView.addArrangedSubview(playerLabel)
+            if let player = startingPlayer.player {
+                // 홈팀인지 어웨이팀인지 구별하여 선수의 레이팅을 찾아옴
+                var rating: String? = nil
+                
+                // 홈팀 선수를 찾을 경우
+                if homePlayers.contains(where: { $0.player.id == player.id }) {
+                    rating = homePlayers.first(where: { $0.player.id == player.id })?.statistics.first?.games.rating
+                }
+                // 어웨이팀 선수를 찾을 경우
+                else if awayPlayers.contains(where: { $0.player.id == player.id }) {
+                    rating = awayPlayers.first(where: { $0.player.id == player.id })?.statistics.first?.games.rating
+                }
+                
+                let playerLabel = createPlayerLabel(with: player.name, position: player.pos, rating: rating)
+                stackView.addArrangedSubview(playerLabel)
+            }
         }
     }
-
+    
     // 교체 선수 배열을 받아 라벨을 추가하는 메서드
-    private func configureSubstitutePlayers(_ substitutes: [SubstitutePlayer], in stackView: UIStackView) {
+    private func configureSubstitutePlayers(_ substitutes: [SubstitutePlayer], in stackView: UIStackView, fixture: Fixture) {
+        // 홈팀과 어웨이팀의 선수 배열을 구별
+        let homePlayers = fixture.players?.first(where: { $0.team.id == fixture.teams?.home?.id })?.players ?? []
+        let awayPlayers = fixture.players?.first(where: { $0.team.id == fixture.teams?.away?.id })?.players ?? []
+        
         for substitute in substitutes {
-            let playerLabel = createPlayerLabel(with: substitute.player.name, position: substitute.player.pos)
-            stackView.addArrangedSubview(playerLabel)
+            if let player = substitute.player {
+                // 홈팀인지 어웨이팀인지 구별하여 선수의 레이팅을 찾아옴
+                var rating: String? = nil
+                
+                // 홈팀 선수를 찾을 경우
+                if homePlayers.contains(where: { $0.player.id == player.id }) {
+                    rating = homePlayers.first(where: { $0.player.id == player.id })?.statistics.first?.games.rating
+                }
+                // 어웨이팀 선수를 찾을 경우
+                else if awayPlayers.contains(where: { $0.player.id == player.id }) {
+                    rating = awayPlayers.first(where: { $0.player.id == player.id })?.statistics.first?.games.rating
+                }
+                
+                let playerLabel = createPlayerLabel(with: player.name, position: player.pos, rating: rating)
+                stackView.addArrangedSubview(playerLabel)
+            }
         }
     }
-
-    // 포지션에 맞는 이모지와 이름으로 UILabel을 생성하는 메서드
-    private func createPlayerLabel(with name: String?, position: String?) -> UILabel {
+    
+    
+    // 포지션에 맞는 이모지와 이름, 레이팅을 포함한 UILabel을 생성하는 메서드
+    private func createPlayerLabel(with name: String?, position: String?, rating: String?) -> UILabel {
         let playerLabel = UILabel()
         playerLabel.font = UIFont.systemFont(ofSize: 14)
         
         let emoji = emojiForPosition(position)
         let playerName = name ?? "Unknown"
-        playerLabel.text = "\(emoji) \(playerName)"
+        
+        // rating이 존재하면 텍스트에 포함하고, 없으면 그냥 이름만 표시
+        if let rating = rating {
+            playerLabel.text = "\(emoji) \(playerName)   \(rating)"
+        } else {
+            playerLabel.text = "\(emoji) \(playerName)"
+        }
         
         return playerLabel
     }
+    
     
 }
