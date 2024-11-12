@@ -13,7 +13,7 @@
 
 <p align="center" witdh="100%">
 <img src="https://imgur.com/VJzZ7YR" width="19%">
-<img src="https://imgur.com/VJzZ7YR" width="20%">
+<img src="https://i.imgur.com/6eAZbIF.gif" width="20%">
 <img src="" width="20%">
 <img src="" width="40%">
 </p>
