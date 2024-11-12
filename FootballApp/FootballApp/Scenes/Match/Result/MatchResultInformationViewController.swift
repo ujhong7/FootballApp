@@ -368,7 +368,7 @@ extension MatchResultInformationViewController: ScrollDelegate {
         // 모든 뷰 컨트롤러가 안전하게 언래핑된 후, scrollDelegate 설정
         matchSummaryVC.scrollDelegate = self
         squadVC.scrollDelegate = self
-        statisticsVC.scrollDelegate = self        
+        statisticsVC.scrollDelegate = self
     }
     
     func didScroll(yOffset: CGFloat) {

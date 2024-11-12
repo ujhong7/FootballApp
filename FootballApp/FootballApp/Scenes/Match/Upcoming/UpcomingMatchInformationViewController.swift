@@ -31,7 +31,7 @@ class UpcomingMatchInformationViewController: UIViewController {
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["프로필", "상대전적"])
+        let control = UISegmentedControl(items: ["경기", "상대전적"])
         control.selectedSegmentIndex = 0 // 기본적으로 첫 번째 탭 선택
         control.backgroundColor = .white
         control.selectedSegmentTintColor = .systemBlue
