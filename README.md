@@ -32,22 +32,21 @@
 ### 기술
 
 - **Architecture** : `MVC`
-  
 - **UI** : `UIKit`
-  
 - **Network** : `URLSession`, `REST API` (via `RapidAPI`), `Result-based API 호출`
   - `NetworkProvider`를 통해 공통 네트워크 요청 관리
   - `FootballNetworkService`를 사용해 프리미어리그 경기 일정 및 결과 데이터 가져오기
-    
 - **Image Caching** : `NSCache`, `Disk Caching`
   - 메모리 및 디스크 캐시를 사용해 이미지를 효율적으로 관리하고, 불필요한 네트워크 요청을 최소화하여 앱 성능을 최적화
   - URL의 SHA-256 해시를 활용한 파일 이름으로 이미지의 중복 다운로드를 방지
-    
 - **Screen Navigation** : `Segmented Control`, `UIPageViewController`
   - `Segmented Control`을 사용하여 팀 순위, 경기 결과, 득점 순위 등 다양한 정보를 한 화면에서 손쉽게 전환할 수 있도록 구성
   - `UIPageViewController`와 결합하여 각 세그먼트를 선택할 때 애니메이션을 통한 부드러운 화면 전환을 제공하며, 사용자 경험을 향상
-  - `UIPageViewControllerDelegate와` `UIPageViewControllerDataSource`를 활용해 현재 선택된 세그먼트와 화면을 동기화하여, 일관된 네비게이션 경험을 제공
-
+  - `UIPageViewControllerDelegate와` `UIPageViewControllerDataSource`를 활용해 현재 선택된 세그먼트와 화면을 동기화하여,    
+     일관된 네비게이션 경험을 제공
+- **StackView** 활용을 통한 통계 UI 구성
+  - 프로젝트 내 다양한 화면 구성에서 `UIStackView`를 적극적으로 활용하여 통계를 간결하게 표현   
+    스택뷰를 사용함으로써 코드 간소화와 함께 레이아웃의 일관성을 유지하고, 개별 구성 요소의 유연성을 높임
   
 ### 기능
 
