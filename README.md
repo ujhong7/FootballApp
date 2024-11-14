@@ -82,31 +82,9 @@
   ㅇㅇㅇㅇ
   
 - **일관된 모듈화로 코드 재사용성과 확장 가능성 강화**
-    - 예를 들어 `TeamRankingViewController`와 `TeamRankingInformationViewController`의 반복적인 구조 설계를 통해    
+    - 예를 들어 `TeamRankingViewController`와 `TeamRankingInformationViewController` 같이 반복적인 구조 설계를 통해    
       주요 화면이 동일한 패턴으로 관리되도록 하여 코드 재사용성을 높이고, 새로운 정보 유형 추가나 기존 컨트롤러 확장이 더 쉬워짐.  
       또한 이 구조는 각 메인 뷰와 정보 뷰 컨트롤러가 공통 템플릿을 통해 확장될 수 있도록 기반을 마련하여 유지보수와 확장성이 크게 강화됨.
-      ```
-      ├── 📁Scenes
-      │   ├── 📁GameViewController
-      │   │   ├── 📁TeamRanking
-      │   │   │   ├── TeamRankingViewController.swift
-      │   │   │   ├── TeamRankingInformationViewController.swift
-      │   │   │   ├── 📁cell
-      │   │   │   │   ├── TeamRankingTableViewCell.swift
-      │   │   │   │   ├── TeamSquadTableViewCell.swift
-      │   │   │   │   └── TeamCoachTableViewCell.swift
-      │   │   │   └── 📁Segment
-      │   │   │       ├── TeamSquadViewController.swift
-      │   │   │       ├── TeamNextMatchViewController.swift
-      │   │   │       └── TeamPreviousMatchViewController.swift
-      │   │   ├── 📁Players
-      │   │   │   ├── PlayersViewController.swift
-      │   │   │   ├── PlayersInformationViewController.swift
-      │   │   │   ├── 📁cell
-      │   │   │   │   └── …
-      │   │   │   └── 📁Segment
-      │   │   │       └── …
-      ```
 - **동적 데이터 처리 및 효율적 UI 구성**
     - 다양한 팀 및 선수 정보를 동적으로 받아와 실시간으로 UI에 반영하였으며,  
       `MatchSummaryTableViewCell`, `SquadTableViewCell`, `StatisticsTableViewCell`에서 데이터를 모델로부터 받아 UI를 동적으로 업데이트하도록 구현함.  
