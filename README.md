@@ -169,7 +169,7 @@
 
 ## 트러블 슈팅 
 
-### 1️⃣ ㅇㅇ
+### 1️⃣ 델리게이트를 활용해 뷰 내 UITableView 스크롤 시 상위 뷰와 동기화하여 전체 화면 스크롤 가능하게 만들기
 
 <div style="display: flex; justify-content: space-between;">
   <img src="https://imgur.com/OH4ShQe.gif" width="200">
@@ -232,9 +232,59 @@
 
 <br>
 
+### 2️⃣ 데이터 모델 타입 불일치 해결
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/5dceb168-ba71-4ad3-8f81-8101bf58b770" width="400">
+  <img src="https://github.com/user-attachments/assets/f096bd1a-3ae1-4db5-b06a-d03f16170cb2" width="200">
+</div>
+
+#### 🤔 **상황**
+
+경기 통계 데이터를 API에서 받아오는 과정에서, statistics 항목의 value 필드가 다양한 타입을 가진다는 사실을 간과했습니다.    
+value는 일부 항목에서 Int 타입이, 다른 항목에서는 String 타입이 제공되는 경우가 있었습니다.     
+이로 인해 API에서 데이터를 디코딩하는 과정에서 오류가 발생하고 있었습니다.    
+
+#### 🚨 **문제**
+
+처음에는 value 필드가 모두 Int 타입일 것이라 가정하고 데이터를 처리하려 했으나,     
+실제로는 Int와 String 두 가지 타입을 모두 처리해야 했습니다.     
+이를 해결하기 위해 value 필드를 Int?로 선언했지만, value 필드가 String 값을 가질 경우 디코딩이 실패하여 앱에서 예외가 발생했습니다.    
+
+#### 🛠️ **해결 과정**
+
+유연한 타입 처리:    
+value 필드의 타입이 Int와 String 두 가지일 수 있다는 점을 반영하여 ValueType이라는 enum을 도입했습니다.     
+이를 통해 두 가지 타입을 모두 처리할 수 있도록 했습니다.     
+
+디코딩 및 null 처리:
+ValueType을 사용해 value가 Int일 경우와 String일 경우를 자동으로 처리할 수 있게 했습니다.    
+또한 value가 null일 경우를 처리하기 위해 ValueType.none을 도입하여 안정적인 디코딩을 보장했습니다.    
+
+#### 📝 **결과**
+
+value 필드가 Int와 String 두 가지 타입을 가질 수 있음을 인지하고,    
+이를 처리할 수 있는 데이터 모델을 설계함으로써 API에서 받은 데이터를 정확히 디코딩할 수 있었습니다.     
+value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하게 처리할 수 있었고, 예외 없이 데이터를 올바르게 표시할 수 있게 되었습니다.  
+
+<br>
+
 ### 2️⃣ ㅇㅇ
 
 
+#### 🤔 **상황**  
+
+
+
+### 🚨 **문제**
+
+
+
+### 🛠️ **해결 과정**
+
+
+
+### 📝 **결과**
 
 
 
