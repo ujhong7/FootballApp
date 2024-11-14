@@ -170,26 +170,70 @@
 ## 트러블 슈팅 
 
 ### 1️⃣ ㅇㅇ
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://imgur.com/OH4ShQe.gif" width="200">
+  <img src="https://imgur.com/bZTa8yJ.gif" width="200">
+</div>
+
+
 #### 🤔 **상황**  
 
-![이미지 설명](https://imgur.com/rLQ04fh.gif)
+`TeamRankingInformationViewController`는   
+`InformationView`와 세그먼트 기반의 페이지 뷰 중 하나인 `TeamSquadViewController`로 구성되어 있습니다.   
+`TeamSquadViewController`는 팀의 선수 명단을 나타내는 `UITableView`를 사용하고 있습니다.   
+이때, `UITableView`는 `InformationView`와 함께 화면에 표시되어   
+사용자가 테이블을 스크롤할 때 `InformationView`가 고정되어 있는 문제를 겪게 되었습니다.  
 
-#### 🚨 **문제**
+### 🚨 **문제**
 
-- ㅇㅇ
+`TeamSquadViewController`의 `UITableView`가 `InformationView`와 세그먼트의 페이지 뷰 위에 함께 표시되므로,   
+`UITableView`를 스크롤할 때 `InformationView`가 화면 상단에 고정되어 있어 화면을 차지하게 됩니다.   
+이로 인해 `UITableView`가 전체 화면을 활용하지 못하고, 스크롤이 제한되어 사용자는 불편함을 겪었습니다.   
+`UITableView`가 충분히 확장되지 않으며 화면을 자유롭게 스크롤할 수 없었습니다.  
 
 #### 🛠️ **해결 과정**
 
-ㅇㅇ
+해결을 위해 `UIScrollViewDelegate`를 활용하여,   
+`TeamSquadViewController`의 `UITableView`가 화면을 전체적으로 스크롤할 수 있도록 구현하였습니다.    
+`TeamRankingInformationViewController`와 `TeamSquadViewController`가 함께 스크롤되는 구조를 만들기 위해, 아래와 같은 방법을 적용했습니다:    
+
+1. **`ScrollDelegate` 프로토콜을 통해 스크롤 이벤트 처리**:   
+`TeamSquadViewController`에서 `scrollDelegate`를 사용하여 `scrollViewDidScroll` 메서드로 스크롤 이벤트를 처리하도록 했습니다.     
+이를 통해 `TeamSquadViewController` 내의 `UITableView`가 스크롤될 때,    
+상위 뷰인 `TeamRankingInformationViewController`에서 이를 감지하고 스크롤을 조정하도록 했습니다.    
+
+    <img width="322" alt="image" src="https://github.com/user-attachments/assets/7316d38b-a93c-41da-9a36-998ed5c774cf">
+
+
+2. 스크롤 델리게이트 호출:   
+`TeamSquadViewController`에서 `UIScrollViewDelegate`를 구현하고,    
+`scrollViewDidScroll` 메서드에서 `scrollDelegate?.didScroll`을 호출하여 상위 뷰로 스크롤 오프셋을 전달하고 이를 처리할 수 있도록 했습니다.   
+
+    <img width="617" alt="image" src="https://github.com/user-attachments/assets/530aafcf-e836-4c12-9f4a-165289f2ea48">
+
+
+3. 상위 뷰에서 스크롤 동작을 반영: 
+`TeamRankingInformationViewController`에서는 `scrollDelegate?.didScroll` 메서드를 통해 받은 yOffset 값을 처리하고,
+화면 전환 시 불필요한 고정 위치를 제거하여 스크롤 영역을 늘리는 방식으로 화면 전체 스크롤을 가능하게 했습니다.     
+
+    <img width="820" alt="image" src="https://github.com/user-attachments/assets/766e5abb-efae-4019-ae29-eaae8c08dbe9">
 
 
 #### 📝 **결과**
 
-ㅇㅇ
+이 해결책을 통해, 사용자는 이제    
+`TeamSquadViewController` 내의 `UITableView`를 기기의 전체 화면을 활용하여 자유롭게 스크롤할 수 있게 되었습니다.     
+`InformationView`가 화면 상단에 고정되어 있었던 문제를 해결하면서,   
+`UITableView`가 전체 화면을 차지하게 되어 스크롤이 자연스럽게 이루어졌습니다.    
+또한, `UIScrollViewDelegate`를 활용하여 스크롤 이벤트를 처리하고,   
+상위 뷰와의 협업을 통해 부드럽고 일관된 스크롤 환경을 제공할 수 있었습니다.   
+
 
 <br>
 
 ### 2️⃣ ㅇㅇ
+
 
 
 
