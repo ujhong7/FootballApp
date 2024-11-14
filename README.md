@@ -21,8 +21,6 @@
   </tr>
 </table>
 
-
-
 ### 개발 환경
 
 - Deployment Target: 16.4
@@ -87,15 +85,51 @@
   </tr>
 </table>
 
+### 폴더 구조
+  ```
+  ├── 📁Network
+  │   ├── NetworkProvider.swift
+  │   └── FootballNetworkService.swift
+  ├── 📁Model
+  │   ├── FixtureModel.swift
+  │   ├── PlayerRankingResponse.swift
+  │   └── …
+  ├── 📁Scenes
+  │   ├── 📁GameViewController
+  │   │   ├── 📁TeamRanking
+  │   │   │   ├── TeamRankingViewController.swift
+  │   │   │   ├── TeamRankingInformationViewController.swift
+  │   │   │   ├── 📁cell
+  │   │   │   │   ├── TeamRankingTableViewCell.swift
+  │   │   │   │   ├── TeamSquadTableViewCell.swift
+  │   │   │   │   └── TeamCoachTableViewCell.swift
+  │   │   │   └── 📁Segment
+  │   │   │       ├── TeamSquadViewController.swift
+  │   │   │       ├── TeamNextMatchViewController.swift
+  │   │   │       └── TeamPreviousMatchViewController.swift
+  │   │   ├── 📁Match
+  │   │   │   ├── 📁Result
+  │   │   │   │   ├── MatchResultViewController.swift
+  │   │   │   │   ├── MatchResultInformationViewController.swift
+  │   │   │   ├── 📁UpComing
+  │   │   │   │   ├── UpcomingMatchViewController.swift
+  │   │   │   │   ├── UpcomingMatchInformationViewController.swift
+  │   │   │   ├── 📁cell
+  │   │   │   │   ├── …
+  │   │   │   ├── 📁Segment
+  │   │   │   │   ├── …
+  │   │   ├── 📁Players
+  │   │   │   ├── GoalsPlayerViewController.swift
+  │   │   │   ├── AssistsPlayerViewController.swift
+  │   │   │   ├── PlayerInformationViewController.swift
+  │   │   │   ├── 📁cell
+  │   │   │   │   └── …
+  │   │   │   └── 📁Segment
+  │   │   │       └── …
+  ```
 
-
----
 
 ### 주요 성과
-
-- **ㅇㅇ**:  
-  
-  ㅇㅇㅇㅇ
   
 - **일관된 모듈화로 코드 재사용성과 확장 가능성 강화**
     - 예를 들어 `TeamRankingViewController`와 `TeamRankingInformationViewController` 같이  
