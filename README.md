@@ -11,7 +11,7 @@
 
 ### 앱 미리보기
 
-<table align="center" width="100%">
+<table align="center" width="100%"> 
   <tr>
     <td align="center"><img src="https://imgur.com/XZFWXrl.gif" width="175"><br>팀 정보</td>
     <td align="center"><img src="https://imgur.com/Qd1J8bW.gif" width="175"><br>경기결과</td>
@@ -167,11 +167,12 @@
 
 ---
 
-## 트러블 슈팅
+## 트러블 슈팅 
 
 ### 1️⃣ ㅇㅇ
 #### 🤔 **상황**  
 
+![이미지 설명](https://imgur.com/rLQ04fh.gif)
 
 #### 🚨 **문제**
 
