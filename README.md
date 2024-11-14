@@ -257,6 +257,9 @@ value는 일부 항목에서 Int 타입이, 다른 항목에서는 String 타입
 value 필드의 타입이 Int와 String 두 가지일 수 있다는 점을 반영하여 ValueType이라는 enum을 도입했습니다.     
 이를 통해 두 가지 타입을 모두 처리할 수 있도록 했습니다.     
 
+<img width="450" alt="image" src="https://github.com/user-attachments/assets/6ceb20f3-449a-44a4-a88c-dba21b5b047e">
+
+
 디코딩 및 null 처리:
 ValueType을 사용해 value가 Int일 경우와 String일 경우를 자동으로 처리할 수 있게 했습니다.    
 또한 value가 null일 경우를 처리하기 위해 ValueType.none을 도입하여 안정적인 디코딩을 보장했습니다.    
