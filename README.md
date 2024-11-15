@@ -272,6 +272,49 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 <br>
 
+### 3️⃣ 세그먼트 컨트롤을 활용한 메뉴 탭 개선
+
+#### 🤔 **상황**
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/012bab34-2457-4f1a-adfc-cc52167063e5">
+
+기존에는 컬렉션뷰를 통해 메뉴 탭을 구현하고, 탭 선택에 따라 테이블뷰가 리로드되도록 했습니다.      
+하지만 이 방식은 화면이 빈번하게 갱신되어 사용자 경험에 불편을 초래했습니다.   
+
+#### 🚨 **문제**
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/98fd2a55-07a7-4ded-86e1-65625060cff3">
+<br>
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/90ed8b06-0454-48db-ae87-2dee32232ccd">
+<br>
+<img width="350" alt="image" src="https://github.com/user-attachments/assets/2fc55d64-af7c-4315-9ad5-ea47ce52de10">
+
+컬렉션뷰 항목 선택 시 기존 테이블뷰를 리로드하여 새로운 데이터로 교체하다 보니   
+화면 전환이 부자연스럽고 UX가 저하되는 문제가 있었습니다.   
+반복적인 리로드로 인해 성능 효율성에도 문제가 발생했습니다.   
+
+#### 🛠️ **해결 과정**
+
+- 세그먼트 컨트롤로 메뉴 탭 개선     
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/6d4791b9-bc45-4695-81ed-562c470adcaa">
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/477fa4a8-0832-4cb0-b7e8-27ec8e8a667d">
+  - 컬렉션뷰 대신  세그먼트 컨트롤을 메뉴 탭으로 적용하여 각 세그먼트가 고유한 테이블뷰를 소유하도록 했습니다.  
+  - 이를 통해 선택된 세그먼트에 맞는 테이블뷰만 표시되도록 구조를 변경했습니다.  
+- 독립적인 테이블뷰 관리     
+  <img width="330" alt="image" src="https://github.com/user-attachments/assets/0f7a9f5f-3a8a-4772-b761-9b5cc5250a5c">
+  - 세그먼트마다 별도의 테이블뷰를 두어 각 테이블뷰가 고유 데이터를 유지하도록 구성했습니다.   
+  - 이로써 탭 전환 시마다 매번 테이블뷰 데이터를 바꿔치기할 필요 없이 독립적인 테이블뷰가 순환될 수 있었습니다.   
+- 자연스러운 전환 및 성능 개선    
+  <img width="750" alt="image" src="https://github.com/user-attachments/assets/9fed07a0-6421-4827-890c-f07ef78aca61">     
+  - 세그먼트 전환 시 불필요한 테이블뷰 리로드를 방지함으로써 성능이 최적화되었고, 사용자에게 자연스러운 화면 전환을 제공할 수 있었습니다.  
+
+#### 📝 **결과**
+
+세그먼트 컨트롤을 통해 사용자 경험이 개선되어, 화면 전환이 매끄럽고 일관되게 느껴졌습니다.      
+테이블뷰 데이터를 독립적으로 유지하여 데이터 일관성이 향상되고, 성능 효율이 개선되었습니다.    
+
+<br>
+
 ### 2️⃣ ㅇㅇ
 
 
