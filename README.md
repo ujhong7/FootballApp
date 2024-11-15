@@ -274,6 +274,11 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 ### 3️⃣ 세그먼트 컨트롤을 활용한 메뉴 탭 개선
 
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/9de3b192-277e-4e91-8994-1c8b65e9cddb" width="200">
+  <img src="https://github.com/user-attachments/assets/b867e073-47bd-4c9d-acc1-4f5c81b1acc0" width="175">
+</div>
+
 #### 🤔 **상황**
 
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/012bab34-2457-4f1a-adfc-cc52167063e5">
