@@ -381,10 +381,7 @@ createEventStack(for:teamName:homeTeam:awayTeam:) 메서드는 이벤트 설명�
 
 configureHomeTeam(fixture:)와 configureAwayTeam(fixture:) 메서드는   
 홈팀과 원정팀의 코치, 포메이션, 선발 및 교체 선수 정보를 개별 스택뷰에 추가합니다.
-
 스택뷰에 UILabel을 동적으로 생성해 추가하는 방식으로 구현했습니다.  
-이는 데이터를 효율적으로 반영할 뿐만 아니라,     
-선수 정보가 실시간으로 변동될 때 유연하게 대응할 수 있는 구조를 제공합니다.  
 
 #### **2. 선발 선수 목록 구성**  
 
