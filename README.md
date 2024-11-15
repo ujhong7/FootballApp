@@ -339,10 +339,56 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 
 
+---
+
+## 구현 방식
+
+### 1️⃣ MatchSummaryTableViewCell에서 이벤트를 나타내는 스택뷰 구현      
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/290feb90-1423-4e44-b298-3bd06f697fe4">
+
+#### **1. 경기 정보 초기 구성**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/0b65d67c-904f-45a2-8104-de3863e8e22e">
+
+configureBasicInfo(with:) 메서드는 경기의 기본 정보를 UI에 표시합니다.  
+여기서는 심판, 경기 날짜, 경기장, 리그 등의 정보가 포함되며, 날짜 형식은 toKoreanDateString()을 사용해 한국식 날짜 문자열로 변환됩니다.  
+
+#### **2. 이벤트 초기화 및 시간 순 정렬**  
+
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/bc7b5397-23cd-470c-bd68-d22f668e4ac2">
+
+configureEvents(with:) 메서드는 각 경기 이벤트를 시간 순으로 정렬한 후, eventsStackView에 동적으로 추가합니다.  
+이때, 기존 이벤트를 모두 제거하여 스택뷰를 초기화합니다.
+
+#### **3. 이벤트 설명 생성**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/5c12a4a8-32b4-472d-aac4-43357c6b8108">
+
+getEventDescription(for:) 메서드는 이벤트 종류에 따라 설명 텍스트를 생성합니다.    
+골, 카드, 교체, 파울 등의 다양한 이벤트 타입에 맞게 맞춤형 문자열을 구성하여 가독성을 높였습니다.  
+
+#### **4. 이벤트 스택 생성 및 위치 설정**  
+
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/5c2aefbd-4cf9-4fdf-a5e9-ca1d9158518b">
+
+createEventStack(for:teamName:homeTeam:awayTeam:) 메서드는 이벤트 설명을 포함하는 UILabel을 스택뷰 내에 추가하며,  
+이벤트 팀이 홈팀인지 원정팀인지에 따라 좌측 혹은 우측 정렬을 설정합니다.
+
+#### **5. 이벤트가 없을 때 알림 라벨 추가**  
+
+<img width="330" alt="image" src="https://github.com/user-attachments/assets/d5633f03-2b5e-4176-9750-1c07a2178106">
+
+이벤트가 없는 경우, addNoEventsLabel() 메서드는   
+"경기가 아직 진행되지 않았습니다."라는 텍스트를 담은 라벨을 추가하여 경기 데이터가 없음을 사용자에게 알립니다.
+
+
 
 
 
 ---
+
+<img width="330" alt="image" src="">
 
 ## 화면 스크린샷
 
