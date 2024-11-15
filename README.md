@@ -320,25 +320,6 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 <br>
 
-### 2️⃣ ㅇㅇ
-
-
-#### 🤔 **상황**  
-
-
-
-### 🚨 **문제**
-
-
-
-### 🛠️ **해결 과정**
-
-
-
-### 📝 **결과**
-
-
-
 ---
 
 ## 구현 방식
@@ -384,8 +365,62 @@ createEventStack(for:teamName:homeTeam:awayTeam:) 메서드는 이벤트 설명�
 이벤트가 없는 경우, addNoEventsLabel() 메서드는   
 "경기가 아직 진행되지 않았습니다."라는 텍스트를 담은 라벨을 추가하여 경기 데이터가 없음을 사용자에게 알립니다.
 
+<br>
+
+### 2️⃣ SquadTableViewCell 선수 정보 구현 방식  
+
+<img width="190" alt="image" src="https://github.com/user-attachments/assets/5ca3af77-82d6-45fe-b4f7-45768d79aa82">
+<br>
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/e8a97519-ba8b-46ce-be8b-fb005cd7975c">
+
+#### **1. 홈팀 및 원정팀 정보 설정**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/dcbf4e6a-9177-4ce0-8a0b-315a6c77f491">
+<br>
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/50c84e73-20f8-4370-9223-b8f8e46c42bd">
+
+configureHomeTeam(fixture:)와 configureAwayTeam(fixture:) 메서드는   
+홈팀과 원정팀의 코치, 포메이션, 선발 및 교체 선수 정보를 개별 스택뷰에 추가합니다.
+
+스택뷰에 UILabel을 동적으로 생성해 추가하는 방식으로 구현했습니다.  
+이는 데이터를 효율적으로 반영할 뿐만 아니라,     
+선수 정보가 실시간으로 변동될 때 유연하게 대응할 수 있는 구조를 제공합니다.  
+
+#### **2. 선발 선수 목록 구성**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/c46b7d97-55c1-4d03-a81d-c467e83fd962">
+
+configureStartingPlayers(_:in:fixture:) 메서드는   
+선발 선수의 포지션, 이름, 레이팅 정보를 받아 스택뷰에 동적으로 추가합니다.   
+이 방법은 선수가 몇 명이든 또는 포지션이나 레이팅 등 정보가 누락된 경우에도 유연하게 대응할 수 있도록 하며,   
+각 선수의 정보를 별도의 UILabel로 생성해 스택뷰에 추가하는 형태로 유동적인 UI를 제공합니다.
 
 
+#### **3. 교체 선수 목록 구성**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/5adc9701-4625-48b6-8da0-39f76851aeb9">
+
+configureSubstitutePlayers(_:in:fixture:) 메서드는   
+교체 선수 목록을 스택뷰에 동적으로 추가하여, 유동적인 선수 데이터를 대응할 수 있도록 합니다.   
+
+#### **4. 선수 라벨 생성**  
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/50518018-fd3f-469e-9b2f-4e0e9495455e">
+
+createPlayerLabel(with:position:rating:) 메서드는   
+각 선수의 이름, 포지션 이모지, 레이팅을 포함한 UILabel을 생성하여,   
+포지션별 이모지와 레이팅 정보를 직관적으로 UI에 표시합니다.
+
+#### **5. 포지션에 따른 이모지 반환**  
+
+<img width="330" alt="image" src="https://github.com/user-attachments/assets/61c52f3b-afb2-4771-83b8-08078ab2e1f2">
+
+emojiForPosition(_:) 메서드는 각 포지션에 맞는 이모지를 반환하여, 선수의 포지션을 UI에 직관적으로 표현합니다.
+
+
+#### **6. **  
+
+<img width="330" alt="image" src="">
 
 
 ---
@@ -429,13 +464,22 @@ createEventStack(for:teamName:homeTeam:awayTeam:) 메서드는 이벤트 설명�
 </div>
 
 
+### 2️⃣ ㅇㅇ
+
+
+#### 🤔 **상황**  
 
 
 
+### 🚨 **문제**
 
 
 
+### 🛠️ **해결 과정**
 
+
+
+### 📝 **결과**
 
 
 
