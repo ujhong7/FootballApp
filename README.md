@@ -367,7 +367,7 @@ createEventStack(for:teamName:homeTeam:awayTeam:) 메서드는 이벤트 설명�
 
 <br>
 
-### 2️⃣ SquadTableViewCell 선수 정보 구현 방식  
+### 2️⃣ SquadTableViewCell에서 유동적 데이터를 처리하는 스택뷰 구성 방식 
 
 <img width="190" alt="image" src="https://github.com/user-attachments/assets/5ca3af77-82d6-45fe-b4f7-45768d79aa82">
 <br>
