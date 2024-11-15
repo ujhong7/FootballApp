@@ -345,6 +345,8 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 ### 1️⃣ MatchSummaryTableViewCell에서 이벤트를 나타내는 스택뷰 구현      
 
+<img width="190" alt="image" src="https://github.com/user-attachments/assets/3c765143-0f10-4dff-8d1f-c841aa1f60b8">
+<br>
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/290feb90-1423-4e44-b298-3bd06f697fe4">
 
 #### **1. 경기 정보 초기 구성**  
