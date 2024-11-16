@@ -347,13 +347,13 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/04976b66-1603-4d0b-82cd-3ff3f189123b">
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/de99c4e7-5b85-4de7-a050-1a70d658e9cd">
 
-- ImageCacheManager에서 메모리 및 디스크 캐싱 개선
+- ImageCacheManager에서 메모리 및 디스크 캐싱 개선  
   NSCache를 활용해 메모리 캐싱을 관리하고, 이미지가 디스크에서 로드되었을 때 메모리 캐시로 업데이트하도록 수정했습니다.  
   URL을 파일 이름으로 사용하던 방식에서 SHA-256 해싱을 적용해 파일 충돌 문제를 해결했습니다.  
-- UIImageView 확장 구현
+- UIImageView 확장 구현  
   UIImageView에 확장을 추가하여 loadImage(from:) 메서드를 구현했습니다.   
   내부적으로 ImageCacheManager를 호출하여 캐싱된 이미지를 불러오고, 메인 스레드에서 UI를 업데이트하도록 보장했습니다.  
-- 비동기 처리 및 스레드 안전성 확보
+- 비동기 처리 및 스레드 안전성 확보   
   네트워크 요청과 캐싱 작업을 비동기로 수행하고, UI 업데이트를 메인 스레드에서 처리하도록 코드 구조를 개선했습니다.  
   이를 통해 UI가 비동기 작업으로 인해 블로킹되지 않도록 했습니다.  
 
