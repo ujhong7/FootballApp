@@ -414,10 +414,43 @@ createPlayerLabel(with:position:rating:) 메서드는
 
 emojiForPosition(_:) 메서드는 각 포지션에 맞는 이모지를 반환하여, 선수의 포지션을 UI에 직관적으로 표현합니다.
 
+<br>
 
-#### **6. **  
+### 3️⃣ StatisticsTableViewCell에서 통계에 대한 그래프를 구현하는 방식   
+
+#### **1. 통계 데이터 초기화 및 설정**    
 
 <img width="330" alt="image" src="">
+
+configure(with:) 메서드는 Fixture 모델의 통계 데이터를 기반으로 그래프를 구성합니다.
+  - clearPreviousStatistics(): 이전에 추가된 통계 데이터를 제거하여 스택뷰를 초기화합니다.
+  - getTeamStatistics(for:from:): 홈팀과 원정팀의 통계를 각각 추출합니다.
+  - createStatisticContainer(): 홈팀과 원정팀의 통계를 시각화하여 스택뷰 형태로 반환합니다.
+
+#### **2. 상대적 비율 기반 막대 그래프 생성**  
+
+<img width="330" alt="image" src="">
+
+통계 데이터를 시각화하기 위해, 통계값을 최대값에 대한 상대적 비율로 계산하여 막대 그래프에 반영합니다.     
+  - createRelativeBarView(for:maxValue:isHome:teamName:): 홈팀 또는 원정팀의 막대 그래프를 생성합니다.    
+  - 홈팀은 오른쪽부터 채워지며, 원정팀은 왼쪽부터 채워지는 형태로 구현되었습니다.  
+
+#### **3. 스택뷰 구성**  
+
+<img width="330" alt="image" src="">
+
+통계값, 막대 그래프, 그리고 통계 유형을 하나의 스택뷰로 묶어 반환합니다.
+  - 홈팀과 원정팀의 통계값 레이블
+  - 통계 유형을 표시하는 레이블
+  - 상대적 비율을 반영한 막대 그래프
+
+#### **4. 결과**  
+
+<img width="330" alt="image" src="">
+
+- 통계 데이터를 동적으로 처리하여 시각화된 형태로 출력
+- 홈팀과 원정팀의 데이터를 직관적으로 비교 가능
+- 코드의 재사용성을 고려하여 모듈화된 메서드 구조로 설계
 
 
 ---
