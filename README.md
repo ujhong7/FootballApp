@@ -367,6 +367,67 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 <br>
 
+### 5️⃣ 라운드별 경기 정보를 정리하여 표시하기
+
+ ![라운드별 경기 정보](https://i.imgur.com/yfivU8D.gif)
+ 
+### 🤔 **상황**
+
+경기 정보를 API에서 받아와 UITableView에 표시하고 있었으나,   
+모든 경기 정보가 하나의 리스트로 제공되어 스크롤해야 하는 양이 많아 사용자가 원하는 경기를 찾는 데 불편함이 있었습니다.   
+예를 들어, 1라운드의 경기를 확인하려면 사용자는 전체 경기 정보를 계속 스크롤하며 찾아야 했습니다.  
+
+### 🚨 **문제**
+
+- 경기 정보가 라운드별로 구분되지 않고 한 번에 표시되어 UI/UX 측면에서 사용자 경험이 좋지 않았습니다.  
+- 원하는 경기 정보를 찾으려면 스크롤 작업이 많아 효율적이지 않았습니다.  
+- 추가로, 특정 라운드에 해당하는 경기만 쉽게 필터링할 수 있는 구조가 필요했습니다.  
+
+### 🛠️ **해결 과정**
+
+- API 응답 데이터 분석
+
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/92391d6e-c26b-4155-bf9a-065239176427">  
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/2bb434fe-de42-4a58-b5b5-a4916f2850dc">  
+  
+  API에서 제공되는 league.round 필드를 활용해 라운드 번호를 추출했습니다.  
+  문자열에서 숫자만 추출(filter { $0.isNumber })하고 이를 정수로 변환하여 각 경기의 라운드 번호를 구했습니다.  
+  모든 경기 데이터에서 최대 라운드(maxRound)와 현재 라운드(currentRound)를 계산하여 화면에 표시할 라운드 범위를 결정했습니다.  
+
+- UICollectionView 추가 및 라운드 탭 구현
+
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/ecb3572c-adbf-4baf-b61b-845bb64a798d">      
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/c7bd70d7-25a5-494d-b421-260e70570cd1">     
+  
+  라운드별 필터링 기능을 제공하기 위해 가로 스크롤 가능한 UICollectionView를 추가하고, 각 셀에 라운드 번호를 표시했습니다.  
+  사용자가 선택한 셀을 강조 표시하여 현재 선택된 라운드를 직관적으로 표시했습니다.  
+
+- 경기 정보 필터링
+  
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/6f328d6a-445b-460a-9188-0ca1f20a90a0">  
+  
+  특정 라운드를 선택하면 upcomingFixtures 배열에서 해당 라운드의 경기만 필터링하여 filteredFixtures에 저장했습니다.  
+  필터링된 데이터를 UITableView에 반영했습니다.  
+
+- UI와 데이터 동기화  
+  
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/9d5befa4-e55d-4d2b-8a63-2f0543617cca">  
+  
+  초기 로드 시 UICollectionView의 첫 번째 라운드를 선택하고, 해당 라운드의 경기 정보를 필터링하여 표시했습니다.  
+  사용자가 다른 라운드를 선택하면, 선택된 라운드에 따라 필터링된 데이터를 갱신했습니다.  
+
+  
+### 📝 **결과**
+
+- 라운드별 경기 구분  
+  경기 정보를 라운드별로 정리하여 특정 라운드의 경기만 손쉽게 확인할 수 있도록 개선했습니다.  
+
+- 사용자 경험 향상  
+  라운드별 탭을 통해 직관적인 탐색이 가능해졌으며, 스크롤 작업이 줄어들어 UI/UX가 개선되었습니다.  
+
+- 코드 효율성 증가  
+  라운드 번호 필터링 로직을 통해 데이터를 구조적으로 분리하여 유지보수성과 확장성을 높였습니다.  
+
 ---
 
 ## 구현 방식
