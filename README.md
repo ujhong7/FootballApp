@@ -418,9 +418,13 @@ emojiForPosition(_:) 메서드는 각 포지션에 맞는 이모지를 반환하
 
 ### 3️⃣ StatisticsTableViewCell에서 통계에 대한 그래프를 구현하는 방식   
 
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/de567ff4-98d7-4a73-b4cd-38d685ba2e56">
+
 #### **1. 통계 데이터 초기화 및 설정**    
 
-<img width="330" alt="image" src="">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/b9b9ae98-cc82-48de-a54b-c7486bb9b09d">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/1144ef2f-f2a9-4032-b2b3-4735e2fbe61b">
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/8102cef5-8770-4ee4-a29b-45b430c0008d">
 
 configure(with:) 메서드는 Fixture 모델의 통계 데이터를 기반으로 그래프를 구성합니다.
   - clearPreviousStatistics(): 이전에 추가된 통계 데이터를 제거하여 스택뷰를 초기화합니다.
@@ -429,7 +433,7 @@ configure(with:) 메서드는 Fixture 모델의 통계 데이터를 기반으로
 
 #### **2. 상대적 비율 기반 막대 그래프 생성**  
 
-<img width="330" alt="image" src="">
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/cb02c3f4-4d3d-4409-a61c-6c2295acf808">
 
 통계 데이터를 시각화하기 위해, 통계값을 최대값에 대한 상대적 비율로 계산하여 막대 그래프에 반영합니다.     
   - createRelativeBarView(for:maxValue:isHome:teamName:): 홈팀 또는 원정팀의 막대 그래프를 생성합니다.    
@@ -437,7 +441,10 @@ configure(with:) 메서드는 Fixture 모델의 통계 데이터를 기반으로
 
 #### **3. 스택뷰 구성**  
 
-<img width="330" alt="image" src="">
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/e8585151-cb82-4a5f-b88a-2af45a2d65ca">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/68cf5eae-5899-401d-9267-0dab5dc46ff4">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/d12e01f8-3c0c-4e52-bc6c-4e76a18bf4ad">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/f50fb1ec-2cde-4302-888d-f813804a4abb">
 
 통계값, 막대 그래프, 그리고 통계 유형을 하나의 스택뷰로 묶어 반환합니다.
   - 홈팀과 원정팀의 통계값 레이블
@@ -445,8 +452,6 @@ configure(with:) 메서드는 Fixture 모델의 통계 데이터를 기반으로
   - 상대적 비율을 반영한 막대 그래프
 
 #### **4. 결과**  
-
-<img width="330" alt="image" src="">
 
 - 통계 데이터를 동적으로 처리하여 시각화된 형태로 출력
 - 홈팀과 원정팀의 데이터를 직관적으로 비교 가능
