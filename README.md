@@ -369,7 +369,7 @@ value 필드가 null이거나 두 가지 타입 중 하나일 때도 안전하�
 
 ### 5️⃣ 라운드별 경기 정보를 정리하여 표시하기
 
- ![라운드별 경기 정보](https://i.imgur.com/yfivU8D.gif)
+ <img src="https://i.imgur.com/yfivU8D.gif" alt="라운드별 경기 정보" width="150">
  
 ### 🤔 **상황**
 
